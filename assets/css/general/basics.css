@@ -23,10 +23,9 @@
     --instagram-color: #000000;
     --rss-color: #f26522;
     --animation-base: ease-in-out;
-    /* One face everywhere, the lantern site's stack. Both variables stay because the CSS below
-       reads them; they resolve to the same thing. Georgia where installed, Noto on Android/Linux. */
+    /* One face everywhere, the lantern site's stack: Georgia where installed, Noto on
+       Android/Linux. The name is Edition's; the shared CSS imported above basics.css reads it. */
     --font-sans: Georgia, "Noto Serif", "Times New Roman", Times, serif;
-    --font-serif: Georgia, "Noto Serif", "Times New Roman", Times, serif;
     --navbar-height: 80px;
     --content-font-size: 1.7rem;
     --header-spacing: 6vmin;
