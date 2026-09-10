@@ -5,8 +5,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{meta_title page=(t " (Page %)")}}</title>
-    {{!-- One author, so the author archive is the index with a different H1. --}}
+    {{!-- One author, so the author archive is the index with a different H1; the intro page is
+         the index's own intro. Neither wants indexing. --}}
     {{#is "author"}}<meta name="robots" content="noindex">{{/is}}
+    {{#is "page"}}{{#match post.slug @custom.intro_page}}<meta name="robots" content="noindex">{{/match}}{{/is}}
 
     <link rel="stylesheet" href="{{asset "built/screen.css"}}">
 

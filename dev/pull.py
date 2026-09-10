@@ -34,14 +34,24 @@ def call(base, method, path, data=None, auth=None):
         if e.code == 403 and "custom_theme_settings" in path:
             return None  # Ghost does not let API keys read theme settings; the defaults stay
         raise SystemExit(f"{method} {path}: {e.code} {e.read().decode()[:300]}")
+    except urllib.error.URLError as e:
+        raise SystemExit(f"{method} {base}/{path}: {e.reason} — is the rig up? (dev/rig.sh up)")
+
+def browse(base, kind, qs, auth=None):  # Ghost caps every page at 100 rows, limit=all included
+    out, page = [], 1
+    while True:
+        d = call(base, "GET", f"{kind}/?{qs}&limit=100&page={page}", auth=auth)
+        out += d[kind]
+        page = d.get("meta", {}).get("pagination", {}).get("next")
+        if not page: return out
 
 # --- read the live site
 t = token()
 settings = call(live, "GET", "settings/", auth=t)["settings"]
 theme = call(live, "GET", "custom_theme_settings/", auth=t)
 theme = theme["custom_theme_settings"] if theme else None
-posts = call(live, "GET", "posts/?formats=html&limit=all&include=tags&order=published_at%20asc", auth=t)["posts"]
-pages = call(live, "GET", "pages/?formats=html&limit=all&order=published_at%20asc", auth=t)["pages"]
+posts = browse(live, "posts", "formats=html&include=tags&order=published_at%20asc", auth=t)
+pages = browse(live, "pages", "formats=html&order=published_at%20asc", auth=t)
 
 # --- write the local rig
 call(local, "POST", "session/", {"username": email, "password": password})
@@ -60,7 +70,7 @@ if theme:
 else:
     print("theme settings: not readable with an API key, so the defaults stay (they are copy; edit them at localhost/ghost/ if it matters)")
 for kind in ("posts", "pages"):  # replace the rig's content with the live site's
-    for item in call(local, "GET", f"{kind}/?limit=all&fields=id", auth=None)[kind]:
+    for item in browse(local, kind, "fields=id"):
         call(local, "DELETE", f"{kind}/{item['id']}/")
 FIELDS = ("title", "slug", "html", "status", "published_at", "custom_excerpt", "feature_image",
           "feature_image_alt", "feature_image_caption", "visibility", "featured", "meta_title", "meta_description")

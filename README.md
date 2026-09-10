@@ -31,8 +31,10 @@ printed by `up`.
 To look at the theme against the live site's settings and writing instead, create an Admin API
 key in Ghost Admin (Settings → Integrations → Add custom integration), put
 `LANTERNS_GHOST_URL=https://essays.lanterns.dev` and `LANTERNS_GHOST_ADMIN_KEY=id:secret` in
-`dev/.env` (gitignored), and run `dev/rig.sh pull`. It replaces the rig's settings, theme
-settings, posts and pages with the live site's, drafts included. One direction only; nothing is
+`dev/.env` (gitignored), and run `dev/rig.sh pull`. It replaces the rig's posts and pages with the
+live site's, drafts included, and copies an allowlisted set of settings (identity, social
+accounts, navigation, metadata, comments, members, Portal); theme settings stay at their
+defaults because Ghost does not let API keys read them. One direction only; nothing is
 ever written to the live site.
 
 ## Licence

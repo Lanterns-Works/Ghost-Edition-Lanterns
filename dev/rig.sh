@@ -16,10 +16,10 @@
 # RIG_PORT (default 2368) picks the local port.
 set -euo pipefail
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
-WORK="${TMPDIR:-/tmp}/lanterns-rig${RIG_PORT:+-$RIG_PORT}"
-THEME="$WORK/theme"
 PORT="${RIG_PORT:-2368}"
 URL="http://localhost:$PORT"
+WORK="${TMPDIR:-/tmp}/lanterns-rig$([ "$PORT" = 2368 ] || echo "-$PORT")"
+THEME="$WORK/theme"
 API="$URL/ghost/api/admin"
 JAR="$WORK/cookies.txt"
 EMAIL=em@lanterns.dev
@@ -69,7 +69,7 @@ up() {
   echo "up: $URL   admin: $URL/ghost/  ($EMAIL / $PASS)"
 }
 
-posts() { # dev/posts.json: twelve posts of public-domain Emerson, one long enough for the reading column
+posts() { # dev/posts.json: twelve posts of public-domain Emerson, one long enough for the reading column; dev/pages.json: the intro page
   login
   for kind in posts pages; do
     python3 -c 'import json,sys; [print(json.dumps({sys.argv[2]:[p]})) for p in json.load(open(sys.argv[1]))]' "$REPO/dev/$kind.json" "$kind" | while IFS= read -r line; do
@@ -79,7 +79,7 @@ posts() { # dev/posts.json: twelve posts of public-domain Emerson, one long enou
 }
 
 pull() {
-  [ -f "$REPO/dev/.env" ] && . "$REPO/dev/.env"
+  if [ -f "$REPO/dev/.env" ]; then set -a; . "$REPO/dev/.env"; set +a; fi  # plain KEY=value lines, exported
   python3 "$REPO/dev/pull.py" "$URL" "$EMAIL" "$PASS"
 }
 

@@ -89,6 +89,11 @@
                 "type": "text",
                 "default": "Back to the essays",
                 "description": "The link home on the 404 and error pages."
+            },
+            "subscribe_sending": {
+                "type": "text",
+                "default": "Sending\u2026",
+                "description": "On the button while the signup request is in flight."
             }
         }
     },

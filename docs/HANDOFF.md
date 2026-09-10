@@ -35,9 +35,10 @@ the gate.
 - **Copy is Admin-editable**: ten `text` theme settings (defaults in `package.json`) plus the intro
   as a Ghost page, because Ghost's site description is capped at 200 characters and text settings
   are single-line, so paragraphs need the editor. The intro page is also served at `/intro/`.
-- **Real pagination links** (older / newer), not Edition's JS load-more. The partial is
-  `pages-nav.hbs`, not `pagination.hbs`, because gscan does not scan the latter and would flag the
-  link-text settings as unused.
+- **Real pagination links** (older / newer), not Edition's JS load-more. The partial is included
+  with a literal `{{> "pages-nav"}}` rather than Ghost's `{{pagination}}` helper: gscan only credits
+  a partial's `{{@custom}}` usage when a template names it that way, so with the helper the two
+  link-text settings counted as unused.
 - **Gone:** reading time, tag links, share buttons, related posts, featured posts, the cover, author
   boxes, and every Edition custom setting. Tag archives still render at `/tag/…` if tags are ever
   used; the plan's tag question stays open.
