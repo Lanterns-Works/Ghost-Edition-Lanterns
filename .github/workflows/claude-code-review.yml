@@ -133,11 +133,15 @@ jobs:
           PR: ${{ github.event.pull_request.number }}
           REPO: ${{ github.repository }}
           OUTCOME: ${{ steps.review.outcome }}
+          # Empty when the action never ran Claude. Its workflow-validation guard (the review file
+          # must match main, so any PR that edits it is skipped) exits GREEN with no transcript —
+          # which is how PR #1 here got a "ran to completion" marker for a review that never started.
+          EXEC_FILE: ${{ steps.review.outputs.execution_file }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           set -o pipefail
-          if [ "$OUTCOME" != "success" ]; then
-            printf '🤖 Claude review — ⚠️ **this review did not complete.** It errored or hit a limit before finishing, so this PR is effectively **unreviewed** — please do not read the absence of comments as a clean bill of health. Run log: %s\n' "$RUN_URL" > marker.md
+          if [ "$OUTCOME" != "success" ] || [ -z "$EXEC_FILE" ]; then
+            printf '🤖 Claude review — ⚠️ **this review did not complete.** It errored, hit a limit, or was skipped by the action (a PR that changes the review workflow itself is never reviewed), so this PR is effectively **unreviewed** — please do not read the absence of comments as a clean bill of health. Run log: %s\n' "$RUN_URL" > marker.md
           else
             printf '🤖 Claude review — the review ran to completion; any findings are inline above.\n' > marker.md
           fi
