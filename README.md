@@ -21,6 +21,14 @@ pnpm test   # gscan, Ghost's theme validator
 Upload the zip in Ghost Admin → Design → Change theme → Upload. `assets/built/` and
 `dist/` are build output and are not tracked.
 
+## Looking at it
+
+`dev/rig.sh up` starts a throwaway Ghost 6 in Docker (needs a running Docker daemon) with the
+theme active at `localhost:2368`; `dev/rig.sh posts` loads twelve posts of public-domain test
+content; `dev/rig.sh sync` copies edits in; `dev/rig.sh down` removes it. The admin login is
+printed by `up`.
+
 ## Licence
 
-Code is MIT, © 2026 em lorien. Based on Edition, © Ghost Foundation, also MIT.
+Code is MIT, © 2026 em lorien. Based on Edition, © Ghost Foundation, also MIT. The wordmark in
+`assets/images/` is a brand asset, all rights reserved — see `assets/images/LICENSE.md`.

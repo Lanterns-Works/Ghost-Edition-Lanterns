@@ -2,15 +2,16 @@
 
 <main class="site-main">
 
+    {{#is "paged"}}{{else}}
     <header class="feed-header gh-canvas">
-        {{#if @custom.feed_title}}
-            <div class="feed-header-wrapper">
-                <h2 class="feed-header-title">{{@custom.feed_title}}</h2>
-            </div>
-        {{/if}}
+        {{!-- em's index copy. It lives here, in git, the way the lantern site keeps its copy. --}}
+        <p>Written from inside the work, by someone who builds with these tools every day, enjoys it more than is comfortable, and does not know where it ends up. Each essay takes one claim a little further than the last.</p>
+        <p>The essays fall roughly into three threads: what AI does to the work and to the people doing it; what we owe to the minds we are making; and what it would take for humans to grow up enough to deserve the future the technology makes possible.</p>
+        {{> "subscribe"}}
     </header>
+    {{/is}}
 
-    <div class="post-feed{{#match @custom.feed_layout "!=" "Minimal"}} expanded{{/match}}{{#match @custom.feed_layout "Right thumbnail"}} right-thumbnail{{/match}}{{#match @custom.feed_layout "Text-only"}} text-only{{/match}} gh-feed gh-canvas">
+    <div class="post-feed gh-feed gh-canvas">
         {{#foreach posts}}
             {{> "loop"}}
         {{/foreach}}
@@ -19,5 +20,3 @@
     {{pagination}}
 
 </main>
-
-{{#contentFor "body_class"}}{{#if @site.cover_image}} with-full-cover is-head-transparent{{/if}}{{#if @member}} logged-in{{/if}}{{/contentFor}}

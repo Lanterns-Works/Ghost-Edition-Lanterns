@@ -1,0 +1,17 @@
+.gh-foot {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+    letter-spacing: 0.08em;
+}
+
+.gh-foot-inner {
+    font-size: 1.2rem;
+}
+
+.gh-foot a {
+    text-decoration-color: var(--edge);
+}
+
+.gh-social-links a {
+    text-decoration: none;
+}
