@@ -8,6 +8,10 @@
     margin: 6rem 0 0;
 }
 
+.single-after:not(:has(form)) {
+    display: none; /* no form for members, invite-only, or members off */
+}
+
 .subscribe-label {
     display: block;
     margin-bottom: 1rem;

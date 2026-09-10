@@ -2,10 +2,10 @@
     grid-template-columns: 1fr 50% 1fr;
 }
 
-.gh-head-logo img:nth-child(2) {
-    /* The shared CSS hides a second logo <img> for its own dark-mode swap; inside <picture> the
-       <img> is the second child, so undo that with the same selector (later wins). The swap here
-       is the <source> media query. */
+.gh-head-logo img:last-child {
+    /* The shared CSS hides a second logo <img> (:nth-child(2)) for its own dark-mode swap; inside
+       <picture> the <img> is always the last child, so undo that at the same specificity (later
+       wins). The swap here is the <source> media query. */
     position: static;
     width: 140px; /* the lantern site's size */
     max-height: none;

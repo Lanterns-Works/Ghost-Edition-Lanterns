@@ -10,10 +10,13 @@
         document.body.style.overflow = open ? 'hidden' : '';
         behind.forEach(function (el) { el.inert = open; });
     }
+    function close() { if (document.body.classList.contains('is-head-open')) burger.click(); }
     burger.addEventListener('click', sync);
-    document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && document.body.classList.contains('is-head-open')) burger.click();
-    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+    /* The burger and the open-menu CSS only exist below 768px; if the reader rotates or resizes
+       past it while the menu is open, close it so overflow and inert don't outlive it. */
+    var wide = window.matchMedia('(min-width: 768px)');
+    wide.addEventListener('change', function () { if (wide.matches) close(); });
 })();
 
 /* The subscribe form hides its row on success, which drops focus; move it to the message. */

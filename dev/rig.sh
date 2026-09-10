@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # A local Ghost to look at the theme in: Ghost 6 in Docker, sqlite, the theme mounted from a copy
 # of this checkout, an owner account, the Admin settings the plan asks for, and twelve posts of
-# public-domain test content. Nothing here is real; the password is a placeholder for a container
-# that only ever listens on localhost.
+# public-domain test content (dev/posts.json). Nothing here is real; the password is a placeholder
+# for a container that only ever listens on localhost.
 #
 #   dev/rig.sh up      build the theme, start the container, set the site up, activate the theme
 #   dev/rig.sh posts   load the test posts (once, after up)
@@ -63,9 +63,9 @@ up() {
   echo "up: $URL   admin: $URL/ghost/  ($EMAIL / $PASS)"
 }
 
-posts() {
+posts() { # dev/posts.json: twelve posts of public-domain Emerson, one long enough for the reading column
   login
-  python3 "$REPO/dev/posts.py" "$WORK" | while IFS= read -r line; do
+  python3 -c 'import json,sys; [print(json.dumps({"posts":[p]})) for p in json.load(open(sys.argv[1]))]' "$REPO/dev/posts.json" | while IFS= read -r line; do
     api POST "posts/?source=html" "$line" | python3 -c 'import json,sys; d=json.load(sys.stdin); print("post:", d["posts"][0]["slug"] if "posts" in d else d)'
   done
 }
