@@ -4,35 +4,15 @@
         <header class="single-header gh-canvas">
             {{#is "post"}}
             <div class="single-meta">
-                <span class="single-meta-item single-meta-date">
-                    <time datetime="{{date format="YYYY-MM-DD"}}">
-                        {{date published_at format="DD MMM YYYY"}}
-                    </time>
-                </span>
-                <span class="single-meta-item single-meta-length">
-                    {{reading_time minute=(t "1 min read") minutes=(t "% min read")}}
-                </span>
-                {{#primary_tag}}
-                    <span class="single-meta-item single-meta-tag">
-                        <a class="post-tag post-tag-{{slug}}" href="{{url}}">{{name}}</a>
-                    </span>
-                {{/primary_tag}}
+                <time datetime="{{date format="YYYY-MM-DD"}}">{{date published_at format="D MMMM YYYY"}}</time>
             </div>
             {{/is}}
 
             <h1 class="single-title">{{title}}</h1>
 
             {{#if custom_excerpt}}
-                <div class="single-excerpt">
-                    {{custom_excerpt}}
-                </div>
+                <p class="single-excerpt">{{custom_excerpt}}</p>
             {{/if}}
-
-            <div class="gh-meta-share">
-                <a href="#/share" class="gh-button-share">{{t "Share"}} {{> "icons/share"}}</a>
-            </div>
-
-            <div class="author-name" style="display: none;">{{authors}}</div>
 
             {{#if feature_image}}
             {{#unless no_image}}
@@ -52,52 +32,14 @@
     </div>
 
     {{#is "post"}}
-    <div class="gh-canvas">
-    <footer class="single-footer">
-
-        <div class="single-footer-left">
-            {{#prev_post}}
-            <div class="navigation navigation-previous">
-                <a class="navigation-link" href="{{url}}" aria-label="Previous post">
-                    <span class="navigation-icon">{{> "icons/arrow-left"}}</span>
-                </a>
-            </div>
-            {{/prev_post}}
-        </div>
-
-        <div class="single-footer-middle">
-            {{#if @custom.show_author}}
-            <div class="single-footer-top">
-                <h3 class="single-footer-title">Published by:</h3>
-                <div class="author-list">
-                    {{#foreach authors}}
-                        <div class="author-image-placeholder u-placeholder square">
-                            <a href="{{url}}" title="{{name}}">
-                                {{#if profile_image}}
-                                    <img class="author-image u-object-fit" src="{{img_url profile_image size="xs"}}" alt="{{name}}" loading="lazy">
-                                {{else}}
-                                    <span class="u-object-fit">{{> "icons/avatar"}}</span>
-                                {{/if}}
-                            </a>
-                        </div>
-                    {{/foreach}}
-                </div>
-            </div>
-            {{/if}}
-        </div>
-
-        <div class="single-footer-right">
-            {{#next_post}}
-            <div class="navigation navigation-next">
-                <a class="navigation-link" href="{{url}}" aria-label="Next post">
-                    <span class="navigation-icon">{{> "icons/arrow-right"}}</span>
-                </a>
-            </div>
-            {{/next_post}}
-        </div>
-
-    </footer>
-    </div>
+    <nav class="single-footer gh-canvas" aria-label="More essays">
+        {{#prev_post}}
+            <a class="single-footer-older" href="{{url}}" rel="prev">← {{title}}</a>
+        {{/prev_post}}
+        {{#next_post}}
+            <a class="single-footer-newer" href="{{url}}" rel="next">{{title}} →</a>
+        {{/next_post}}
+    </nav>
     {{/is}}
 
 </article>

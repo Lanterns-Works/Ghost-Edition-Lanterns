@@ -4,16 +4,13 @@
 
     {{#post}}
         {{> "content" width="narrow"}}
+        {{#is "post"}}
+        <div class="single-after gh-canvas">
+            <hr>
+            {{> "subscribe"}}
+        </div>
+        {{> "comments"}}
+        {{/is}}
     {{/post}}
-
-    {{#is "post"}}
-        {{#if @custom.show_related_posts}}
-            {{> "related-posts"}}
-        {{/if}}
-
-        {{#post}}
-            {{> "comments"}}
-        {{/post}}
-    {{/is}}
 
 </main>

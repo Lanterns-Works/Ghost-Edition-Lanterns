@@ -1,40 +1,121 @@
 :root {
-    --brand-color: var(--ghost-accent-color, #ff572f);
-    --primary-text-color: #333;
-    --secondary-text-color: #999;
-    --white-color: #fff;
-    --lighter-gray-color: #f6f6f6;
-    --light-gray-color: #e6e6e6;
-    --mid-gray-color: #ccc;
-    --dark-gray-color: #444;
-    --darker-gray-color: #1a1a1a;
-    --black-color: #000;
-    --green-color: #28a745;
-    --orange-color: #ffc107;
-    --red-color: #dc3545;
-    --facebook-color: #3b5998;
-    --twitter-color: #1da1f2;
-    --linkedin-color: #0B66C3;
-    --bluesky-color: #1185FE;
-    --threads-color: #000000;
-    --mastodon-color: #6364FF;
-    --tiktok-color: #000000;
-    --youtube-color: #ff0000;
-    --instagram-color: #000000;
-    --rss-color: #f26522;
-    --animation-base: ease-in-out;
-    /* One face everywhere, the lantern site's stack: Georgia where installed, Noto on
-       Android/Linux. The name is Edition's; the shared CSS imported above basics.css reads it. */
+    /* Two colours: ink on paper. The dark scheme swaps them; everything else is an alpha of ink. */
+    --ink: #160e0e;
+    --paper: #e7e5de;
+    --muted: color-mix(in srgb, var(--ink) 55%, transparent);
+    --edge: color-mix(in srgb, var(--ink) 14%, transparent);
+    --wash: color-mix(in srgb, var(--ink) 5%, transparent);
+    /* No color-scheme declaration on purpose: a dark-scheme page gets an opaque white canvas
+       painted behind any iframe that does not declare the same scheme, and Ghost's comments and
+       Portal frames do not. The page paints its own colours, so nothing is lost. */
+
+    /* Edition's palette names and the shared Ghost assets' names, mapped onto the two colours so
+       the rules that read them need no edits. */
+    --brand-color: var(--ink);
+    --primary-text-color: var(--ink);
+    --secondary-text-color: var(--muted);
+    --white-color: var(--paper);
+    --lighter-gray-color: var(--wash);
+    --light-gray-color: var(--edge);
+    --mid-gray-color: var(--muted);
+    --dark-gray-color: var(--ink);
+    --darker-gray-color: var(--ink);
+    --color-primary-text: var(--ink);
+    --color-secondary-text: var(--muted);
+    --color-white: var(--paper);
+    --color-lighter-gray: var(--wash);
+    --color-light-gray: var(--edge);
+    --color-mid-gray: var(--muted);
+    --color-dark-gray: var(--ink);
+    --color-darker-gray: var(--ink);
+    --color-black: var(--ink);
+
+    /* One face everywhere, the lantern site's stack. Both names stay because the shared CSS reads
+       them. Georgia where installed, Noto on Android/Linux. */
     --font-sans: Georgia, "Noto Serif", "Times New Roman", Times, serif;
-    --navbar-height: 80px;
+    --font-serif: Georgia, "Noto Serif", "Times New Roman", Times, serif;
     --content-font-size: 1.7rem;
+    --content-width: 64.6rem; /* 38em at 1.7rem: ~75 characters of Georgia, the lantern site's measure */
+    --navbar-height: 80px;
     --header-spacing: 6vmin;
 }
 
-.is-head-brand {
-    --header-spacing: 8vmin;
+@media (prefers-color-scheme: dark) {
+    :root {
+        --ink: #e7e5de;
+        --paper: #160e0e;
+    }
+}
+
+body {
+    /* Ghost injects the Admin accent (#160e0e) on :root after this sheet; in the dark scheme that
+       is ink on ink. Portal reads the injected value inside its own iframe and keeps it. */
+    --ghost-accent-color: var(--ink);
+    letter-spacing: 0.02em; /* a touch of air in Georgia, as on the lantern site */
+}
+
+/* Zero bold on this site (Maria, 2026-09-10): medium at most. Georgia has no medium face, so
+   this reads as regular; Noto Serif on Android has one. !important because Ghost's card CSS and
+   the shared header rules set their own weights, and the rule is meant to be absolute. */
+body,
+body * {
+    font-weight: 500 !important;
 }
 
 :where(h1, h2, h3, h4, h5, h6) {
-    font-weight: 700;
+    letter-spacing: 0;
+}
+
+a {
+    text-decoration: underline;
+    text-decoration-color: var(--muted);
+    text-underline-offset: 3px;
+}
+
+a:hover {
+    text-decoration-color: currentColor;
+    opacity: 1;
+}
+
+.gh-content {
+    line-height: 1.7;
+}
+
+.gh-content a {
+    color: inherit;
+}
+
+blockquote:not([class]) {
+    border-left-color: var(--edge);
+}
+
+:not(pre) > code {
+    color: inherit;
+}
+
+/* Ghost's cards ship their own colours. The ones an essay is likely to use, kept to the two. */
+.gh-content .kg-callout-card {
+    color: inherit;
+    background: transparent;
+    border: 1px solid var(--edge);
+}
+
+.gh-content .kg-bookmark-container,
+.gh-content .kg-bookmark-container:hover {
+    color: inherit;
+    border: 1px solid var(--edge);
+    box-shadow: none;
+}
+
+.gh-content :is(.kg-bookmark-title, .kg-bookmark-metadata) {
+    color: inherit;
+}
+
+.gh-content .kg-bookmark-description {
+    color: var(--muted);
+}
+
+.gh-content .kg-btn-accent {
+    color: var(--paper);
+    background: var(--ink);
 }

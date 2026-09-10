@@ -4,13 +4,10 @@
 
     {{#post}}
         {{> "content" width="wide"}}
-    {{/post}}
-
-    {{#if @custom.show_related_posts}}
-        {{> "related-posts"}}
-    {{/if}}
-
-    {{#post}}
+        <div class="single-after gh-canvas">
+            <hr>
+            {{> "subscribe"}}
+        </div>
         {{> "comments"}}
     {{/post}}
 

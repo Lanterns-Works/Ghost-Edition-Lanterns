@@ -1,3 +1,4 @@
-<nav class="load-more">
-    <button class="button button-secondary gh-loadmore">Load more</button>
+<nav class="pagination gh-canvas" aria-label="Pages">
+    {{#if prev}}<a class="pagination-newer" href="{{page_url prev}}" rel="prev">← Newer essays</a>{{/if}}
+    {{#if next}}<a class="pagination-older" href="{{page_url next}}" rel="next">Older essays →</a>{{/if}}
 </nav>

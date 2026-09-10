@@ -1,6 +1,5 @@
 const {series, parallel, watch, src, dest} = require('gulp');
 const pump = require('pump');
-const fs = require('fs');
 const path = require('path');
 const order = require('ordered-read-streams');
 
@@ -56,18 +55,12 @@ function css(done) {
 }
 
 function getJsFiles(version) {
-    const jsFiles = [
+    // The theme has no JS of its own; the shared assets carry the burger menu, the lightbox and
+    // the embed reframing.
+    return [
         src(`${sharedThemeAssetsPath}/assets/js/${version}/lib/**/*.js`),
         src(`${sharedThemeAssetsPath}/assets/js/${version}/main.js`),
     ];
-
-    if (fs.existsSync(`assets/js/lib`)) {
-        jsFiles.push(src(`assets/js/lib/*.js`));
-    }
-
-    jsFiles.push(src(`assets/js/main.js`));
-
-    return jsFiles;
 }
 
 function js(done) {
@@ -94,6 +87,7 @@ function zipper(done) {
             '!AGENTS.md',
             '!CLAUDE.md',
             '!CLAUDE.local.md',
+            '!dev', '!dev/**',
         ], {encoding: false}),
         zip(filename),
         dest('dist/')
@@ -110,8 +104,7 @@ function locales(done) {
 const localesWatcher = () => watch('./locales-local/**/*.json', locales);
 const hbsWatcher = () => watch(['*.hbs', 'partials/**/*.hbs'], hbs);
 const cssWatcher = () => watch('assets/css/**/*.css', css);
-const jsWatcher = () => watch('assets/js/**/*.js', js);
-const watcher = parallel(hbsWatcher, cssWatcher, jsWatcher, localesWatcher);
+const watcher = parallel(hbsWatcher, cssWatcher, localesWatcher);
 const build = series(css, js, locales);
 
 exports.build = build;
