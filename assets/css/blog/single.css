@@ -29,18 +29,10 @@
     word-break: break-word;
 }
 
-.has-serif-title:not([class*=" gh-font-heading"]):not([class^="gh-font-heading"]) .single-title {
-    font-family: var(--gh-font-heading, var(--font-serif));
-}
-
 .single-excerpt {
     margin-top: 2rem;
     font-size: 1.8rem;
     word-break: break-word;
-}
-
-.has-serif-body:not([class*=" gh-font-body"]):not([class^="gh-font-body"]) .single-excerpt {
-    font-family: var(--gh-font-body, var(--font-serif));
 }
 
 .single-media {
@@ -66,7 +58,7 @@
 
 .single-cta-button {
     margin-bottom: 1rem;
-    font-weight: 800 !important;
+    font-weight: 700 !important;
 }
 
 .single-cta-footer {

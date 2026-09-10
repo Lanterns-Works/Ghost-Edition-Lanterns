@@ -23,8 +23,9 @@
     --instagram-color: #000000;
     --rss-color: #f26522;
     --animation-base: ease-in-out;
-    --font-sans: Mulish, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif;
-    --font-serif: Lora, Times, serif;
+    /* One face everywhere, the lantern site's stack: Georgia where installed, Noto on
+       Android/Linux. The name is Edition's; the shared CSS imported above basics.css reads it. */
+    --font-sans: Georgia, "Noto Serif", "Times New Roman", Times, serif;
     --navbar-height: 80px;
     --content-font-size: 1.7rem;
     --header-spacing: 6vmin;
@@ -35,5 +36,5 @@
 }
 
 :where(h1, h2, h3, h4, h5, h6) {
-    font-weight: 800;
+    font-weight: 700;
 }

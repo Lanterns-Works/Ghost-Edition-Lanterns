@@ -1,4 +1,4 @@
-# Ghost-edition-Lanterns
+# Ghost-Edition-Lanterns
 
 The theme for [essays.lanterns.dev](https://essays.lanterns.dev), where the
 [lanterns](https://lanterns.dev) essays live. A fork of Ghost's

@@ -1,4 +1,4 @@
-# Ghost-edition-Lanterns
+# Ghost-Edition-Lanterns
 
 The theme for **essays.lanterns.dev** — a fork of Ghost's Edition, restyled to match the lantern
 site. Hosted on Ghost(Pro); we build a zip and upload it, nothing of ours is served elsewhere.
@@ -9,10 +9,10 @@ site. Hosted on Ghost(Pro); we build a zip and upload it, nothing of ours is ser
 - **Build:** `pnpm install`, `pnpm dev` (watch), `pnpm zip` → `dist/lanterns.zip` for upload in
   Ghost Admin → Design → Change theme. `pnpm test` (build, then gscan) is the validation gate.
   The Gulp/PostCSS build is kept on purpose — it came with Edition and saves building from scratch.
-- **Style:** `lanterns` lowercase in prose; the wordmark image carries the period. Design target,
-  not yet applied (see the to-do list): **Georgia** replaces Edition's Lora and Mulish (same face
-  as the lantern site and the newsletter), two colours, `#160e0e` / `#e7e5de`. Accent colour in
-  Ghost Admin is `#160e0e`.
+- **Style:** `lanterns` lowercase in prose; the wordmark image carries the period. **Georgia**
+  everywhere (the lantern site's stack in `basics.css`; nothing vendored). Two colours,
+  `#160e0e` / `#e7e5de`, are the design target and not yet applied (see the to-do list). Accent
+  colour in Ghost Admin is `#160e0e`.
 - **Writing is attributed to em lorien.** Staff user name on Ghost is em lorien.
 - **Identity:** commit as `em lorien <em@lanterns.dev>` (git conditional include for the Lanterns
   folder). Switch `gh` to `em-lorien` before repo or PR work. No `Co-Authored-By` trailers.

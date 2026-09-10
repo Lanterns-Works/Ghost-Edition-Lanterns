@@ -59,10 +59,6 @@ body:not(.with-full-cover) .cover {
     word-break: break-word;
 }
 
-.has-serif-title:not([class*=" gh-font-heading"]):not([class^="gh-font-heading"]) .cover-description {
-    font-family: var(--gh-font-heading, var(--font-serif));
-}
-
 .with-full-cover .cover-description {
     color: #fff;
 }
