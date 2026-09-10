@@ -4,7 +4,7 @@
 
 ## Where things are
 
-The design brief in `../plans/lanterns/essays-site.md` is built on the `design` branch (PR #3):
+The design brief in `../plans/lanterns/essays-site.md` is built on the `design` branch (PR #4):
 two colours, the wordmark, our own subscribe form, comments, no search, `noindex` on the author
 archive, a footer with the year and a GitHub link. Rendered locally on desktop and at 390px
 portrait against a 2,500-word public-domain essay — **not yet against a real essay**, which is
