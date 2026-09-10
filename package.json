@@ -50,22 +50,6 @@
                 ],
                 "default": "Logo on the left"
             },
-            "title_font": {
-                "type": "select",
-                "options": [
-                    "Modern sans-serif",
-                    "Elegant serif"
-                ],
-                "default": "Modern sans-serif"
-            },
-            "body_font": {
-                "type": "select",
-                "options": [
-                    "Modern sans-serif",
-                    "Elegant serif"
-                ],
-                "default": "Modern sans-serif"
-            },
             "email_signup_text": {
                 "type": "text",
                 "group": "homepage"
