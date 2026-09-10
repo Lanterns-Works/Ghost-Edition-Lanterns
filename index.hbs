@@ -4,9 +4,13 @@
 
     {{#is "paged"}}{{else}}
     <header class="feed-header gh-canvas">
-        {{!-- em's index copy. It lives here, in git, the way the lantern site keeps its copy. --}}
-        <p>Written from inside the work, by someone who builds with these tools every day, enjoys it more than is comfortable, and does not know where it ends up. Each essay takes one claim a little further than the last.</p>
-        <p>The essays fall roughly into three threads: what AI does to the work and to the people doing it; what we owe to the minds we are making; and what it would take for humans to grow up enough to deserve the future the technology makes possible.</p>
+        {{!-- The intro is a Ghost page, so it is written in the editor: the one whose slug is the
+             intro_page theme setting (Design & branding). No such page, no intro. --}}
+        {{#if @custom.intro_page}}
+            {{#get "pages" filter="slug:{{@custom.intro_page}}" limit="1"}}
+                {{#foreach pages}}{{content}}{{/foreach}}
+            {{/get}}
+        {{/if}}
         {{> "subscribe"}}
     </header>
     {{/is}}
@@ -17,6 +21,6 @@
         {{/foreach}}
     </div>
 
-    {{pagination}}
+    {{> "pages-nav"}}
 
 </main>

@@ -39,7 +39,58 @@
                 "width": 1920
             }
         },
-        "card_assets": true
+        "card_assets": true,
+        "custom": {
+            "intro_page": {
+                "type": "text",
+                "default": "intro",
+                "group": "homepage",
+                "description": "Slug of the page whose content sits above the essay list. Blank for none."
+            },
+            "subscribe_label": {
+                "type": "text",
+                "default": "Get new essays by email.",
+                "description": "Above the email field, on the index and after each essay."
+            },
+            "subscribe_placeholder": {
+                "type": "text",
+                "default": "Your email address"
+            },
+            "subscribe_button": {
+                "type": "text",
+                "default": "Subscribe",
+                "description": "The form button and the header button."
+            },
+            "subscribe_success": {
+                "type": "text",
+                "default": "Check your email to confirm.",
+                "description": "Shown in place of the form after a successful signup."
+            },
+            "comments_title": {
+                "type": "text",
+                "default": "Member discussion",
+                "group": "post"
+            },
+            "newer_link": {
+                "type": "text",
+                "default": "Newer essays",
+                "description": "Pagination link text; the arrows are added by the theme."
+            },
+            "older_link": {
+                "type": "text",
+                "default": "Older essays"
+            },
+            "not_found_text": {
+                "type": "text",
+                "default": "this one isn't lit.",
+                "description": "The 404 page."
+            },
+            "back_link": {
+                "type": "text",
+                "default": "Back to the essays",
+                "description": "The link home on the 404 and error pages."
+            }
+        }
     },
     "scripts": {
         "dev": "gulp",

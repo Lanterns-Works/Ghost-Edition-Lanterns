@@ -11,12 +11,18 @@ site. Hosted on Ghost(Pro); we build a zip and upload it, nothing of ours is ser
   Ghost Admin → Design → Change theme. `pnpm test` (build, then gscan) is the validation gate.
   The Gulp/PostCSS build is kept on purpose — it came with Edition and saves building from scratch.
 - **Look at it:** `dev/rig.sh up && dev/rig.sh posts` → a local Ghost 6 in Docker at
-  `localhost:2368` with the theme active and test posts; `dev/rig.sh sync` after edits.
+  `localhost:2368` with the theme active and test posts; `dev/rig.sh sync` after edits;
+  `dev/rig.sh pull` mirrors the live site's settings and writing into it (needs an Admin API key,
+  see the README).
 - **Style:** `lanterns` lowercase in prose; the wordmark image carries the period. **Georgia**
   everywhere (the lantern site's stack in `basics.css`; nothing vendored). **Two colours**,
   `#160e0e` / `#e7e5de`, swapped by `prefers-color-scheme`; everything else is an alpha of ink,
   no accent. **No bold anywhere**: `font-weight: 500` site-wide (Maria, 2026-09-10), which Georgia
   renders as regular. Accent colour in Ghost Admin is `#160e0e` (Portal reads it).
+- **Copy lives in Ghost Admin, not in templates.** The index intro is the page whose slug is the
+  `intro_page` theme setting; every other line of theme copy is a `text` setting under Design &
+  branding, with the shipped wording as its default in `package.json`. Add a setting rather than
+  hardcoding a string.
 - **Writing is attributed to em lorien.** Staff user name on Ghost is em lorien.
 - **Identity:** commit as `em lorien <em@lanterns.dev>` (git conditional include for the Lanterns
   folder). Switch `gh` to `em-lorien` before repo or PR work. No `Co-Authored-By` trailers.

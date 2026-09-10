@@ -5,16 +5,21 @@
 # for a container that only ever listens on localhost.
 #
 #   dev/rig.sh up      build the theme, start the container, set the site up, activate the theme
-#   dev/rig.sh posts   load the test posts (once, after up)
+#   dev/rig.sh posts   load the test posts and the intro page (once, after up)
+#   dev/rig.sh pull    replace the rig's settings and content with the live site's (needs
+#                      LANTERNS_GHOST_URL and LANTERNS_GHOST_ADMIN_KEY, e.g. in dev/.env; see dev/pull.py)
 #   dev/rig.sh sync    copy the current checkout into the running container's theme
 #   dev/rig.sh down    remove the container
 #
-# Ghost runs in development mode so template edits show after `sync` without a restart.
+# Ghost runs in development mode so template edits show after `sync` without a restart, and
+# without staff device verification, which would email a code the rig cannot send.
+# RIG_PORT (default 2368) picks the local port.
 set -euo pipefail
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
-WORK="${TMPDIR:-/tmp}/lanterns-rig"
+WORK="${TMPDIR:-/tmp}/lanterns-rig${RIG_PORT:+-$RIG_PORT}"
 THEME="$WORK/theme"
-URL=http://localhost:2368
+PORT="${RIG_PORT:-2368}"
+URL="http://localhost:$PORT"
 API="$URL/ghost/api/admin"
 JAR="$WORK/cookies.txt"
 EMAIL=em@lanterns.dev
@@ -35,15 +40,16 @@ sync() {
   rsync -a --delete --exclude node_modules --exclude .git --exclude dist --exclude 'CLAUDE*' --exclude .github --exclude dev "$REPO/" "$THEME/"
   echo "theme synced -> $THEME"
   # Ghost lists a theme's templates at activation, so a new .hbs file needs a re-activate.
-  if [ -f "$JAR" ] && docker ps --format '{{.Names}}' | grep -q '^ghost-lanterns$'; then
+  if [ -f "$JAR" ] && docker ps --format '{{.Names}}' | grep -q "^ghost-lanterns-$PORT\$"; then
     login && api PUT "themes/lanterns/activate/" >/dev/null && echo "theme re-activated"
   fi
 }
 
 up() {
   sync
-  docker rm -f ghost-lanterns >/dev/null 2>&1 || true
-  docker run -d --name ghost-lanterns -p 127.0.0.1:2368:2368 -e url=$URL -e NODE_ENV=development \
+  docker rm -f "ghost-lanterns-$PORT" >/dev/null 2>&1 || true
+  docker run -d --name "ghost-lanterns-$PORT" -p "127.0.0.1:$PORT:2368" -e url=$URL -e NODE_ENV=development \
+    -e security__staffDeviceVerification=false \
     -v "$THEME:/var/lib/ghost/content/themes/lanterns" ghost:6 >/dev/null
   for _ in $(seq 1 60); do curl -sf "$URL/ghost/api/admin/site/" >/dev/null 2>&1 && break; sleep 2; done
   rm -f "$JAR"
@@ -65,12 +71,19 @@ up() {
 
 posts() { # dev/posts.json: twelve posts of public-domain Emerson, one long enough for the reading column
   login
-  python3 -c 'import json,sys; [print(json.dumps({"posts":[p]})) for p in json.load(open(sys.argv[1]))]' "$REPO/dev/posts.json" | while IFS= read -r line; do
-    api POST "posts/?source=html" "$line" | python3 -c 'import json,sys; d=json.load(sys.stdin); print("post:", d["posts"][0]["slug"] if "posts" in d else d)'
+  for kind in posts pages; do
+    python3 -c 'import json,sys; [print(json.dumps({sys.argv[2]:[p]})) for p in json.load(open(sys.argv[1]))]' "$REPO/dev/$kind.json" "$kind" | while IFS= read -r line; do
+      api POST "$kind/?source=html" "$line" | python3 -c 'import json,sys; d=json.load(sys.stdin); k=[k for k in d if k!="meta"][0]; print(k[:-1]+":", d[k][0]["slug"] if k in ("posts","pages") else d)'
+    done
   done
 }
 
+pull() {
+  [ -f "$REPO/dev/.env" ] && . "$REPO/dev/.env"
+  python3 "$REPO/dev/pull.py" "$URL" "$EMAIL" "$PASS"
+}
+
 case "${1:-}" in
-  up) up ;; sync) sync ;; posts) posts ;; down) docker rm -f ghost-lanterns ;;
-  *) echo "usage: dev/rig.sh up|posts|sync|down"; exit 1 ;;
+  up) up ;; sync) sync ;; posts) posts ;; pull) pull ;; down) docker rm -f "ghost-lanterns-$PORT" ;;
+  *) echo "usage: dev/rig.sh up|posts|pull|sync|down"; exit 1 ;;
 esac
