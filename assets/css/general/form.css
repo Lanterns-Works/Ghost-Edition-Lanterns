@@ -29,9 +29,8 @@
     appearance: none;
     background: none;
     border: 0;
-    border-bottom: 1px solid var(--edge);
+    border-bottom: 1px solid var(--field-edge);
     border-radius: 0;
-    outline: none;
 }
 
 .subscribe-input:focus {

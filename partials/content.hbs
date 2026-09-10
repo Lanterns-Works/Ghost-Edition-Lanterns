@@ -32,14 +32,16 @@
     </div>
 
     {{#is "post"}}
-    <nav class="single-footer gh-canvas" aria-label="More essays">
-        {{#prev_post}}
-            <a class="single-footer-older" href="{{url}}" rel="prev">← {{title}}</a>
-        {{/prev_post}}
-        {{#next_post}}
-            <a class="single-footer-newer" href="{{url}}" rel="next">{{title}} →</a>
-        {{/next_post}}
-    </nav>
+    <div class="gh-canvas">
+        <nav class="single-footer" aria-label="More essays">
+            {{#prev_post}}
+                <a class="single-footer-older" href="{{url}}"><span aria-hidden="true">← </span><span class="u-hidden">Older essay: </span>{{title}}</a>
+            {{/prev_post}}
+            {{#next_post}}
+                <a class="single-footer-newer" href="{{url}}"><span class="u-hidden">Newer essay: </span>{{title}}<span aria-hidden="true"> →</span></a>
+            {{/next_post}}
+        </nav>
+    </div>
     {{/is}}
 
 </article>

@@ -23,9 +23,10 @@ Upload the zip in Ghost Admin → Design → Change theme → Upload. `assets/bu
 
 ## Looking at it
 
-`dev/rig.sh up` starts a throwaway Ghost 6 in Docker (needs a running Docker daemon) with the
-theme active at `localhost:2368`; `dev/rig.sh posts` loads twelve posts of public-domain test
-content; `dev/rig.sh sync` copies edits in; `dev/rig.sh down` removes it. The admin login is
+`dev/rig.sh up` starts a throwaway Ghost 6 in Docker (needs a running Docker daemon, plus
+`python3` and `rsync`) with the theme active at `localhost:2368`; `dev/rig.sh posts` loads twelve
+posts of public-domain test content (Emerson, fetched from Project Gutenberg once and cached under
+`$TMPDIR`); `dev/rig.sh sync` copies edits in; `dev/rig.sh down` removes it. The admin login is
 printed by `up`.
 
 ## Licence

@@ -61,18 +61,24 @@
 
 /* Older / newer essay */
 .single-footer {
+    display: flex;
+    gap: 2rem;
+    justify-content: space-between;
     margin-top: 6rem;
     font-size: 1.4rem;
 }
 
+.single-footer:not(:has(a)) {
+    display: none; /* the first essay has no neighbours */
+}
+
 .single-footer-older,
 .single-footer-newer {
-    grid-row: 1;
     max-width: 48%;
 }
 
 .single-footer-newer {
-    justify-self: end;
+    margin-left: auto;
     text-align: right;
 }
 

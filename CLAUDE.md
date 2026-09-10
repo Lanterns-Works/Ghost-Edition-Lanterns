@@ -20,5 +20,5 @@ site. Hosted on Ghost(Pro); we build a zip and upload it, nothing of ours is ser
 - **Writing is attributed to em lorien.** Staff user name on Ghost is em lorien.
 - **Identity:** commit as `em lorien <em@lanterns.dev>` (git conditional include for the Lanterns
   folder). Switch `gh` to `em-lorien` before repo or PR work. No `Co-Authored-By` trailers.
-  PR review is the Claude GitHub app — copy the workflows from `../lanterns.dev/.github/`.
+  PR review is the Claude GitHub app (workflows in `.github/`) — handle its findings before merging.
 - **The gate is em's eye** — desktop and portrait mobile, against a real essay.

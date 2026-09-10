@@ -34,12 +34,16 @@ sync() {
   (cd "$REPO" && pnpm exec gulp build >/dev/null)
   rsync -a --delete --exclude node_modules --exclude .git --exclude dist --exclude 'CLAUDE*' --exclude .github --exclude dev "$REPO/" "$THEME/"
   echo "theme synced -> $THEME"
+  # Ghost lists a theme's templates at activation, so a new .hbs file needs a re-activate.
+  if [ -f "$JAR" ] && docker ps --format '{{.Names}}' | grep -q '^ghost-lanterns$'; then
+    login && api PUT "themes/lanterns/activate/" >/dev/null && echo "theme re-activated"
+  fi
 }
 
 up() {
   sync
   docker rm -f ghost-lanterns >/dev/null 2>&1 || true
-  docker run -d --name ghost-lanterns -p 2368:2368 -e url=$URL -e NODE_ENV=development \
+  docker run -d --name ghost-lanterns -p 127.0.0.1:2368:2368 -e url=$URL -e NODE_ENV=development \
     -v "$THEME:/var/lib/ghost/content/themes/lanterns" ghost:6 >/dev/null
   for _ in $(seq 1 60); do curl -sf "$URL/ghost/api/admin/site/" >/dev/null 2>&1 && break; sleep 2; done
   rm -f "$JAR"

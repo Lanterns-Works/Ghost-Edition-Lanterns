@@ -30,6 +30,18 @@
     text-underline-offset: 4px;
 }
 
+/* The shared JS folds nav items into a dropdown when they overflow (around 768–1000px). */
+.gh-dropdown {
+    background-color: var(--paper);
+    border: 1px solid var(--edge);
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.gh-dropdown li a {
+    color: var(--ink) !important; /* the shared rule is !important too */
+}
+
 @media (min-width: 992px) {
     .is-head-left-logo .gh-head-menu {
         justify-content: center;

@@ -2,8 +2,9 @@
     /* Two colours: ink on paper. The dark scheme swaps them; everything else is an alpha of ink. */
     --ink: #160e0e;
     --paper: #e7e5de;
-    --muted: color-mix(in srgb, var(--ink) 55%, transparent);
+    --muted: color-mix(in srgb, var(--ink) 60%, transparent); /* 4.6:1 on paper; 55% fell short of AA */
     --edge: color-mix(in srgb, var(--ink) 14%, transparent);
+    --field-edge: color-mix(in srgb, var(--ink) 46%, transparent); /* 3:1, so an input reads as one */
     --wash: color-mix(in srgb, var(--ink) 5%, transparent);
     /* No color-scheme declaration on purpose: a dark-scheme page gets an opaque white canvas
        painted behind any iframe that does not declare the same scheme, and Ghost's comments and
@@ -29,11 +30,11 @@
     --color-dark-gray: var(--ink);
     --color-darker-gray: var(--ink);
     --color-black: var(--ink);
+    --background-color: var(--paper); /* the shared card CSS paints bookmark, file, audio and product cards with it, #fff otherwise */
 
-    /* One face everywhere, the lantern site's stack. Both names stay because the shared CSS reads
-       them. Georgia where installed, Noto on Android/Linux. */
+    /* One face everywhere, the lantern site's stack: Georgia where installed, Noto on
+       Android/Linux. The name is Edition's; the shared CSS imported above basics.css reads it. */
     --font-sans: Georgia, "Noto Serif", "Times New Roman", Times, serif;
-    --font-serif: Georgia, "Noto Serif", "Times New Roman", Times, serif;
     --content-font-size: 1.7rem;
     --content-width: 64.6rem; /* 38em at 1.7rem: ~75 characters of Georgia, the lantern site's measure */
     --navbar-height: 80px;
@@ -77,6 +78,21 @@ a:hover {
     opacity: 1;
 }
 
+:focus-visible {
+    outline: 1px solid var(--ink);
+    outline-offset: 3px;
+}
+
+/* Text for assistive technology only */
+.u-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
 .gh-content {
     line-height: 1.7;
 }
@@ -115,7 +131,7 @@ blockquote:not([class]) {
     color: var(--muted);
 }
 
-.gh-content .kg-btn-accent {
+.gh-content .kg-button-card .kg-btn-accent { /* outranks Ghost's own (0,2,1) rule */
     color: var(--paper);
     background: var(--ink);
 }

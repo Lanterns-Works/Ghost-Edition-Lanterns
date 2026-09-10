@@ -55,11 +55,12 @@ function css(done) {
 }
 
 function getJsFiles(version) {
-    // The theme has no JS of its own; the shared assets carry the burger menu, the lightbox and
-    // the embed reframing.
+    // The shared assets carry the burger menu, the lightbox and the embed reframing; the
+    // theme's own main.js is a few lines on top of them.
     return [
         src(`${sharedThemeAssetsPath}/assets/js/${version}/lib/**/*.js`),
         src(`${sharedThemeAssetsPath}/assets/js/${version}/main.js`),
+        src(`assets/js/main.js`),
     ];
 }
 
@@ -88,6 +89,7 @@ function zipper(done) {
             '!CLAUDE.md',
             '!CLAUDE.local.md',
             '!dev', '!dev/**',
+            '!docs', '!docs/**',
         ], {encoding: false}),
         zip(filename),
         dest('dist/')
@@ -104,7 +106,8 @@ function locales(done) {
 const localesWatcher = () => watch('./locales-local/**/*.json', locales);
 const hbsWatcher = () => watch(['*.hbs', 'partials/**/*.hbs'], hbs);
 const cssWatcher = () => watch('assets/css/**/*.css', css);
-const watcher = parallel(hbsWatcher, cssWatcher, localesWatcher);
+const jsWatcher = () => watch('assets/js/**/*.js', js);
+const watcher = parallel(hbsWatcher, cssWatcher, jsWatcher, localesWatcher);
 const build = series(css, js, locales);
 
 exports.build = build;

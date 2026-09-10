@@ -19,7 +19,6 @@
     background: transparent;
     border: 1px solid var(--ink);
     border-radius: 0;
-    outline: none;
 }
 
 .button:hover,
@@ -46,5 +45,4 @@
     cursor: pointer;
     background: transparent;
     border: 0;
-    outline: none;
 }

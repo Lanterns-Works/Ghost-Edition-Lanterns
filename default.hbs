@@ -28,10 +28,10 @@
                         </picture>
                     </a>
                 </div>
-                <button class="gh-burger" aria-label="{{t "Toggle menu"}}"></button>
+                <button class="gh-burger" aria-label="{{t "Toggle menu"}}" aria-expanded="false" aria-controls="gh-head-menu"></button>
             </div>
 
-            <nav class="gh-head-menu">
+            <nav class="gh-head-menu" id="gh-head-menu" aria-label="Main">
                 {{navigation}}
             </nav>
 
@@ -94,3 +94,6 @@
 <script src="{{asset "built/main.min.js"}}"></script>
 
 {{ghost_foot}}
+
+</body>
+</html>

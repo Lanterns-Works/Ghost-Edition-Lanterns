@@ -38,8 +38,12 @@ the gate.
   Other cards show Ghost's colours until an essay uses one.
 - **No `color-scheme` declaration:** it made the browser paint a white canvas behind the comments
   iframe in dark mode.
-- **`font-weight: 500 !important` site-wide** (zero bold). It also flattens `<strong>` in essay text;
-  add a `.gh-content strong` exception if that turns out unwanted.
+- **`font-weight: 500 !important` site-wide** (zero bold). It also flattens `<strong>`, `<b>` and table
+  headers in essay text; add a `.gh-content strong` exception if that turns out unwanted.
+- **Theme JS is a few lines** (`assets/js/main.js`): the burger's open state for assistive tech, the
+  page behind the open menu made inert, Escape to close, and focus moved to the subscribe form's
+  outcome message.
+- **Error pages:** `error-404.hbs` carries the plan's line; `error.hbs` covers the rest.
 
 ## Known gaps
 

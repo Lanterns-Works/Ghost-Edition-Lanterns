@@ -57,7 +57,7 @@ for n, (title, i) in enumerate(order):
     else:
         paras = paras[:3]
     post = {
-        "title": title.title().replace("The Over-Soul", "The Over-Soul"),
+        "title": title.title(),
         "html": html(paras, full),
         "status": "published",
         "published_at": (base - datetime.timedelta(days=3*n)).isoformat() + ".000Z",
