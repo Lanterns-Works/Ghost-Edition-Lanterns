@@ -90,7 +90,6 @@ function zipper(done) {
             '!CLAUDE.md',
             '!CLAUDE.local.md',
             '!dev', '!dev/**',
-            '!.env*',
             '!docs', '!docs/**',
         ], {encoding: false}),
         zip(filename),

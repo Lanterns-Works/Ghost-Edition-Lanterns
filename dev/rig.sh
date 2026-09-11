@@ -87,8 +87,8 @@ pull() {
 
 preview() {
   up
-  if [ -f "$REPO/dev/.env" ]; then pull; else
-    echo "no dev/.env, so loading the test posts instead of the live site (see dev/.env.example)"; posts
+  if grep -qs '^LANTERNS_GHOST_ADMIN_KEY=.*:' "$REPO/dev/.env"; then pull; else
+    echo "no usable key in dev/.env, so loading the test posts instead of the live site (see dev/.env.example)"; posts
   fi
   echo; echo "preview: $URL   (pnpm dev keeps it in step with your edits; dev/rig.sh down removes it)"
 }
