@@ -1,13 +1,41 @@
-# Keeps the SHA-pinned actions in .github/workflows current. Daily, one grouped PR.
+# Actions float on their major tag (@v7, @v1), so every run already has the latest minor and
+# patch, and majors are the only action bumps that get a PR (Maria, 2026-09-11; the Driver
+# Digital policy). The ignore block also closes the Dependabot edge that rewrites a major-tag
+# ref into a pinned patch, which would stop that copy floating.
+#
+# npm is the Gulp build and gscan, pinned by the lockfile, so minors and patches only ever arrive
+# by PR: one grouped PR a month, gated by the Test workflow. A major (gulp, postcss, gscan) can
+# change the built output, so it comes on its own, with its release notes.
 version: 2
 updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "daily"
-    assignees:
-      - "em-lorien"
+      interval: "weekly"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-minor", "version-update:semver-patch"]
+    # One catch-all: majors land one at a time, so this mostly names the branch, and it covers
+    # every action, which an owner-based split did not.
     groups:
       actions:
         patterns:
           - "*"
+    assignees:
+      - "em-lorien"
+    commit-message:
+      prefix: "ci"
+
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    groups:
+      npm:
+        patterns:
+          - "*"
+        update-types: ["minor", "patch"]
+    assignees:
+      - "em-lorien"
+    commit-message:
+      prefix: "build"
