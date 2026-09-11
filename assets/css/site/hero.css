@@ -5,9 +5,10 @@
 .hero {
     position: relative;
     display: grid;
-    place-items: center;
+    grid-template-rows: 1fr auto 1fr auto; /* the quote centred in the room above the control; rows never overlap */
+    justify-items: center;
     min-height: 100svh;
-    padding: 14vmin var(--gap);
+    padding: max(14vmin, 100px) var(--gap) 5vmin; /* the header sits over the top */
     color: #e7e5de;
     text-shadow: 0 1px 2px rgba(22, 14, 14, 0.6), 0 0 24px rgba(22, 14, 14, 0.5);
     background-color: #160e0e; /* while the image loads */
@@ -22,16 +23,23 @@
     object-position: 85% 60%; /* the lantern is in the right third; portrait keeps it in frame */
 }
 
-.hero::before { /* a light scrim, so the quote reads over the water and the lantern's glow */
+.hero::before { /* a light scrim over the whole image */
     position: absolute;
     inset: 0;
+    z-index: 1; /* the pseudo-element is the first box in the section, so without this the image paints over it */
     content: "";
     background-color: rgba(22, 14, 14, 0.3);
 }
 
 .hero-quote,
 .hero-continue {
-    position: relative; /* above the image and the scrim */
+    position: relative;
+    z-index: 2;
+    /* A soft halo under the text: in portrait the quote sits on the lantern and the control on its
+       reflection, where the scrim alone leaves paper text short of 4.5:1. The flame itself still
+       is; the same words are in the list below. The scrim and this are the two knobs. */
+    background-color: rgba(22, 14, 14, 0.4);
+    box-shadow: 0 0 3rem 2rem rgba(22, 14, 14, 0.4);
 }
 
 .hero :focus-visible {
@@ -39,6 +47,7 @@
 }
 
 .hero-quote {
+    grid-row: 2;
     max-width: 30em;
     margin: 0;
     font-size: 2.4rem;
@@ -69,9 +78,7 @@
 }
 
 .hero-continue {
-    position: absolute;
-    bottom: 5vmin;
-    left: 50%;
+    grid-row: 4;
     display: flex;
     flex-direction: column;
     gap: 0.2rem;
@@ -81,7 +88,6 @@
     text-decoration: none;
     text-transform: uppercase;
     letter-spacing: 0.14em;
-    transform: translateX(-50%);
 }
 
 .hero-continue:hover {
@@ -96,19 +102,25 @@
 }
 
 /* The header over the hero. The shared CSS paints the transparent variant in --color-white and
-   its open mobile menu in the accent, so the two colours are fixed on the header and the two
-   aliases re-declared here, because basics.css resolves them on :root, where the scheme's values
-   hold. The button is the one rule the shared CSS hard-codes. */
+   its open mobile menu in the accent, so the two colours are fixed on the header and the aliases
+   that read them re-declared here, because basics.css resolves them on :root, where the scheme's
+   values hold. The button is the one rule the shared CSS hard-codes; the focus ring is basics.css's
+   ink, which the pin would make invisible. */
 .is-head-transparent .gh-head {
     --ink: #160e0e;
     --paper: #e7e5de;
     --color-white: var(--paper);
+    --edge: color-mix(in srgb, var(--ink) 14%, transparent);
     --ghost-accent-color: var(--ink);
 }
 
 .is-head-transparent .gh-head-btn {
     color: var(--ink);
     background-color: var(--paper);
+}
+
+.is-head-transparent .gh-head :focus-visible {
+    outline-color: var(--paper);
 }
 
 /* The hero sits flush under the header; the index keeps the padding .site-content gave up. */
@@ -121,13 +133,7 @@
 }
 
 html {
-    scroll-behavior: smooth; /* "Continue reading" is an anchor to the index */
-}
-
-@media (prefers-reduced-motion: reduce) {
-    html {
-        scroll-behavior: auto;
-    }
+    scroll-behavior: smooth; /* "Continue reading" is an anchor to the index; the shared reset turns this off under prefers-reduced-motion */
 }
 
 @media (max-width: 767px) {

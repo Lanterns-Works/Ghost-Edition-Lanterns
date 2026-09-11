@@ -7,7 +7,7 @@
     <img class="hero-image" alt="" fetchpriority="high"
          src="{{img_url @site.cover_image size="xl"}}"
          srcset="{{img_url @site.cover_image size="m"}} 750w, {{img_url @site.cover_image size="l"}} 960w, {{img_url @site.cover_image size="xl"}} 1140w, {{img_url @site.cover_image size="xxl"}} 1920w"
-         sizes="100vw">
+         sizes="max(100vw, 179vh)">{{!-- the crop paints the image wider than the viewport in portrait: the box height times the photo's 16:9 --}}
     {{#foreach posts limit="1"}}
     <blockquote class="hero-quote">
         <a href="{{url}}">

@@ -43,8 +43,12 @@ reference, not the base: none of its JS survives.
 
 - **Full viewport** (`min-height: 100svh`) of `@site.cover_image` through `{{img_url … size=}}`
   with a srcset over the theme's `image_sizes`, `object-position: 85% 60%` so the lantern (right
-  third of the photo) stays in frame in portrait. A 0.3 ink scrim and a text shadow carry the
-  paper text; the scrim is the knob if the image reads too dim.
+  third of the photo) stays in frame in portrait. A 0.3 ink scrim over the image, a 0.4 halo
+  under the quote and the control, and a text shadow carry the paper text; the scrim and the halo
+  are the two knobs. Review measured portrait contrast: with those, the flame core under a few
+  characters stays below 4.5:1 and the rest passes; the same words are in the list below.
+- **Layout is grid rows** (`1fr auto 1fr auto`): the quote centred in the room above the control,
+  so a long excerpt, a landscape phone or 200% zoom grow the section rather than overlap.
 - **Header transparent over it:** the shared CSS's own `is-head-transparent` variant, added to
   the body class in `default.hbs` on the same condition. The hero is dark in both schemes, so the
   header fixes `--ink` and `--paper` on itself and re-declares `--color-white`, which
@@ -67,8 +71,11 @@ reference, not the base: none of its JS survives.
   when the site has none (`dev/rig.sh cover`, run by `preview`), so the hero renders against test
   posts too.
 - **Checked in the rig** (2026-09-11): desktop at 2079px and a 390×800 portrait frame, light and
-  dark, the burger menu open over the hero, the anchor landing on the index. One thing to judge by
-  eye: in portrait the quote sits over the lantern's glow; the shadow keeps it legible.
+  dark, the burger menu open over the hero, the anchor landing on the index; then an adversarial
+  review (six lenses, two skeptics per finding) whose survivors are all in: the scrim had painted
+  under the image, the header's focus ring had inherited the pinned ink, the control could overlap
+  the quote on short viewports. One thing to judge by eye: in portrait the quote sits over the
+  lantern; the halo is what keeps it legible there.
 
 ## Decisions taken in the design PR that the plan left open
 
