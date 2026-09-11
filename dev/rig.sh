@@ -4,7 +4,7 @@
 # public-domain test content (dev/posts.json). Nothing here is real; the password is a placeholder
 # for a container that only ever listens on localhost.
 #
-#   pnpm preview       = dev/rig.sh preview: up, then pull if dev/.env exists, else posts
+#   pnpm preview       = dev/rig.sh preview: up, then pull if dev/.env holds a key, else posts
 #   dev/rig.sh up      build the theme, start the container, set the site up, activate the theme
 #   dev/rig.sh posts   load the test posts and the intro page (once, after up)
 #   dev/rig.sh pull    replace the rig's settings and content with the live site's (needs
@@ -80,15 +80,20 @@ posts() { # dev/posts.json: twelve posts of public-domain Emerson, one long enou
   done
 }
 
+loadenv() { if [ -f "$REPO/dev/.env" ]; then set -a; . "$REPO/dev/.env"; set +a; fi; }  # plain KEY=value lines, exported
+# The same precondition dev/pull.py checks: a live URL and a key of the shape Ghost issues (id:secret).
+has_live() { [ -n "${LANTERNS_GHOST_URL:-}" ] && case "${LANTERNS_GHOST_ADMIN_KEY:-}" in *:*) true ;; *) false ;; esac; }
+
 pull() {
-  if [ -f "$REPO/dev/.env" ]; then set -a; . "$REPO/dev/.env"; set +a; fi  # plain KEY=value lines, exported
+  loadenv
   python3 "$REPO/dev/pull.py" "$URL" "$EMAIL" "$PASS"
 }
 
 preview() {
   up
-  if grep -qs '^LANTERNS_GHOST_ADMIN_KEY=.*:' "$REPO/dev/.env"; then pull; else
-    echo "no usable key in dev/.env, so loading the test posts instead of the live site (see dev/.env.example)"; posts
+  loadenv
+  if has_live; then pull; else
+    echo "dev/.env has no live URL and Admin API key, so loading the test posts instead (see dev/.env.example)"; posts
   fi
   echo; echo "preview: $URL   (pnpm dev keeps it in step with your edits; dev/rig.sh down removes it)"
 }
