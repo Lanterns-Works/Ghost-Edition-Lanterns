@@ -1,7 +1,7 @@
 /* The lantern hero: the dock image full-viewport on the home page, the newest essay's excerpt in
    the middle, "Continue reading" over a caret at the foot. Everything on it is paper on the dark
-   image whatever the colour scheme, and so is the header above it: the wordmark alone, in the
-   shared CSS's is-head-transparent variant, white in both schemes through its own <source>. */
+   image whatever the colour scheme, and so is the header above it, the shared CSS's
+   is-head-transparent variant with its white fixed to paper. */
 .hero {
     position: relative;
     display: grid;
@@ -101,12 +101,12 @@
     filter: drop-shadow(0 1px 2px rgba(22, 14, 14, 0.6));
 }
 
-/* The header over the hero is the wordmark alone, white in both schemes through its <source>.
-   Left to recolour: its focus ring, which basics.css draws in the scheme's ink, and the link's
-   text colour, which the shared variant sets to --color-white and which only shows as the alt
-   text if the image does not load. */
-.is-head-transparent .gh-head-logo {
-    color: #e7e5de;
+/* The header over the hero. The shared variant paints the links (and the wordmark's alt text) in
+   --color-white, which basics.css resolves on :root to the scheme's paper, ink in dark mode; so
+   it is fixed to paper here. The wordmark itself is white through its <source>; the focus ring is
+   basics.css's ink and gets the same treatment. */
+.is-head-transparent .gh-head {
+    --color-white: #e7e5de;
 }
 
 .is-head-transparent .gh-head :focus-visible {

@@ -66,7 +66,7 @@ up() {
     {"key":"description","value":"Written from inside the work, by someone who builds with these tools every day, enjoys it more than is comfortable, and does not know where it ends up."},
     {"key":"accent_color","value":"#160e0e"},
     {"key":"comments_enabled","value":"all"},
-    {"key":"navigation","value":"[]"},
+    {"key":"navigation","value":"[{\"label\":\"Essays\",\"url\":\"/\"},{\"label\":\"Lanterns Home\",\"url\":\"https://lanterns.dev/\"}]"},
     {"key":"secondary_navigation","value":"[{\"label\":\"Subscribe\",\"url\":\"#/portal/signup\"}]"},
     {"key":"facebook","value":""},
     {"key":"twitter","value":""}

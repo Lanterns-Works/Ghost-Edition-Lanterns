@@ -23,7 +23,9 @@ schemes. Em's eye is the gate.
    `../plans/lanterns/essays-site.md`, "Index copy"; the "Get new essays by email" line is the
    form); the publication cover (Design & branding), which the rig found already set to the dock
    image, so the hero shows on upload; a **custom excerpt on every essay**, because the newest one
-   is the hero's quote and the fallback is the first fifty words of the text; and a look at
+   is the hero's quote and the fallback is the first fifty words of the text; the primary
+   navigation renamed to **Essays** and **Lanterns Home** (Settings → Navigation; the live labels
+   are `essays` and `lanterns. home`, and the period is the visible difference); and a look at
    Design & branding → theme settings, where every line of theme copy is a field pre-filled with
    the shipped wording. Then the usual checks: every social account set in Admin renders as a
    footer icon; comments on; the Portal modal and the comments frame read acceptably (both are
@@ -50,9 +52,11 @@ reference, not the base: none of its JS survives.
 - **Layout is grid rows** (`1fr auto 1fr auto`): the quote centred in the room above the control,
   so a long excerpt, a landscape phone or 200% zoom grow the section rather than overlap.
 - **Header transparent over it:** the shared CSS's own `is-head-transparent` variant, added to
-  the body class in `default.hbs` on the same condition. The header is the wordmark alone (below),
-  which gets a `<source>` with no media query ahead of the dark-scheme one, so it is white in both
-  schemes; its focus ring is set to paper, since `basics.css` draws rings in the scheme's ink.
+  the body class in `default.hbs` on the same condition. The variant paints the links in
+  `--color-white`, which `basics.css` resolves on `:root` to the scheme's paper (ink in dark mode),
+  so the header fixes it to paper (the trap: a custom property resolves where it is declared, so
+  re-pinning `--paper` alone reached nothing). The wordmark gets a `<source>` with no media query
+  ahead of the dark-scheme one, so it is white in both schemes; the focus ring is set to paper too.
 - **The quote:** the newest post, `{{excerpt words="50"}}`, which outputs a custom excerpt
   verbatim and otherwise the first fifty words. Italic, in curly quotes typed in the template,
   the whole block a link to the essay, with the essay's title as a `<cite>` line under it: the
@@ -74,16 +78,20 @@ reference, not the base: none of its JS survives.
   the quote on short viewports. One thing to judge by eye: in portrait the quote sits over the
   lantern; the halo is what keeps it legible there.
 
-## No header navigation (Maria, 2026-09-12)
+## Header navigation: the wordmark and two links (Maria, 2026-09-12)
 
-The header is the wordmark alone, and it links to **lanterns.dev**, not the essays home. No menu,
-no mobile drawer, no Sign in or Subscribe buttons: after using the site, the menu was confusing and
-too unlike the lantern site's own navigation, and it gave nothing the site lacks. The index carries
-the subscribe form and the intro page, the footer carries the lanterns.dev link and Admin's
-secondary menu (the live site's has a Subscribe item, which opens Portal, and that is also the
-sign-in path). Any further links to the lantern site's sections belong in the intro page copy.
-Admin's primary navigation is not rendered anywhere. The plan's "nav mirrors the lantern menu" line
-(`../plans/lanterns/essays-site.md`) is superseded; a to-do is filed there.
+The header is the wordmark, linking to **lanterns.dev**, and Admin's primary menu beside it: two
+links, Essays (`/`) and Lanterns Home (`https://lanterns.dev/`), in the bar on every width. No
+mobile drawer, no burger, no Sign in or Subscribe buttons: the index carries the subscribe form and
+the intro page, the footer carries the lanterns.dev link and Admin's secondary menu (the live
+site's has a Subscribe item, which opens Portal, and that is also the sign-in path). Any further
+links to the lantern site's sections belong in the intro page copy.
+
+How it got here, the same day: the lantern-menu mirror (About / Research / Resources / Contact)
+was confusing and too unlike the lantern site's own navigation, so the header went to the wordmark
+alone; that turned out to be confusing the other way, so the two links came back, in the bar rather
+than a drawer. The theme renders whatever Admin's primary menu holds; the plan's "nav mirrors the
+lantern menu" line (`../plans/lanterns/essays-site.md`) is superseded and a to-do is filed there.
 
 ## Decisions taken in the design PR that the plan left open
 

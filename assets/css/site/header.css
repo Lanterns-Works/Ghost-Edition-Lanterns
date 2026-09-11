@@ -1,4 +1,9 @@
-/* The header is the wordmark alone; the shared header grid and heights still apply. */
+/* The header: the wordmark on the left, Admin's two links in the bar at every width. The shared
+   CSS folds the links into a drawer below 768px; the rules at the foot keep them in the bar. */
+.is-head-left-logo .gh-head-inner {
+    grid-template-columns: 1fr 50% 1fr;
+}
+
 .gh-head-logo {
     display: block;
     width: max-content; /* the link and its focus ring hug the wordmark; without a width the block <picture> fills the header */
@@ -12,4 +17,104 @@
     width: 140px; /* the lantern site's size */
     max-height: none;
     opacity: 1;
+}
+
+.gh-head-menu {
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+}
+
+.gh-head-menu a {
+    text-decoration: none;
+}
+
+.gh-head-menu a:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+/* The shared JS folds nav items into a dropdown when they overflow; two links never do, but Admin
+   can add more. */
+.gh-dropdown {
+    background-color: var(--paper);
+    border: 1px solid var(--edge);
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.gh-dropdown li a {
+    color: var(--ink) !important; /* the shared rule is !important too */
+}
+
+@media (min-width: 992px) {
+    .is-head-left-logo .gh-head-menu {
+        justify-content: center;
+        margin: 0;
+    }
+}
+
+@media (max-width: 767px) {
+    #gh-head .gh-head-inner {
+        grid-template-rows: none;
+        grid-template-columns: auto 1fr;
+        gap: 0 2.4rem;
+    }
+
+    #gh-head .gh-head-menu {
+        position: static;
+        justify-content: flex-end;
+        visibility: visible;
+        opacity: 1;
+    }
+
+    #gh-head .nav {
+        gap: 1.6rem;
+    }
+
+    #gh-head .nav a {
+        font-size: 1.1rem;
+        text-transform: uppercase;
+    }
+
+    #gh-head .nav li {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* One row is tight on a phone: the wordmark and the tracking give a little under 430px, and under
+   360px the links take a second row. */
+@media (max-width: 429px) {
+    #gh-head .gh-head-inner {
+        gap: 0 1.6rem;
+    }
+
+    #gh-head .gh-head-logo img:last-child {
+        width: 120px;
+    }
+
+    #gh-head .gh-head-menu {
+        letter-spacing: 0.1em;
+    }
+}
+
+@media (max-width: 359px) {
+    #gh-head {
+        height: auto;
+    }
+
+    #gh-head .gh-head-inner {
+        grid-template-columns: 1fr;
+    }
+
+    #gh-head .gh-head-brand {
+        height: auto;
+        padding-top: 2rem;
+    }
+
+    #gh-head .gh-head-menu {
+        justify-content: flex-start;
+        padding-bottom: 1.6rem;
+    }
 }

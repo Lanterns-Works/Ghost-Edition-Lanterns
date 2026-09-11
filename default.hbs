@@ -16,16 +16,16 @@
 </head>
 
 {{!-- Over the home-page hero (partials/hero.hbs) the header is the shared CSS's transparent variant. --}}
-<body class="{{body_class}}{{{block "body_class"}}}{{#is "home"}}{{#if @site.cover_image}} is-head-transparent{{/if}}{{/is}}">
+<body class="{{body_class}}{{{block "body_class"}}} is-head-left-logo{{#is "home"}}{{#if @site.cover_image}} is-head-transparent{{/if}}{{/is}}">
 <div class="site">
 
     <header id="gh-head" class="gh-head gh-outer">
         <div class="gh-head-inner">
             <div class="gh-head-brand">
-                {{!-- The wordmark is the whole header: the image, never the title as text, and the way
-                     back to the lantern site. No other navigation here (Maria, 2026-09-12): the index
-                     carries the subscribe form and the intro, the footer the link and Admin's
-                     secondary menu, and Portal is reached through those. --}}
+                {{!-- The wordmark: the image, never the title as text, and the way back to the lantern
+                     site. Beside it Admin's primary menu (two links, in the bar on every width; no
+                     drawer). No Sign in or Subscribe up here (Maria, 2026-09-12): the index carries
+                     the subscribe form, the footer Admin's secondary menu, and Portal sits behind those. --}}
                 <a class="gh-head-logo" href="https://lanterns.dev/">
                     <picture>
                         {{!-- Over the hero the wordmark is white in both schemes: a source with no media query, ahead of the dark-scheme one. --}}
@@ -35,6 +35,10 @@
                     </picture>
                 </a>
             </div>
+
+            <nav class="gh-head-menu" id="gh-head-menu" aria-label="Main">
+                {{navigation}}
+            </nav>
         </div>
     </header>
 
