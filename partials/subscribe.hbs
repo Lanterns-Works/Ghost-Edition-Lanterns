@@ -1,0 +1,20 @@
+{{!-- Our own subscribe form: Ghost's data-members-form handles the request and toggles
+     loading / success / error on the form. Portal stays as the fallback modal. --}}
+{{#if @site.members_enabled}}
+{{#unless @site.members_invite_only}}
+{{#unless @member}}
+<form class="subscribe" data-members-form="subscribe">
+    <label class="subscribe-label" for="subscribe-email">{{@custom.subscribe_label}}</label>
+    <div class="subscribe-row">
+        <input class="subscribe-input" id="subscribe-email" type="email" name="email" data-members-email placeholder="{{@custom.subscribe_placeholder}}" autocomplete="email" aria-describedby="subscribe-error" required>
+        <button class="subscribe-button" type="submit">
+            <span class="default">{{@custom.subscribe_button}}</span>
+            <span class="subscribe-sending">{{@custom.subscribe_sending}}</span>
+        </button>
+    </div>
+    <p class="subscribe-success" role="status" tabindex="-1">{{@custom.subscribe_success}}</p>
+    <p class="subscribe-error" id="subscribe-error" role="alert" data-members-error></p>
+</form>
+{{/unless}}
+{{/unless}}
+{{/if}}

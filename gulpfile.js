@@ -1,8 +1,8 @@
 const {series, parallel, watch, src, dest} = require('gulp');
 const pump = require('pump');
-const fs = require('fs');
 const path = require('path');
 const order = require('ordered-read-streams');
+const {execFile} = require('child_process');
 
 // gulp plugins and utils
 const livereload = require('gulp-livereload');
@@ -56,18 +56,13 @@ function css(done) {
 }
 
 function getJsFiles(version) {
-    const jsFiles = [
+    // The shared assets carry the burger menu, the lightbox and the embed reframing; the
+    // theme's own main.js is a few lines on top of them.
+    return [
         src(`${sharedThemeAssetsPath}/assets/js/${version}/lib/**/*.js`),
         src(`${sharedThemeAssetsPath}/assets/js/${version}/main.js`),
+        src(`assets/js/main.js`),
     ];
-
-    if (fs.existsSync(`assets/js/lib`)) {
-        jsFiles.push(src(`assets/js/lib/*.js`));
-    }
-
-    jsFiles.push(src(`assets/js/main.js`));
-
-    return jsFiles;
 }
 
 function js(done) {
@@ -94,6 +89,8 @@ function zipper(done) {
             '!AGENTS.md',
             '!CLAUDE.md',
             '!CLAUDE.local.md',
+            '!dev', '!dev/**',
+            '!docs', '!docs/**',
         ], {encoding: false}),
         zip(filename),
         dest('dist/')
@@ -108,9 +105,17 @@ function locales(done) {
 }
 
 const localesWatcher = () => watch('./locales-local/**/*.json', locales);
-const hbsWatcher = () => watch(['*.hbs', 'partials/**/*.hbs'], hbs);
-const cssWatcher = () => watch('assets/css/**/*.css', css);
-const jsWatcher = () => watch('assets/js/**/*.js', js);
+// While `pnpm dev` runs, copy each build into the local preview rig (dev/rig.sh) if it is up.
+function rigSync(done) {
+    execFile('dev/rig.sh', ['sync'], {env: {...process.env, RIG_SKIP_BUILD: '1'}}, (err, stdout) => {
+        if (!err && /re-activated/.test(stdout)) console.log('rig: synced');
+        done();
+    });
+}
+
+const hbsWatcher = () => watch(['*.hbs', 'partials/**/*.hbs'], series(hbs, rigSync));
+const cssWatcher = () => watch('assets/css/**/*.css', series(css, rigSync));
+const jsWatcher = () => watch('assets/js/**/*.js', series(js, rigSync));
 const watcher = parallel(hbsWatcher, cssWatcher, jsWatcher, localesWatcher);
 const build = series(css, js, locales);
 

@@ -2,3 +2,5 @@ node_modules/
 dist/
 assets/built/
 .DS_Store
+dev/.env
+__pycache__/

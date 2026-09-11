@@ -1,0 +1,12 @@
+{{!-- Older / newer pages of the essay list. Included explicitly rather than through Ghost's
+     {{pagination}} helper: gscan only credits a partial's {{@custom}} usage when it reaches the
+     file through a literal {{> "name"}} from a template, so with the helper the two link settings
+     counted as unused. --}}
+{{#match pagination.pages ">" 1}}
+<div class="gh-canvas">
+    <nav class="pagination" aria-label="Pages">
+        {{#if pagination.prev}}<a class="pagination-newer" href="{{page_url pagination.prev}}" rel="prev">← {{@custom.newer_link}}</a>{{/if}}
+        {{#if pagination.next}}<a class="pagination-older" href="{{page_url pagination.next}}" rel="next">{{@custom.older_link}} →</a>{{/if}}
+    </nav>
+</div>
+{{/match}}

@@ -41,68 +41,65 @@
         },
         "card_assets": true,
         "custom": {
-            "navigation_layout": {
-                "type": "select",
-                "options": [
-                    "Logo on the left",
-                    "Logo in the middle",
-                    "Stacked"
-                ],
-                "default": "Logo on the left"
-            },
-            "email_signup_text": {
+            "intro_page": {
                 "type": "text",
-                "group": "homepage"
+                "default": "intro",
+                "group": "homepage",
+                "description": "Slug of the page whose content sits above the essay list. Blank for none."
             },
-            "publication_cover_style": {
-                "type": "select",
-                "options": [
-                    "Fullscreen",
-                    "Half screen"
-                ],
-                "default": "Fullscreen",
-                "group": "homepage"
-            },
-            "show_featured_posts": {
-                "type": "boolean",
-                "default": true,
-                "group": "homepage"
-            },
-            "featured_title": {
+            "subscribe_label": {
                 "type": "text",
-                "default": "Featured articles",
-                "group": "homepage"
+                "default": "Get new essays by email.",
+                "description": "Above the email field, on the index and after each essay."
             },
-            "feed_title": {
+            "subscribe_placeholder": {
                 "type": "text",
-                "default": "Latest",
-                "group": "homepage"
+                "default": "Your email address"
             },
-            "feed_layout": {
-                "type": "select",
-                "options": [
-                    "Expanded",
-                    "Right thumbnail",
-                    "Text-only",
-                    "Minimal"
-                ],
-                "default": "Expanded",
-                "group": "homepage"
+            "subscribe_button": {
+                "type": "text",
+                "default": "Subscribe",
+                "description": "The form button and the header button."
             },
-            "show_author": {
-                "type": "boolean",
-                "default": true,
+            "subscribe_success": {
+                "type": "text",
+                "default": "Check your email to confirm.",
+                "description": "Shown in place of the form after a successful signup."
+            },
+            "comments_title": {
+                "type": "text",
+                "default": "Member discussion",
                 "group": "post"
             },
-            "show_related_posts": {
-                "type": "boolean",
-                "default": true,
-                "group": "post"
+            "newer_link": {
+                "type": "text",
+                "default": "Newer essays",
+                "description": "Pagination link text; the arrows are added by the theme."
+            },
+            "older_link": {
+                "type": "text",
+                "default": "Older essays"
+            },
+            "not_found_text": {
+                "type": "text",
+                "default": "this one isn't lit.",
+                "description": "The 404 page."
+            },
+            "back_link": {
+                "type": "text",
+                "default": "Back to the essays",
+                "description": "The link home on the 404 and error pages."
+            },
+            "subscribe_sending": {
+                "type": "text",
+                "default": "Sending\u2026",
+                "description": "On the button while the signup request is in flight."
             }
         }
     },
     "scripts": {
         "dev": "gulp",
+        "preview": "dev/rig.sh preview",
         "test": "gulp build && gscan .",
         "zip": "gulp zip"
     },

@@ -1,55 +1,48 @@
-.button {
+/* One button: a hairline of ink that inverts on hover, as on the lantern site. Covers the header
+   Subscribe (.gh-btn), the members-only gate (.button) and the subscribe form. */
+.button,
+.gh-head .gh-btn,
+.subscribe-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    height: 36px;
-    padding: 0 15px;
-    font-family: var(--font-base);
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--brand-color);
+    height: auto;
+    padding: 1rem 2.2rem;
+    font-family: inherit;
+    font-size: 1.2rem;
+    line-height: 1;
+    color: var(--ink);
+    text-decoration: none;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.14em;
     cursor: pointer;
-    background-color: var(--white-color);
-    border: 1px solid var(--light-gray-color);
-    border-radius: 3px;
-    outline: none;
+    background: transparent;
+    border: 1px solid var(--ink);
+    border-radius: 0;
 }
 
-.button:hover {
-    border-color: var(--mid-gray-color);
+.button:hover,
+.button:focus-visible,
+.gh-head .gh-btn:hover,
+.gh-head .gh-btn:focus-visible,
+.subscribe-button:hover,
+.subscribe-button:focus-visible {
+    color: var(--paper);
+    background: var(--ink);
     opacity: 1;
 }
 
-.button-secondary {
-    color: var(--darker-gray-color);
-}
-
-.button-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 30px;
-    height: 30px;
-    padding: 0;
-    color: var(--darker-gray-color);
-    cursor: pointer;
-    background-color: transparent;
-    border: 0;
-    outline: none;
-}
-
-.button-icon:hover .icon {
-    opacity: 0.8;
+.gh-head .gh-btn {
+    padding: 0.8rem 1.6rem;
+    font-size: 1.1rem;
 }
 
 .button-text {
     padding: 0;
+    font: inherit;
     line-height: inherit;
-    color: var(--darker-gray-color);
+    color: inherit;
     cursor: pointer;
-    background-color: transparent;
+    background: transparent;
     border: 0;
-    outline: none;
 }

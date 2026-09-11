@@ -2,22 +2,25 @@
 
 <main class="site-main">
 
+    {{#is "paged"}}{{else}}
     <header class="feed-header gh-canvas">
-        {{#if @custom.feed_title}}
-            <div class="feed-header-wrapper">
-                <h2 class="feed-header-title">{{@custom.feed_title}}</h2>
-            </div>
+        {{!-- The intro is a Ghost page, so it is written in the editor: the one whose slug is the
+             intro_page theme setting (Design & branding). No such page, no intro. --}}
+        {{#if @custom.intro_page}}
+            {{#get "pages" filter="slug:{{@custom.intro_page}}" limit="1"}}
+                {{#foreach pages}}{{content}}{{/foreach}}
+            {{/get}}
         {{/if}}
+        {{> "subscribe"}}
     </header>
+    {{/is}}
 
-    <div class="post-feed{{#match @custom.feed_layout "!=" "Minimal"}} expanded{{/match}}{{#match @custom.feed_layout "Right thumbnail"}} right-thumbnail{{/match}}{{#match @custom.feed_layout "Text-only"}} text-only{{/match}} gh-feed gh-canvas">
+    <div class="post-feed gh-feed gh-canvas">
         {{#foreach posts}}
             {{> "loop"}}
         {{/foreach}}
     </div>
 
-    {{pagination}}
+    {{> "pages-nav"}}
 
 </main>
-
-{{#contentFor "body_class"}}{{#if @site.cover_image}} with-full-cover is-head-transparent{{/if}}{{#if @member}} logged-in{{/if}}{{/contentFor}}
