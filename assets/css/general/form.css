@@ -1,4 +1,5 @@
-/* The subscribe form (partials/subscribe.hbs). Ghost toggles loading, success and error on it. */
+/* The member forms (partials/subscribe.hbs, partials/member-link.hbs). Ghost toggles loading,
+   success and error on them. */
 .subscribe {
     max-width: 26em;
     margin-top: 3.2rem;

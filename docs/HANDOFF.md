@@ -18,22 +18,24 @@ schemes. Em's eye is the gate.
 1. **Eye-gate the hero (em):** `pnpm preview` (with `dev/.env` it mirrors the live site, drafts
    included; see the README), then `pnpm dev` while editing. Desktop and portrait mobile, both
    colour schemes. Then merge, `pnpm zip`, and upload in Ghost Admin → Design → Change theme.
-2. **Ghost Admin on Ghost(Pro), once the theme is up.** What the theme needs from Admin: a page
-   with slug `intro` holding the index copy (paste the two paragraphs from
+2. **Ghost Admin on Ghost(Pro), once the theme is up.** What the theme needs from Admin: a page with
+   slug `intro` holding the index copy (paste the two paragraphs from
    `../plans/lanterns/essays-site.md`, "Index copy"; the "Get new essays by email" line is the
    form); the publication cover (Design & branding), which the rig found already set to the dock
    image, so the hero shows on upload; a **custom excerpt on every essay**, because the newest one
-   is the hero's quote and the fallback is the first fifty words of the text; the primary
-   navigation renamed to **Essays** and **Lanterns Home** (Settings → Navigation; the live labels
-   are `essays` and `lanterns. home`, and the period is the visible difference); and a look at
-   Design & branding → theme settings, where every line of theme copy is a field pre-filled with
-   the shipped wording. Then the usual checks: every social account set in Admin renders as a
-   footer icon; comments on; the Portal modal and the comments frame read acceptably (both are
-   stock Ghost inside iframes). The site description only feeds `<meta>`. Check the hero's
-   `<img>` on the live site: Ghost(Pro) keeps the cover on `storage.ghost.io`, and `img_url` only
-   resizes images on the site's own URL, so the srcset may collapse to the original (114 KB as
-   uploaded, acceptable). That host does serve `size/w1920/` and `format/webp/` paths, so a
-   hand-built srcset is possible if it matters.
+   is the hero's quote and the fallback is the first fifty words of the text; the primary navigation
+   renamed to **Essays** and **Lanterns Home** (Settings → Navigation; the live labels are `essays`
+   and `lanterns. home`, and the period is the visible difference); the floating Portal button
+   hidden (Settings → Membership → Portal), since the theme never opens Portal, and the secondary
+   navigation's Subscribe item can go, since the theme no longer renders that menu; and a look at
+   Design & branding → theme settings, where every line of theme copy is a field pre-filled with the
+   shipped wording. Then the usual checks: every social account set in Admin renders as a footer
+   icon; comments on; the Portal modal and the comments frame read acceptably (both are stock Ghost
+   inside iframes). The site description only feeds `<meta>`. Check the hero's `<img>` on the live
+   site: Ghost(Pro) keeps the cover on `storage.ghost.io`, and `img_url` only resizes images on the
+   site's own URL, so the srcset may collapse to the original (114 KB as uploaded, acceptable). That
+   host does serve `size/w1920/` and `format/webp/` paths, so a hand-built srcset is possible if it
+   matters.
 3. Newsletter settings and the pseudonymity steps: the plan's lists.
 
 ## The lantern hero (Maria's spec 2026-09-11, built the same day on `hero`)
@@ -83,15 +85,39 @@ reference, not the base: none of its JS survives.
 The header is the wordmark, linking to **lanterns.dev**, and Admin's primary menu beside it: two
 links, Essays (`/`) and Lanterns Home (`https://lanterns.dev/`), in the bar on every width. No
 mobile drawer, no burger, no Sign in or Subscribe buttons: the index carries the subscribe form and
-the intro page, the footer carries the lanterns.dev link and Admin's secondary menu (the live
-site's has a Subscribe item, which opens Portal, and that is also the sign-in path). Any further
-links to the lantern site's sections belong in the intro page copy.
+the intro page, and the footer carries the lanterns.dev link and the sign-in (next section). Any
+further links to the lantern site's sections belong in the intro page copy. The wordmark link is
+named for where it goes (`home_link_label`, a text setting) since its alt is the site title.
 
 How it got here, the same day: the lantern-menu mirror (About / Research / Resources / Contact)
 was confusing and too unlike the lantern site's own navigation, so the header went to the wordmark
 alone; that turned out to be confusing the other way, so the two links came back, in the bar rather
 than a drawer. The theme renders whatever Admin's primary menu holds; the plan's "nav mirrors the
 lantern menu" line (`../plans/lanterns/essays-site.md`) is superseded and a to-do is filed there.
+
+## The footer, and signing in without Portal (Maria, 2026-09-12)
+
+One line in the bottom-right corner, as on the lantern site: `lanterns.dev · © YYYY · Sign in`,
+then the LinkedIn icon (Admin's social accounts) and the GitHub icon, small and muted. Admin's
+secondary menu is not rendered any more: its Subscribe item opened the Portal popup, which is stock
+Ghost and jars against the site, and the index and every essay already carry the subscribe form.
+
+Sign in is the theme's own (`partials/member-link.hbs`): the link is a `<details>` summary that
+discloses a one-field form with `data-members-form="signin"`, which sends Ghost's sign-in link by
+email, the documented way to sign in without Portal. It reuses the subscribe form's classes, so
+Ghost's loading, success and error states and the focus move in `main.js` apply. Signed in, the
+link is Sign out (`data-members-signout`, also documented). Both were exercised in the rig with an
+impersonation link from the Admin API (`members/:id/signin_urls/`, on the rig's own host; on
+another host the sign-out request is cross-origin and silently does nothing): on arrival Ghost
+shows a small Portal "Success" toast top-right, dismissible, and that is the whole of Portal a
+reader meets. Copy: five `text` settings (`signin_link`, `signin_label`, `signin_button`,
+`signin_success`, `signout_link`); the field placeholder and the in-flight text are the subscribe
+form's. Eighteen settings of Ghost's twenty are now used.
+
+What still lives in Portal, untouched: account management (email, newsletter preferences) at
+`#/portal/account`, which nothing links to; unsubscribe is in every email. The comments UI's own
+sign-in prompt opens Portal. Hide the floating Portal button in Admin (Settings → Membership →
+Portal); the theme never opens it.
 
 ## Decisions taken in the design PR that the plan left open
 

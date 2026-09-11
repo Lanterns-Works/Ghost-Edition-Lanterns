@@ -25,8 +25,8 @@
                 {{!-- The wordmark: the image, never the title as text, and the way back to the lantern
                      site. Beside it Admin's primary menu (two links, in the bar on every width; no
                      drawer). No Sign in or Subscribe up here (Maria, 2026-09-12): the index carries
-                     the subscribe form, the footer Admin's secondary menu, and Portal sits behind those. --}}
-                <a class="gh-head-logo" href="https://lanterns.dev/">
+                     the subscribe form and the footer the sign-in (partials/member-link.hbs). --}}
+                <a class="gh-head-logo" href="https://lanterns.dev/" aria-label="{{@custom.home_link_label}}">
                     <picture>
                         {{!-- Over the hero the wordmark is white in both schemes: a source with no media query, ahead of the dark-scheme one. --}}
                         {{#is "home"}}{{#if @site.cover_image}}<source srcset="{{asset "images/lanterns-logo_white.png"}}">{{/if}}{{/is}}
@@ -46,30 +46,24 @@
         {{{body}}}
     </div>
 
-    <footer class="gh-foot{{#unless @site.secondary_navigation}} no-menu{{/unless}} gh-outer">
+    <footer class="gh-foot gh-outer">
+        {{!-- One line in the bottom-right corner, as on the lantern site: the link home, the year, the
+             member link, then the icons. Admin's secondary menu is not rendered (Maria, 2026-09-12). --}}
         <div class="gh-foot-inner gh-inner">
-            <div class="gh-copyright">
-                <a href="https://lanterns.dev/">lanterns.dev</a> · © {{date format="YYYY"}}
-            </div>
-            <div class="gh-foot-center">
-                <div class="gh-social-links">
-                    {{#social_accounts @site}}
-                        <a href="{{href}}" target="_blank" rel="noopener" aria-label="{{name}}">
-                            {{#> (concat "icons/" type)}}
-                                {{!-- Fallback when no per-platform icon partial exists --}}
-                                <span>{{name}}</span>
-                            {{/undefined}}
-                        </a>
-                    {{/social_accounts}}
-                    {{!-- GitHub is not one of Ghost Admin's social types, so the link lives here. --}}
-                    <a href="https://github.com/Lanterns-Works" target="_blank" rel="noopener" aria-label="GitHub">{{> "icons/github"}}</a>
-                </div>
-                {{#if @site.secondary_navigation}}
-                    <nav class="gh-foot-menu">
-                        {{navigation type="secondary"}}
-                    </nav>
-                {{/if}}
-            </div>
+            <a href="https://lanterns.dev/">lanterns.dev</a> · © {{date format="YYYY"}}
+            {{> "member-link"}}
+            <span class="gh-social-links">
+                {{#social_accounts @site}}
+                    <a href="{{href}}" target="_blank" rel="noopener" aria-label="{{name}}">
+                        {{#> (concat "icons/" type)}}
+                            {{!-- Fallback when no per-platform icon partial exists --}}
+                            <span>{{name}}</span>
+                        {{/undefined}}
+                    </a>
+                {{/social_accounts}}
+                {{!-- GitHub is not one of Ghost Admin's social types, so the link lives here. --}}
+                <a href="https://github.com/Lanterns-Works" target="_blank" rel="noopener" aria-label="GitHub">{{> "icons/github"}}</a>
+            </span>
         </div>
     </footer>
 

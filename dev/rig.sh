@@ -67,7 +67,7 @@ up() {
     {"key":"accent_color","value":"#160e0e"},
     {"key":"comments_enabled","value":"all"},
     {"key":"navigation","value":"[{\"label\":\"Essays\",\"url\":\"/\"},{\"label\":\"Lanterns Home\",\"url\":\"https://lanterns.dev/\"}]"},
-    {"key":"secondary_navigation","value":"[{\"label\":\"Subscribe\",\"url\":\"#/portal/signup\"}]"},
+    {"key":"secondary_navigation","value":"[]"},
     {"key":"facebook","value":""},
     {"key":"twitter","value":""}
   ]}' | python3 -c 'import json,sys; d=json.load(sys.stdin); print("settings:", "ok" if "settings" in d else d)'

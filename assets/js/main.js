@@ -1,4 +1,4 @@
-/* The subscribe form hides its row on success, which drops focus; move it to the message. */
+/* A member form (subscribe, sign-in) hides its row on success, which drops focus; move it to the message. */
 (function () {
     document.querySelectorAll('.subscribe').forEach(function (form) {
         new MutationObserver(function () {
