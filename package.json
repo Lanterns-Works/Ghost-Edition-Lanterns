@@ -94,6 +94,12 @@
                 "type": "text",
                 "default": "Sending\u2026",
                 "description": "On the button while the signup request is in flight."
+            },
+            "continue_reading": {
+                "type": "text",
+                "default": "Continue reading",
+                "group": "homepage",
+                "description": "At the foot of the home-page hero, above the caret; the hero needs a publication cover."
             }
         }
     },

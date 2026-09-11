@@ -9,6 +9,8 @@
 #   dev/rig.sh posts   load the test posts and the intro page (once, after up)
 #   dev/rig.sh pull    replace the rig's settings and content with the live site's (needs
 #                      LANTERNS_GHOST_URL and LANTERNS_GHOST_ADMIN_KEY in dev/.env; see dev/.env.example)
+#   dev/rig.sh cover   set the lantern site's dock image as the publication cover if there is none,
+#                      so the home-page hero renders (preview does this after pull or posts)
 #   dev/rig.sh sync    copy the current checkout into the running container's theme (pnpm dev
 #                      does this after every build while the rig is up)
 #   dev/rig.sh down    remove the container
@@ -26,6 +28,7 @@ API="$URL/ghost/api/admin"
 JAR="$WORK/cookies.txt"
 EMAIL=em@lanterns.dev
 PASS=lanterns-local-rig
+COVER="$REPO/../lanterns.dev/assets/lanterns-background-layer.jpg"  # the lantern site's checkout, beside this one
 
 api() { # api METHOD path [json]
   if [ -n "${3:-}" ]; then
@@ -80,6 +83,17 @@ posts() { # dev/posts.json: twelve posts of public-domain Emerson, one long enou
   done
 }
 
+cover() { # the hero wants Admin's publication cover; until the live site has one, stand in with the dock image
+  login
+  if api GET "settings/" | python3 -c 'import json,sys; s={x["key"]:x["value"] for x in json.load(sys.stdin)["settings"]}; sys.exit(0 if s.get("cover_image") else 1)'; then
+    echo "cover: already set"; return
+  fi
+  [ -f "$COVER" ] || { echo "cover: not set, $COVER is missing (the hero needs one; see README)"; return; }
+  url=$(curl -sS -X POST "$API/images/upload/" -b "$JAR" -c "$JAR" -H "Origin: $URL" -F "file=@$COVER" -F purpose=image -F ref=cover \
+    | python3 -c 'import json,sys; print(json.load(sys.stdin)["images"][0]["url"])')
+  api PUT "settings/" "{\"settings\":[{\"key\":\"cover_image\",\"value\":\"$url\"}]}" >/dev/null && echo "cover: $url"
+}
+
 loadenv() { if [ -f "$REPO/dev/.env" ]; then set -a; . "$REPO/dev/.env"; set +a; fi; }  # plain KEY=value lines, exported
 # The same precondition dev/pull.py checks: a live URL and a key of the shape Ghost issues (id:secret).
 has_live() { [ -n "${LANTERNS_GHOST_URL:-}" ] && case "${LANTERNS_GHOST_ADMIN_KEY:-}" in *:*) true ;; *) false ;; esac; }
@@ -95,10 +109,11 @@ preview() {
   if has_live; then pull; else
     echo "dev/.env is missing the live URL or an Admin API key, so loading the test posts instead (see dev/.env.example)"; posts
   fi
+  cover
   echo; echo "preview: $URL   (pnpm dev keeps it in step with your edits; dev/rig.sh down removes it)"
 }
 
 case "${1:-}" in
-  up) up ;; preview) preview ;; sync) sync ;; posts) posts ;; pull) pull ;; down) docker rm -f "ghost-lanterns-$PORT" ;;
-  *) echo "usage: dev/rig.sh up|preview|posts|pull|sync|down"; exit 1 ;;
+  up) up ;; preview) preview ;; sync) sync ;; posts) posts ;; pull) pull ;; cover) cover ;; down) docker rm -f "ghost-lanterns-$PORT" ;;
+  *) echo "usage: dev/rig.sh up|preview|posts|pull|cover|sync|down"; exit 1 ;;
 esac

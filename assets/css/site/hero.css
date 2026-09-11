@@ -1,0 +1,137 @@
+/* The lantern hero: the dock image full-viewport on the home page, the newest essay's excerpt in
+   the middle, "Continue reading" over a caret at the foot. Everything on it is paper on the dark
+   image whatever the colour scheme, and so is the header above it, which is the shared CSS's
+   is-head-transparent variant with the two colours fixed. */
+.hero {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 100svh;
+    padding: 14vmin var(--gap);
+    color: #e7e5de;
+    text-shadow: 0 1px 2px rgba(22, 14, 14, 0.6), 0 0 24px rgba(22, 14, 14, 0.5);
+    background-color: #160e0e; /* while the image loads */
+}
+
+.hero-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 85% 60%; /* the lantern is in the right third; portrait keeps it in frame */
+}
+
+.hero::before { /* a light scrim, so the quote reads over the water and the lantern's glow */
+    position: absolute;
+    inset: 0;
+    content: "";
+    background-color: rgba(22, 14, 14, 0.3);
+}
+
+.hero-quote,
+.hero-continue {
+    position: relative; /* above the image and the scrim */
+}
+
+.hero :focus-visible {
+    outline-color: currentColor;
+}
+
+.hero-quote {
+    max-width: 30em;
+    margin: 0;
+    font-size: 2.4rem;
+    font-style: italic;
+    line-height: 1.45;
+    text-align: center;
+}
+
+.hero-quote a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.hero-quote a:hover p {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.hero-quote p {
+    margin: 0 0 1em;
+}
+
+.hero-quote cite {
+    font-size: 1.3rem;
+    font-style: normal;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.hero-continue {
+    position: absolute;
+    bottom: 5vmin;
+    left: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    align-items: center;
+    font-size: 1.2rem;
+    color: inherit;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    transform: translateX(-50%);
+}
+
+.hero-continue:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.hero-continue .icon {
+    width: 28px;
+    height: 28px;
+    filter: drop-shadow(0 1px 2px rgba(22, 14, 14, 0.6));
+}
+
+/* The header over the hero. The shared CSS paints the transparent variant in --color-white and
+   its open mobile menu in the accent, so the two colours are fixed on the header and the two
+   aliases re-declared here, because basics.css resolves them on :root, where the scheme's values
+   hold. The button is the one rule the shared CSS hard-codes. */
+.is-head-transparent .gh-head {
+    --ink: #160e0e;
+    --paper: #e7e5de;
+    --color-white: var(--paper);
+    --ghost-accent-color: var(--ink);
+}
+
+.is-head-transparent .gh-head-btn {
+    color: var(--ink);
+    background-color: var(--paper);
+}
+
+/* The hero sits flush under the header; the index keeps the padding .site-content gave up. */
+.is-head-transparent .site-content {
+    padding-top: 0;
+}
+
+.is-head-transparent .site-main {
+    padding-top: 6vmin;
+}
+
+html {
+    scroll-behavior: smooth; /* "Continue reading" is an anchor to the index */
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+@media (max-width: 767px) {
+    .hero-quote {
+        font-size: 1.9rem;
+    }
+}

@@ -5,6 +5,7 @@
 @import "general/icons.css";
 @import "site/layout.css";
 @import "site/header.css";
+@import "site/hero.css";
 @import "site/footer.css";
 @import "blog/feed.css";
 @import "blog/pagination.css";

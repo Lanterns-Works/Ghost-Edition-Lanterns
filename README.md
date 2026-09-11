@@ -39,6 +39,10 @@ and `rsync`) and activates the theme. What it fills the site with depends on one
   Ghost does not let API keys read them.
 - **Without one** it loads twelve posts of public-domain test content (`dev/posts.json`, Emerson).
 
+Either way, if the site then has no publication cover, the lantern site's dock image
+(`../lanterns.dev/assets/lanterns-background-layer.jpg`, the checkout beside this one) is set as one,
+so the home-page hero renders. Only the local rig is written to.
+
 `preview` prints the local admin login. `dev/rig.sh down` removes the container; `dev/rig.sh`
 lists the individual steps.
 

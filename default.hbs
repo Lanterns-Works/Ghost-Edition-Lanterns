@@ -15,7 +15,8 @@
     {{ghost_head}}
 </head>
 
-<body class="{{body_class}}{{{block "body_class"}}} is-head-left-logo">
+{{!-- Over the home-page hero (partials/hero.hbs) the header is the shared CSS's transparent variant. --}}
+<body class="{{body_class}}{{{block "body_class"}}} is-head-left-logo{{#is "home"}}{{#if @site.cover_image}} is-head-transparent{{/if}}{{/is}}">
 <div class="site">
 
     <header id="gh-head" class="gh-head gh-outer">
@@ -25,6 +26,8 @@
                     {{!-- The image is the wordmark. The site title is never set in type. --}}
                     <a class="gh-head-logo" href="{{@site.url}}">
                         <picture>
+                            {{!-- Over the hero the wordmark is white in both schemes: a source with no media query, ahead of the dark-scheme one. --}}
+                            {{#is "home"}}{{#if @site.cover_image}}<source srcset="{{asset "images/lanterns-logo_white.png"}}">{{/if}}{{/is}}
                             <source srcset="{{asset "images/lanterns-logo_white.png"}}" media="(prefers-color-scheme: dark)">
                             <img src="{{asset "images/lanterns-logo_black.png"}}" alt="{{@site.title}}" width="1500" height="252">
                         </picture>

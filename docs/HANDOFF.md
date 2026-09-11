@@ -1,54 +1,74 @@
 # Handoff
 
-*State of play for the essays theme. Updated 2026-09-10.*
+*State of play for the essays theme. Updated 2026-09-11.*
 
 ## Where things are
 
-The design brief in `../plans/lanterns/essays-site.md` is built on the `design` branch (PR #5):
+The design brief in `../plans/lanterns/essays-site.md` is on `main` (PR #5, merged 2026-09-11):
 two colours, the wordmark, our own subscribe form, comments, no search, `noindex` on the author
-archive, a footer with the year and a GitHub link. Rendered locally on desktop and at 390px
-portrait against a 2,500-word public-domain essay — **not yet against a real essay**, which is
-the gate.
+archive, a footer with the year and a GitHub link. **Not yet uploaded:** the live site still runs
+the first upload of the fork (Lora and Mulish in its CSS).
+
+The lantern hero is built on the `hero` branch (see "The lantern hero" below). Rendered in the rig
+against the live site's cover and its one placeholder post, desktop and 390px portrait, both
+schemes. Em's eye is the gate.
 
 ## Next
 
-1. **Eye-gate (em):** `pnpm preview` (with `dev/.env` it mirrors the live site, drafts included;
-   see the README), then `pnpm dev` while editing. Look on desktop and portrait mobile in both
+1. **Eye-gate the hero (em):** `pnpm preview` (with `dev/.env` it mirrors the live site, drafts
+   included; see the README), then `pnpm dev` while editing. Desktop and portrait mobile, both
    colour schemes. Then merge, `pnpm zip`, and upload in Ghost Admin → Design → Change theme.
-2. **Ghost Admin on Ghost(Pro), once the theme is up.** Two things the theme needs from Admin:
-   a page with slug `intro` holding the index copy (paste the two paragraphs from
+2. **Ghost Admin on Ghost(Pro), once the theme is up.** What the theme needs from Admin: a page
+   with slug `intro` holding the index copy (paste the two paragraphs from
    `../plans/lanterns/essays-site.md`, "Index copy"; the "Get new essays by email" line is the
-   form), and a look at Design & branding → theme settings, where every line of theme copy is a
-   field pre-filled with the shipped wording. Then the usual checks: every social account set in
-   Admin renders as a footer icon; comments on; the Portal modal and the comments frame read
-   acceptably (both are stock Ghost inside iframes). The site description only feeds `<meta>`.
+   form); the publication cover (Design & branding), which the rig found already set to the dock
+   image, so the hero shows on upload; a **custom excerpt on every essay**, because the newest one
+   is the hero's quote and the fallback is the first fifty words of the text; and a look at
+   Design & branding → theme settings, where every line of theme copy is a field pre-filled with
+   the shipped wording. Then the usual checks: every social account set in Admin renders as a
+   footer icon; comments on; the Portal modal and the comments frame read acceptably (both are
+   stock Ghost inside iframes). The site description only feeds `<meta>`. Check the hero's
+   `<img>` on the live site: Ghost(Pro) keeps the cover on `storage.ghost.io`, and `img_url` only
+   resizes images on the site's own URL, so the srcset may collapse to the original (114 KB as
+   uploaded, acceptable). That host does serve `size/w1920/` and `format/webp/` paths, so a
+   hand-built srcset is possible if it matters.
 3. Newsletter settings and the pseudonymity steps: the plan's lists.
 
-## Next design pass: the lantern hero (Maria, 2026-09-11)
+## The lantern hero (Maria's spec 2026-09-11, built the same day on `hero`)
 
-Keep everything built so far and put the lantern-on-the-dock image back on the home page, so the
-two sites feel continuous. Reference: Edition's own full-screen cover, which the design PR removed;
-its mechanics are in git history (`git show ec6e9f9:partials/cover.hbs`,
-`ec6e9f9:assets/css/site/cover.css`, the `with-full-cover` / `is-head-transparent` body classes and
-the `cover()` scroll in `ec6e9f9:assets/js/main.js`).
+The dock image back on the home page, so the two sites feel continuous. Home page, first page
+only, and only once Admin has a publication cover: `partials/hero.hbs`, included from `index.hbs`,
+styled in `assets/css/site/hero.css`. Edition's own cover (in git history at `ec6e9f9`) was the
+reference, not the base: none of its JS survives.
 
-- **Home page only, first page only.** A full-viewport hero (`100svh`, not Edition's JS toolbar
-  hack) of the dock image. Paged index, posts, pages: unchanged.
-- **The image.** The lantern site's `assets/lanterns-background-layer.jpg` (3840×2143, a brand
-  asset, all rights reserved). Prefer Ghost Admin's publication cover (`@site.cover_image`,
-  Design & branding) over shipping it in the theme: Admin manages it and `{{img_url ... size=}}`
-  serves responsive sizes. Crop so the lantern stays in frame in portrait (`object-position` to
-  the right).
-- **Header transparent over it**, the current header otherwise: white wordmark, paper-coloured
-  nav and buttons, whatever the colour scheme, since the image is dark. Below the hero the
-  two-colour scheme as now.
-- **Centre: the newest essay's excerpt** as a block quote in quotation marks (`custom_excerpt`,
-  else `excerpt`), linking to the essay. Paper text; a light scrim or text shadow for contrast.
-- **Bottom: "Continue reading" above a down caret**, one control that scrolls to the content.
-  The text is the button's label. Make the wording a theme setting like the rest of the copy.
-- **Then the current index**: intro page, subscribe form, essay list.
-- Gate as before: desktop and portrait mobile, both schemes, against the real image and a real
-  excerpt (`pnpm preview` pulls both once the cover is set in Admin).
+- **Full viewport** (`min-height: 100svh`) of `@site.cover_image` through `{{img_url … size=}}`
+  with a srcset over the theme's `image_sizes`, `object-position: 85% 60%` so the lantern (right
+  third of the photo) stays in frame in portrait. A 0.3 ink scrim and a text shadow carry the
+  paper text; the scrim is the knob if the image reads too dim.
+- **Header transparent over it:** the shared CSS's own `is-head-transparent` variant, added to
+  the body class in `default.hbs` on the same condition. The hero is dark in both schemes, so the
+  header fixes `--ink` and `--paper` on itself and re-declares `--color-white`, which
+  `basics.css` resolves on `:root` (the trap: a custom property resolves where it is declared,
+  so overriding `--paper` alone reached nothing). The wordmark gets a `<source>` with no media
+  query ahead of the dark-scheme one, so it is white in both. The open mobile menu is ink with
+  paper links in both schemes for the same reason.
+- **The quote:** the newest post, `{{excerpt words="50"}}`, which outputs a custom excerpt
+  verbatim and otherwise the first fifty words. Italic, in curly quotes typed in the template,
+  the whole block a link to the essay, with the essay's title as a `<cite>` line under it: the
+  spec did not ask for a title, but a link needs a visible affordance and the title is the
+  smallest one. Drop the `<cite>` if em prefers the bare quote.
+- **"Continue reading" over a caret** is a plain anchor to `#essays`, the `<main>`, with
+  `scroll-behavior: smooth` on `html` (off under `prefers-reduced-motion`). No JS. The wording is
+  the `continue_reading` theme setting. The caret is Edition's `icons/caret-down` partial,
+  restored from history.
+- **Below it, the index as before.** `.site-content` gives up its top padding on the hero page and
+  `.site-main` takes it, so the hero sits flush under the header and the index sits where it did.
+- **The rig** sets the lantern site's dock image (`../lanterns.dev/assets/…`) as the local cover
+  when the site has none (`dev/rig.sh cover`, run by `preview`), so the hero renders against test
+  posts too.
+- **Checked in the rig** (2026-09-11): desktop at 2079px and a 390×800 portrait frame, light and
+  dark, the burger menu open over the hero, the anchor landing on the index. One thing to judge by
+  eye: in portrait the quote sits over the lantern's glow; the shadow keeps it legible.
 
 ## Decisions taken in the design PR that the plan left open
 
