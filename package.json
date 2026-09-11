@@ -120,6 +120,11 @@
                 "default": "Check your email for the link.",
                 "description": "Shown in place of the sign-in field once the link is sent."
             },
+            "signin_close": {
+                "type": "text",
+                "default": "Close",
+                "description": "The sign-in dialog's close control."
+            },
             "signout_link": {
                 "type": "text",
                 "default": "Sign out",

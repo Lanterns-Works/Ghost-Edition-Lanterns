@@ -31,24 +31,63 @@
     height: 12px;
 }
 
-/* The member link carries its own separator. The sign-in form sits after the icons on the row
-   below the line, hidden until the link makes it the URL's target. */
+/* The member link carries its own separator. The sign-in link is a button styled as the links
+   around it. */
 .member-link::before {
     display: inline-block; /* keeps the link's underline off the dot; the space is non-breaking so the block keeps it */
     content: "·\00a0";
 }
 
-.signin {
-    order: 1;
-    flex-basis: 100%;
-    max-width: min(26em, 100%);
-    margin: 1.2rem 0 0 auto;
-    font-size: 1.4rem;
-    letter-spacing: 0.02em;
-    text-align: left;
-    white-space: normal; /* the shared footer rule is nowrap */
+button.member-link {
+    color: var(--color-secondary-text);
+    text-decoration: underline;
+    text-decoration-color: var(--muted);
+    text-underline-offset: 3px; /* as every link, basics.css */
+    letter-spacing: inherit;
 }
 
-.signin:not(:target) {
-    display: none;
+button.member-link:hover {
+    color: var(--color-darker-gray);
+}
+
+/* The sign-in dialog: the two colours and a hairline, the backdrop an alpha of the light
+   scheme's ink in both schemes. The click-to-close in main.js relies on the padding being on the
+   inner box, so a click on the dialog element itself is a click on the backdrop. */
+.signin {
+    width: min(30em, 100% - var(--gap) * 2);
+    padding: 0;
+    font-size: 1.6rem;
+    color: var(--ink);
+    letter-spacing: 0.02em;
+    white-space: normal; /* the footer's rule is nowrap */
+    text-align: left;
+    background: var(--paper);
+    border: 1px solid var(--edge);
+}
+
+.signin::backdrop {
+    background: rgba(22, 14, 14, 0.6);
+}
+
+.signin-inner {
+    padding: 2.4rem;
+}
+
+.signin .subscribe {
+    max-width: none;
+    margin-top: 0;
+}
+
+.signin-close {
+    margin-top: 2rem;
+    font-size: 1.2rem;
+    color: var(--muted);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+}
+
+.signin-close:hover {
+    color: var(--ink);
 }

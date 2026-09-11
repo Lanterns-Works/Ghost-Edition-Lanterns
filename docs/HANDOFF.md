@@ -102,20 +102,22 @@ then the LinkedIn icon (Admin's social accounts) and the GitHub icon, small and 
 secondary menu is not rendered any more: its Subscribe item opened the Portal popup, which is stock
 Ghost and jars against the site, and the index and every essay already carry the subscribe form.
 
-Sign in is the theme's own (`partials/member-link.hbs`): a link to `#signin`, a one-field form on
-the row below the line that is hidden until it is the URL's target (`:target`, no JS), so the link
-stays put, the form appears beneath it and the page scrolls to it; Back closes it. The form is
+Sign in is the theme's own (`partials/member-link.hbs`): the link opens a one-field form in a
+native `<dialog>` (`showModal()`, a few lines in `main.js`), so nothing on the page moves; the
+browser puts it in the top layer, makes the page behind inert, focuses the field, and closes it on
+Escape; the close control and a click on the backdrop close it too. The form is
 `data-members-form="signin"`, which sends Ghost's sign-in link by email, the documented way to sign
 in without Portal. It reuses the subscribe form's classes, so Ghost's loading, success and error
 states and the focus move in `main.js` apply. Signed in, the link is Sign out
-(`data-members-signout`, also documented). A first version was a `<details>` disclosure; its
-label jumped rows when it opened (Maria, 2026-09-12), hence the link. Both were exercised in the rig with an
+(`data-members-signout`, also documented). Two earlier versions revealed the form in the page,
+as a `<details>` disclosure and then a `:target` row; both shifted the layout (Maria, 2026-09-12),
+hence the dialog. Both were exercised in the rig with an
 impersonation link from the Admin API (`members/:id/signin_urls/`, on the rig's own host; on
 another host the sign-out request is cross-origin and silently does nothing): on arrival Ghost
 shows a small Portal "Success" toast top-right, dismissible, and that is the whole of Portal a
-reader meets. Copy: five `text` settings (`signin_link`, `signin_label`, `signin_button`,
-`signin_success`, `signout_link`); the field placeholder and the in-flight text are the subscribe
-form's. Eighteen settings of Ghost's twenty are now used.
+reader meets. Copy: six `text` settings (`signin_link`, `signin_label`, `signin_button`,
+`signin_success`, `signin_close`, `signout_link`); the field placeholder and the in-flight text
+are the subscribe form's. Nineteen settings of Ghost's twenty are now used.
 
 What still lives in Portal, untouched: account management (email, newsletter preferences) at
 `#/portal/account`, which nothing links to; unsubscribe is in every email. The comments UI's own
@@ -145,8 +147,8 @@ Portal); the theme never opens it.
   iframe in dark mode.
 - **`font-weight: 500 !important` site-wide** (zero bold). It also flattens `<strong>`, `<b>` and table
   headers in essay text; add a `.gh-content strong` exception if that turns out unwanted.
-- **Theme JS is one snippet** (`assets/js/main.js`): the subscribe form hides its row on success,
-  which drops focus, so focus is moved to the outcome message.
+- **Theme JS is two snippets** (`assets/js/main.js`): a member form hides its row on success, which
+  drops focus, so focus is moved to the outcome message; and the sign-in dialog's open and close.
 - **Error pages:** `error-404.hbs` carries the plan's line; `error.hbs` covers the rest.
 
 ## Known gaps

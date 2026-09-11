@@ -6,3 +6,13 @@
         }).observe(form, {attributes: true, attributeFilter: ['class']});
     });
 })();
+
+/* The footer's sign-in opens its form in a dialog: the link shows it; Escape, the close button
+   and a click on the backdrop (the dialog itself, outside its padded inner box) close it. */
+(function () {
+    var dialog = document.getElementById('signin');
+    if (!dialog) return;
+    document.querySelector('[data-signin-open]').addEventListener('click', function () { dialog.showModal(); });
+    dialog.querySelector('[data-signin-close]').addEventListener('click', function () { dialog.close(); });
+    dialog.addEventListener('click', function (e) { if (e.target === dialog) dialog.close(); });
+})();
