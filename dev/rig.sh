@@ -93,7 +93,7 @@ preview() {
   up
   loadenv
   if has_live; then pull; else
-    echo "dev/.env has no live URL and Admin API key, so loading the test posts instead (see dev/.env.example)"; posts
+    echo "dev/.env is missing the live URL or an Admin API key, so loading the test posts instead (see dev/.env.example)"; posts
   fi
   echo; echo "preview: $URL   (pnpm dev keeps it in step with your edits; dev/rig.sh down removes it)"
 }
