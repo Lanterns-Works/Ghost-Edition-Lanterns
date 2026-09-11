@@ -102,11 +102,14 @@ then the LinkedIn icon (Admin's social accounts) and the GitHub icon, small and 
 secondary menu is not rendered any more: its Subscribe item opened the Portal popup, which is stock
 Ghost and jars against the site, and the index and every essay already carry the subscribe form.
 
-Sign in is the theme's own (`partials/member-link.hbs`): the link is a `<details>` summary that
-discloses a one-field form with `data-members-form="signin"`, which sends Ghost's sign-in link by
-email, the documented way to sign in without Portal. It reuses the subscribe form's classes, so
-Ghost's loading, success and error states and the focus move in `main.js` apply. Signed in, the
-link is Sign out (`data-members-signout`, also documented). Both were exercised in the rig with an
+Sign in is the theme's own (`partials/member-link.hbs`): a link to `#signin`, a one-field form on
+the row below the line that is hidden until it is the URL's target (`:target`, no JS), so the link
+stays put, the form appears beneath it and the page scrolls to it; Back closes it. The form is
+`data-members-form="signin"`, which sends Ghost's sign-in link by email, the documented way to sign
+in without Portal. It reuses the subscribe form's classes, so Ghost's loading, success and error
+states and the focus move in `main.js` apply. Signed in, the link is Sign out
+(`data-members-signout`, also documented). A first version was a `<details>` disclosure; its
+label jumped rows when it opened (Maria, 2026-09-12), hence the link. Both were exercised in the rig with an
 impersonation link from the Admin API (`members/:id/signin_urls/`, on the rig's own host; on
 another host the sign-out request is cross-origin and silently does nothing): on arrival Ghost
 shows a small Portal "Success" toast top-right, dismissible, and that is the whole of Portal a

@@ -1,25 +1,24 @@
-{{!-- The member link in the footer line. Signed out: "Sign in", which discloses a one-field form
-     that sends Ghost's sign-in link by email (data-members-form="signin"); no Portal popup. Signed
-     in: "Sign out", Ghost's own attribute. The form reuses the subscribe form's classes, so its
-     loading, success and error states and the focus move in main.js come for free. --}}
+{{!-- The member link in the footer line. Signed out: "Sign in", a link to the one-field form below
+     the line, which is hidden until it is the URL's target and sends Ghost's sign-in link by email
+     (data-members-form="signin"); no Portal popup, and Back closes it. Signed in: "Sign out",
+     Ghost's own attribute. The form reuses the subscribe form's classes, so its loading, success
+     and error states and the focus move in main.js come for free. --}}
 {{#if @site.members_enabled}}
     {{#if @member}}
         <a class="member-link" href="javascript:" data-members-signout>{{@custom.signout_link}}</a>
     {{else}}
-        <details class="signin">
-            <summary class="member-link">{{@custom.signin_link}}</summary>
-            <form class="subscribe" data-members-form="signin">
-                <label class="subscribe-label" for="signin-email">{{@custom.signin_label}}</label>
-                <div class="subscribe-row">
-                    <input class="subscribe-input" id="signin-email" type="email" name="email" data-members-email placeholder="{{@custom.subscribe_placeholder}}" autocomplete="email" aria-describedby="signin-error" required>
-                    <button class="subscribe-button" type="submit">
-                        <span class="default">{{@custom.signin_button}}</span>
-                        <span class="subscribe-sending">{{@custom.subscribe_sending}}</span>
-                    </button>
-                </div>
-                <p class="subscribe-success" role="status" tabindex="-1">{{@custom.signin_success}}</p>
-                <p class="subscribe-error" id="signin-error" role="alert" data-members-error></p>
-            </form>
-        </details>
+        <a class="member-link" href="#signin">{{@custom.signin_link}}</a>
+        <form class="subscribe signin" id="signin" data-members-form="signin">
+            <label class="subscribe-label" for="signin-email">{{@custom.signin_label}}</label>
+            <div class="subscribe-row">
+                <input class="subscribe-input" id="signin-email" type="email" name="email" data-members-email placeholder="{{@custom.subscribe_placeholder}}" autocomplete="email" aria-describedby="signin-error" required>
+                <button class="subscribe-button" type="submit">
+                    <span class="default">{{@custom.signin_button}}</span>
+                    <span class="subscribe-sending">{{@custom.subscribe_sending}}</span>
+                </button>
+            </div>
+            <p class="subscribe-success" role="status" tabindex="-1">{{@custom.signin_success}}</p>
+            <p class="subscribe-error" id="signin-error" role="alert" data-members-error></p>
+        </form>
     {{/if}}
 {{/if}}
