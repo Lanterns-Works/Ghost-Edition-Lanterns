@@ -50,12 +50,9 @@ reference, not the base: none of its JS survives.
 - **Layout is grid rows** (`1fr auto 1fr auto`): the quote centred in the room above the control,
   so a long excerpt, a landscape phone or 200% zoom grow the section rather than overlap.
 - **Header transparent over it:** the shared CSS's own `is-head-transparent` variant, added to
-  the body class in `default.hbs` on the same condition. The hero is dark in both schemes, so the
-  header fixes `--ink` and `--paper` on itself and re-declares `--color-white`, which
-  `basics.css` resolves on `:root` (the trap: a custom property resolves where it is declared,
-  so overriding `--paper` alone reached nothing). The wordmark gets a `<source>` with no media
-  query ahead of the dark-scheme one, so it is white in both. The open mobile menu is ink with
-  paper links in both schemes for the same reason.
+  the body class in `default.hbs` on the same condition. The header is the wordmark alone (below),
+  which gets a `<source>` with no media query ahead of the dark-scheme one, so it is white in both
+  schemes; its focus ring is set to paper, since `basics.css` draws rings in the scheme's ink.
 - **The quote:** the newest post, `{{excerpt words="50"}}`, which outputs a custom excerpt
   verbatim and otherwise the first fifty words. Italic, in curly quotes typed in the template,
   the whole block a link to the essay, with the essay's title as a `<cite>` line under it: the
@@ -73,9 +70,20 @@ reference, not the base: none of its JS survives.
 - **Checked in the rig** (2026-09-11): desktop at 2079px and a 390×800 portrait frame, light and
   dark, the burger menu open over the hero, the anchor landing on the index; then an adversarial
   review (six lenses, two skeptics per finding) whose survivors are all in: the scrim had painted
-  under the image, the header's focus ring had inherited the pinned ink, the control could overlap
+  under the image, the header's focus ring was invisible over the sky, the control could overlap
   the quote on short viewports. One thing to judge by eye: in portrait the quote sits over the
   lantern; the halo is what keeps it legible there.
+
+## No header navigation (Maria, 2026-09-12)
+
+The header is the wordmark alone, and it links to **lanterns.dev**, not the essays home. No menu,
+no mobile drawer, no Sign in or Subscribe buttons: after using the site, the menu was confusing and
+too unlike the lantern site's own navigation, and it gave nothing the site lacks. The index carries
+the subscribe form and the intro page, the footer carries the lanterns.dev link and Admin's
+secondary menu (the live site's has a Subscribe item, which opens Portal, and that is also the
+sign-in path). Any further links to the lantern site's sections belong in the intro page copy.
+Admin's primary navigation is not rendered anywhere. The plan's "nav mirrors the lantern menu" line
+(`../plans/lanterns/essays-site.md`) is superseded; a to-do is filed there.
 
 ## Decisions taken in the design PR that the plan left open
 

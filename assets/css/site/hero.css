@@ -101,26 +101,10 @@
     filter: drop-shadow(0 1px 2px rgba(22, 14, 14, 0.6));
 }
 
-/* The header over the hero. The shared CSS paints the transparent variant in --color-white and
-   its open mobile menu in the accent, so the two colours are fixed on the header and the aliases
-   that read them re-declared here, because basics.css resolves them on :root, where the scheme's
-   values hold. The button is the one rule the shared CSS hard-codes; the focus ring is basics.css's
-   ink, which the pin would make invisible. */
-.is-head-transparent .gh-head {
-    --ink: #160e0e;
-    --paper: #e7e5de;
-    --color-white: var(--paper);
-    --edge: color-mix(in srgb, var(--ink) 14%, transparent);
-    --ghost-accent-color: var(--ink);
-}
-
-.is-head-transparent .gh-head-btn {
-    color: var(--ink);
-    background-color: var(--paper);
-}
-
+/* The header over the hero is the wordmark alone, white in both schemes through its <source>;
+   the one thing left to recolour is its focus ring, which basics.css draws in the scheme's ink. */
 .is-head-transparent .gh-head :focus-visible {
-    outline-color: var(--paper);
+    outline-color: #e7e5de;
 }
 
 /* The hero sits flush under the header; the index keeps the padding .site-content gave up. */

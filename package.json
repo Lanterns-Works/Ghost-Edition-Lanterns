@@ -59,7 +59,7 @@
             "subscribe_button": {
                 "type": "text",
                 "default": "Subscribe",
-                "description": "The form button and the header button."
+                "description": "The form button."
             },
             "subscribe_success": {
                 "type": "text",

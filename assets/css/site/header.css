@@ -1,7 +1,4 @@
-.is-head-left-logo .gh-head-inner {
-    grid-template-columns: 1fr 50% 1fr;
-}
-
+/* The header is the wordmark alone; the shared header grid and heights still apply. */
 .gh-head-logo img:last-child {
     /* The shared CSS hides a second logo <img> (:nth-child(2)) for its own dark-mode swap; inside
        <picture> the <img> is always the last child, so undo that at the same specificity (later
@@ -10,41 +7,4 @@
     width: 140px; /* the lantern site's size */
     max-height: none;
     opacity: 1;
-}
-
-.gh-head-menu,
-.gh-head-actions {
-    font-size: 1.2rem;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-}
-
-.gh-head-menu a,
-.gh-head-actions a {
-    text-decoration: none;
-}
-
-.gh-head-menu a:hover,
-.gh-head-link:hover {
-    text-decoration: underline;
-    text-underline-offset: 4px;
-}
-
-/* The shared JS folds nav items into a dropdown when they overflow (around 768–1000px). */
-.gh-dropdown {
-    background-color: var(--paper);
-    border: 1px solid var(--edge);
-    border-radius: 0;
-    box-shadow: none;
-}
-
-.gh-dropdown li a {
-    color: var(--ink) !important; /* the shared rule is !important too */
-}
-
-@media (min-width: 992px) {
-    .is-head-left-logo .gh-head-menu {
-        justify-content: center;
-        margin: 0;
-    }
 }
