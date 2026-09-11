@@ -21,21 +21,26 @@ pnpm test   # gscan, Ghost's theme validator
 Upload the zip in Ghost Admin → Design → Change theme → Upload. `assets/built/` and
 `dist/` are build output and are not tracked.
 
-## Looking at it
+## Previewing
 
-`dev/rig.sh up` starts a throwaway Ghost 6 in Docker (needs a running Docker daemon, plus
-`python3` and `rsync`) with the theme active at `localhost:2368`; `dev/rig.sh posts` loads twelve
-posts of public-domain test content (`dev/posts.json`, Emerson); `dev/rig.sh sync` copies edits in; `dev/rig.sh down` removes it. The admin login is
-printed by `up`.
+```bash
+pnpm preview   # a local Ghost with the theme active, at localhost:2368
+pnpm dev       # rebuild on every edit and push it into that Ghost
+```
 
-To look at the theme against the live site's settings and writing instead, create an Admin API
-key in Ghost Admin (Settings → Integrations → Add custom integration), put
-`LANTERNS_GHOST_URL=https://essays.lanterns.dev` and `LANTERNS_GHOST_ADMIN_KEY=id:secret` in
-`dev/.env` (gitignored), and run `dev/rig.sh pull`. It replaces the rig's posts and pages with the
-live site's, drafts included, and copies an allowlisted set of settings (identity, social
-accounts, navigation, metadata, comments, members, Portal); theme settings stay at their
-defaults because Ghost does not let API keys read them. One direction only; nothing is
-ever written to the live site.
+`pnpm preview` starts a throwaway Ghost 6 in Docker (needs a running Docker daemon, plus `python3`
+and `rsync`) and activates the theme. What it fills the site with depends on one file:
+
+- **With `dev/.env`** it pulls the live site in: an allowlisted set of settings (identity, social
+  accounts, navigation, metadata, comments, members, Portal) and every post and page, drafts
+  included. Copy `dev/.env.example` to `dev/.env` and paste in an Admin API key from Ghost Admin →
+  Settings → Integrations → Add custom integration. The file is gitignored and never leaves your
+  machine; the live site is only read. Theme settings stay at their defaults, because Ghost does
+  not let API keys read them.
+- **Without it** it loads twelve posts of public-domain test content (`dev/posts.json`, Emerson).
+
+`preview` prints the local admin login. `dev/rig.sh down` removes the container; `dev/rig.sh`
+lists the individual steps.
 
 ## Licence
 

@@ -12,10 +12,9 @@ the gate.
 
 ## Next
 
-1. **Eye-gate (em):** `dev/rig.sh up`, then either `dev/rig.sh posts` (Emerson) or
-   `dev/rig.sh pull` (the live site's settings and writing, drafts included; needs an Admin API
-   key, see the README). Look on desktop and portrait mobile in both colour schemes. Then merge,
-   `pnpm zip`, and upload in Ghost Admin → Design → Change theme.
+1. **Eye-gate (em):** `pnpm preview` (with `dev/.env` it mirrors the live site, drafts included;
+   see the README), then `pnpm dev` while editing. Look on desktop and portrait mobile in both
+   colour schemes. Then merge, `pnpm zip`, and upload in Ghost Admin → Design → Change theme.
 2. **Ghost Admin on Ghost(Pro), once the theme is up.** Two things the theme needs from Admin:
    a page with slug `intro` holding the index copy (paste the two paragraphs from
    `../plans/lanterns/essays-site.md`, "Index copy"; the "Get new essays by email" line is the

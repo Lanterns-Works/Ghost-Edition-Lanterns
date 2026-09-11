@@ -4,11 +4,13 @@
 # public-domain test content (dev/posts.json). Nothing here is real; the password is a placeholder
 # for a container that only ever listens on localhost.
 #
+#   pnpm preview       = dev/rig.sh preview: up, then pull if dev/.env exists, else posts
 #   dev/rig.sh up      build the theme, start the container, set the site up, activate the theme
 #   dev/rig.sh posts   load the test posts and the intro page (once, after up)
 #   dev/rig.sh pull    replace the rig's settings and content with the live site's (needs
-#                      LANTERNS_GHOST_URL and LANTERNS_GHOST_ADMIN_KEY, e.g. in dev/.env; see dev/pull.py)
-#   dev/rig.sh sync    copy the current checkout into the running container's theme
+#                      LANTERNS_GHOST_URL and LANTERNS_GHOST_ADMIN_KEY in dev/.env; see dev/.env.example)
+#   dev/rig.sh sync    copy the current checkout into the running container's theme (pnpm dev
+#                      does this after every build while the rig is up)
 #   dev/rig.sh down    remove the container
 #
 # Ghost runs in development mode so template edits show after `sync` without a restart, and
@@ -36,7 +38,7 @@ login() { api POST "session/" "{\"username\":\"$EMAIL\",\"password\":\"$PASS\"}"
 
 sync() {
   mkdir -p "$THEME"
-  (cd "$REPO" && pnpm exec gulp build >/dev/null)
+  [ -n "${RIG_SKIP_BUILD:-}" ] || (cd "$REPO" && pnpm exec gulp build >/dev/null)
   rsync -a --delete --exclude node_modules --exclude .git --exclude dist --exclude 'CLAUDE*' --exclude .github --exclude dev "$REPO/" "$THEME/"
   echo "theme synced -> $THEME"
   # Ghost lists a theme's templates at activation, so a new .hbs file needs a re-activate.
@@ -83,7 +85,15 @@ pull() {
   python3 "$REPO/dev/pull.py" "$URL" "$EMAIL" "$PASS"
 }
 
+preview() {
+  up
+  if [ -f "$REPO/dev/.env" ]; then pull; else
+    echo "no dev/.env, so loading the test posts instead of the live site (see dev/.env.example)"; posts
+  fi
+  echo; echo "preview: $URL   (pnpm dev keeps it in step with your edits; dev/rig.sh down removes it)"
+}
+
 case "${1:-}" in
-  up) up ;; sync) sync ;; posts) posts ;; pull) pull ;; down) docker rm -f "ghost-lanterns-$PORT" ;;
-  *) echo "usage: dev/rig.sh up|posts|pull|sync|down"; exit 1 ;;
+  up) up ;; preview) preview ;; sync) sync ;; posts) posts ;; pull) pull ;; down) docker rm -f "ghost-lanterns-$PORT" ;;
+  *) echo "usage: dev/rig.sh up|preview|posts|pull|sync|down"; exit 1 ;;
 esac

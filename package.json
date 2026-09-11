@@ -99,6 +99,7 @@
     },
     "scripts": {
         "dev": "gulp",
+        "preview": "dev/rig.sh preview",
         "test": "gulp build && gscan .",
         "zip": "gulp zip"
     },
