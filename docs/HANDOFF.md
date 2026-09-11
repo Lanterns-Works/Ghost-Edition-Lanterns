@@ -24,6 +24,32 @@ the gate.
    acceptably (both are stock Ghost inside iframes). The site description only feeds `<meta>`.
 3. Newsletter settings and the pseudonymity steps: the plan's lists.
 
+## Next design pass: the lantern hero (Maria, 2026-09-11)
+
+Keep everything built so far and put the lantern-on-the-dock image back on the home page, so the
+two sites feel continuous. Reference: Edition's own full-screen cover, which the design PR removed;
+its mechanics are in git history (`git show ec6e9f9:partials/cover.hbs`,
+`ec6e9f9:assets/css/site/cover.css`, the `with-full-cover` / `is-head-transparent` body classes and
+the `cover()` scroll in `ec6e9f9:assets/js/main.js`).
+
+- **Home page only, first page only.** A full-viewport hero (`100svh`, not Edition's JS toolbar
+  hack) of the dock image. Paged index, posts, pages: unchanged.
+- **The image.** The lantern site's `assets/lanterns-background-layer.jpg` (3840×2143, a brand
+  asset, all rights reserved). Prefer Ghost Admin's publication cover (`@site.cover_image`,
+  Design & branding) over shipping it in the theme: Admin manages it and `{{img_url ... size=}}`
+  serves responsive sizes. Crop so the lantern stays in frame in portrait (`object-position` to
+  the right).
+- **Header transparent over it**, the current header otherwise: white wordmark, paper-coloured
+  nav and buttons, whatever the colour scheme, since the image is dark. Below the hero the
+  two-colour scheme as now.
+- **Centre: the newest essay's excerpt** as a block quote in quotation marks (`custom_excerpt`,
+  else `excerpt`), linking to the essay. Paper text; a light scrim or text shadow for contrast.
+- **Bottom: "Continue reading" above a down caret**, one control that scrolls to the content.
+  The text is the button's label. Make the wording a theme setting like the rest of the copy.
+- **Then the current index**: intro page, subscribe form, essay list.
+- Gate as before: desktop and portrait mobile, both schemes, against the real image and a real
+  excerpt (`pnpm preview` pulls both once the cover is set in Admin).
+
 ## Decisions taken in the design PR that the plan left open
 
 - **No accent colour.** Links underline in ink. The lantern site's popups use an amber accent as a
