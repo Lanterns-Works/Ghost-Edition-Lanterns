@@ -5,7 +5,7 @@ site. Hosted on Ghost(Pro); we build a zip and upload it, nothing of ours is ser
 
 - **Read first:** `docs/HANDOFF.md` (state of play, what's next), then `../plans/lanterns/essays-site.md`
   (the plan: decisions, Ghost facts, design brief, open items) and `../plans/lanterns/soul.md` (what
-  lanterns is, the style rule). The lantern site itself is `../lanterns.dev` — its `CLAUDE.md`
+  Lanterns is, the style rule). The lantern site itself is `../lanterns.dev` — its `CLAUDE.md`
   carries the shared conventions.
 - **Build:** `pnpm install`, `pnpm dev` (watch), `pnpm zip` → `dist/lanterns.zip` for upload in
   Ghost Admin → Design → Change theme. `pnpm test` (build, then gscan) is the validation gate.
@@ -13,7 +13,9 @@ site. Hosted on Ghost(Pro); we build a zip and upload it, nothing of ours is ser
 - **Look at it:** `pnpm preview` → a local Ghost 6 in Docker at `localhost:2368` with the theme
   active, filled from the live site when `dev/.env` holds an Admin API key (see `dev/.env.example`
   and the README), else with test posts. `pnpm dev` pushes every edit into it.
-- **Style:** `lanterns` lowercase in prose; the wordmark image carries the period. **Georgia**
+- **Style:** Lanterns is capitalized in prose (Maria, 2026-09-12); lowercase only where it is the
+  wordmark: the logo image and its alt, the site title `lanterns.`, and the copyright line. em lorien
+  stays lowercase. **Georgia**
   everywhere (the lantern site's stack in `basics.css`; nothing vendored). **Two colours**,
   `#160e0e` / `#e7e5de`, swapped by `prefers-color-scheme`; everything else is an alpha of ink,
   no accent. **No bold anywhere**: `font-weight: 500` site-wide (Maria, 2026-09-10), which Georgia

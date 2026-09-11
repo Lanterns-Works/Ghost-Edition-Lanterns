@@ -1,7 +1,7 @@
 # Ghost-Edition-Lanterns
 
 The theme for [essays.lanterns.dev](https://essays.lanterns.dev), where the
-[lanterns](https://lanterns.dev) essays live. A fork of Ghost's
+[Lanterns](https://lanterns.dev) essays live. A fork of Ghost's
 [Edition](https://github.com/TryGhost/Edition), restyled to match the lantern site.
 Hosted on Ghost(Pro): the theme is built into a zip and uploaded; nothing is served
 from this repo.
