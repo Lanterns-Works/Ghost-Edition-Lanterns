@@ -66,8 +66,8 @@ up() {
     {"key":"description","value":"Written from inside the work, by someone who builds with these tools every day, enjoys it more than is comfortable, and does not know where it ends up."},
     {"key":"accent_color","value":"#160e0e"},
     {"key":"comments_enabled","value":"all"},
-    {"key":"navigation","value":"[{\"label\":\"About\",\"url\":\"https://lanterns.dev/#about\"},{\"label\":\"Research\",\"url\":\"https://lanterns.dev/#research\"},{\"label\":\"Resources\",\"url\":\"https://lanterns.dev/#resources\"},{\"label\":\"Contact\",\"url\":\"https://lanterns.dev/#contact\"}]"},
-    {"key":"secondary_navigation","value":"[]"},
+    {"key":"navigation","value":"[]"},
+    {"key":"secondary_navigation","value":"[{\"label\":\"Subscribe\",\"url\":\"#/portal/signup\"}]"},
     {"key":"facebook","value":""},
     {"key":"twitter","value":""}
   ]}' | python3 -c 'import json,sys; d=json.load(sys.stdin); print("settings:", "ok" if "settings" in d else d)'

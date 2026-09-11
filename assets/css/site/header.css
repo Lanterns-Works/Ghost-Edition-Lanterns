@@ -1,4 +1,9 @@
 /* The header is the wordmark alone; the shared header grid and heights still apply. */
+.gh-head-logo {
+    display: block;
+    width: max-content; /* the link and its focus ring hug the wordmark; without a width the block <picture> fills the header */
+}
+
 .gh-head-logo img:last-child {
     /* The shared CSS hides a second logo <img> (:nth-child(2)) for its own dark-mode swap; inside
        <picture> the <img> is always the last child, so undo that at the same specificity (later

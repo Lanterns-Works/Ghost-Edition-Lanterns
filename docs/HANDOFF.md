@@ -1,6 +1,6 @@
 # Handoff
 
-*State of play for the essays theme. Updated 2026-09-11.*
+*State of play for the essays theme. Updated 2026-09-12.*
 
 ## Where things are
 
@@ -68,7 +68,7 @@ reference, not the base: none of its JS survives.
   when the site has none (`dev/rig.sh cover`, run by `preview`), so the hero renders against test
   posts too.
 - **Checked in the rig** (2026-09-11): desktop at 2079px and a 390×800 portrait frame, light and
-  dark, the burger menu open over the hero, the anchor landing on the index; then an adversarial
+  dark, the anchor landing on the index; then an adversarial
   review (six lenses, two skeptics per finding) whose survivors are all in: the scrim had painted
   under the image, the header's focus ring was invisible over the sky, the control could overlap
   the quote on short viewports. One thing to judge by eye: in portrait the quote sits over the
@@ -108,9 +108,8 @@ Admin's primary navigation is not rendered anywhere. The plan's "nav mirrors the
   iframe in dark mode.
 - **`font-weight: 500 !important` site-wide** (zero bold). It also flattens `<strong>`, `<b>` and table
   headers in essay text; add a `.gh-content strong` exception if that turns out unwanted.
-- **Theme JS is a few lines** (`assets/js/main.js`): the burger's open state for assistive tech, the
-  page behind the open menu made inert, Escape to close, and focus moved to the subscribe form's
-  outcome message.
+- **Theme JS is one snippet** (`assets/js/main.js`): the subscribe form hides its row on success,
+  which drops focus, so focus is moved to the outcome message.
 - **Error pages:** `error-404.hbs` carries the plan's line; `error.hbs` covers the rest.
 
 ## Known gaps
