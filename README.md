@@ -31,12 +31,12 @@ pnpm dev       # rebuild on every edit and push it into that Ghost
 `pnpm preview` starts a throwaway Ghost 6 in Docker (needs a running Docker daemon, plus `python3`
 and `rsync`) and activates the theme. What it fills the site with depends on one file:
 
-- **With an Admin API key in `dev/.env`** it pulls the live site in: an allowlisted set of settings (identity, social
-  accounts, navigation, metadata, comments, members, Portal) and every post and page, drafts
-  included. Copy `dev/.env.example` to `dev/.env` and paste in an Admin API key from Ghost Admin →
-  Settings → Integrations → Add custom integration. The file is gitignored and never leaves your
-  machine; the live site is only read. Theme settings stay at their defaults, because Ghost does
-  not let API keys read them.
+- **With an Admin API key in `dev/.env`** it pulls the live site in: an allowlisted set of settings
+  (identity, social accounts, navigation, metadata, comments, members, Portal) and every post and
+  page, drafts included. Copy `dev/.env.example` to `dev/.env` and paste in an Admin API key from
+  Ghost Admin → Settings → Integrations → Add custom integration. The file is gitignored and never
+  leaves your machine; the live site is only read. Theme settings stay at their defaults, because
+  Ghost does not let API keys read them.
 - **Without one** it loads twelve posts of public-domain test content (`dev/posts.json`, Emerson).
 
 `preview` prints the local admin login. `dev/rig.sh down` removes the container; `dev/rig.sh`
