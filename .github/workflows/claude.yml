@@ -60,7 +60,10 @@ jobs:
           # leaving the default costs nothing and removes the failure mode entirely.
 
       # The action floats on its major tag like every action here (majors are the only bumps that
-      # get a PR); the CLI tracks stable.
+      # get a PR); the CLI tracks stable. Deliberate with this job's write permissions and the org
+      # token in view: a moved @v1 would run here unpinned, but so does the CLI install, from the
+      # same publisher in the same job, so a SHA on the action alone would close half a channel we
+      # trust by choice. Pin both or neither.
       # Retried and bounded — a stalled download would otherwise hang the attempt forever.
       - name: Install Claude Code (latest stable, resilient)
         run: |
@@ -78,10 +81,10 @@ jobs:
       - id: claude
         uses: anthropics/claude-code-action@v1
         env:
-          # anthropics/claude-code-action#1499 (open through v1.0.220): the action stops reading the
-          # SDK stream at the first result message, so a run that backgrounds subagents and ends its
-          # turn to wait for them exits green with the work orphaned. Also set via settings.env
-          # below, which is the path the action documents.
+          # anthropics/claude-code-action#1499 (open as of v1.0.222, checked 2026-09-11): the action
+          # stops reading the SDK stream at the first result message, so a run that backgrounds
+          # subagents and ends its turn to wait for them exits green with the work orphaned. Also set
+          # via settings.env below, which is the path the action documents.
           CLAUDE_CODE_DISABLE_BACKGROUND_TASKS: "1"
         with:
           path_to_claude_code_executable: /home/runner/.local/bin/claude
