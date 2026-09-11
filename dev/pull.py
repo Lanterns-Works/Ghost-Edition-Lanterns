@@ -74,10 +74,15 @@ for kind in ("posts", "pages"):  # replace the rig's content with the live site'
         call(local, "DELETE", f"{kind}/{item['id']}/")
 FIELDS = ("title", "slug", "html", "status", "published_at", "custom_excerpt", "feature_image",
           "feature_image_alt", "feature_image_caption", "visibility", "featured", "meta_title", "meta_description")
+failed = []
 for kind, items in (("posts", posts), ("pages", pages)):
     for it in items:
         payload = {k: it.get(k) for k in FIELDS if it.get(k) is not None}
         if it.get("tags"): payload["tags"] = [{"name": tg["name"]} for tg in it["tags"]]
-        call(local, "POST", f"{kind}/?source=html", {kind: [payload]})
-    print(f"{kind}: {len(items)} (drafts included)")
+        try:
+            call(local, "POST", f"{kind}/?source=html", {kind: [payload]})
+        except SystemExit as e:  # one awkward item should not cost the rest of the import
+            failed.append(f"{kind[:-1]} {it.get('slug')}: {e}")
+    print(f"{kind}: {len(items) - sum(f.startswith(kind[:-1]) for f in failed)} of {len(items)} (drafts included)")
+for f in failed: print("skipped", f)
 print(f"pulled {live} -> {local}")

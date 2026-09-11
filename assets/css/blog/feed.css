@@ -10,6 +10,10 @@
     margin-bottom: 1.1em;
 }
 
+.feed-header:not(:has(*)) {
+    display: none; /* no intro page yet and no form (a member): nothing to frame */
+}
+
 .feed-header-title {
     margin-bottom: 1.2rem;
     font-size: 2.8rem;

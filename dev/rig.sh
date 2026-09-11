@@ -18,7 +18,7 @@ set -euo pipefail
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
 PORT="${RIG_PORT:-2368}"
 URL="http://localhost:$PORT"
-WORK="${TMPDIR:-/tmp}/lanterns-rig$([ "$PORT" = 2368 ] || echo "-$PORT")"
+WORK="${TMPDIR:-/tmp}/lanterns-rig-$PORT"
 THEME="$WORK/theme"
 API="$URL/ghost/api/admin"
 JAR="$WORK/cookies.txt"
