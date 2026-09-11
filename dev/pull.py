@@ -86,3 +86,4 @@ for kind, items in (("posts", posts), ("pages", pages)):
     print(f"{kind}: {len(items) - sum(f.startswith(kind[:-1]) for f in failed)} of {len(items)} (drafts included)")
 for f in failed: print("skipped", f)
 print(f"pulled {live} -> {local}")
+if failed: sys.exit(1)  # an honest status for anyone chaining on it
