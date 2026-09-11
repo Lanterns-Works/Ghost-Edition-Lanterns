@@ -129,7 +129,7 @@
 }
 
 .is-head-transparent .site-main {
-    padding-top: 6vmin;
+    padding-top: var(--header-spacing);
 }
 
 html {

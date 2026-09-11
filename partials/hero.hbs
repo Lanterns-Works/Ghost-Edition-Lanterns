@@ -11,7 +11,7 @@
     {{#foreach posts limit="1"}}
     <blockquote class="hero-quote">
         <a href="{{url}}">
-            <p>“{{excerpt words="50"}}”</p>
+            {{#if excerpt}}<p>“{{excerpt words="50"}}”</p>{{/if}}
             <cite>{{title}}</cite>
         </a>
     </blockquote>

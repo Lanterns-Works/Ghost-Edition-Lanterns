@@ -90,8 +90,8 @@ cover() { # the hero wants Admin's publication cover; until the live site has on
   fi
   [ -f "$COVER" ] || { echo "cover: not set, $COVER is missing (the hero needs one; see README)"; return; }
   url=$(curl -sS -X POST "$API/images/upload/" -b "$JAR" -c "$JAR" -H "Origin: $URL" -F "file=@$COVER" -F purpose=image -F ref=cover \
-    | python3 -c 'import json,sys; print(json.load(sys.stdin)["images"][0]["url"])')
-  api PUT "settings/" "{\"settings\":[{\"key\":\"cover_image\",\"value\":\"$url\"}]}" >/dev/null && echo "cover: $url"
+    | python3 -c 'import json,sys; d=json.load(sys.stdin); print(d["images"][0]["url"]) if "images" in d else sys.exit("cover upload: "+json.dumps(d))')
+  api PUT "settings/" "{\"settings\":[{\"key\":\"cover_image\",\"value\":\"$url\"}]}" | python3 -c 'import json,sys; d=json.load(sys.stdin); print("cover:", sys.argv[1] if "settings" in d else d)' "$url"
 }
 
 loadenv() { if [ -f "$REPO/dev/.env" ]; then set -a; . "$REPO/dev/.env"; set +a; fi; }  # plain KEY=value lines, exported
