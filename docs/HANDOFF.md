@@ -9,9 +9,10 @@ two colours, the wordmark, our own subscribe form, comments, no search, `noindex
 archive, a footer with the year and a GitHub link. **Not yet uploaded:** the live site still runs
 the first upload of the fork (Lora and Mulish in its CSS).
 
-The lantern hero is built on the `hero` branch (see "The lantern hero" below). Rendered in the rig
+The `hero` branch (PR #8) carries the lantern hero, the header (wordmark and two links, no drawer)
+and the footer (one line, sign-in in a dialog): the three sections below. Rendered in the rig
 against the live site's cover and its one placeholder post, desktop and 390px portrait, both
-schemes. Em's eye is the gate.
+schemes; the review threads are all answered. Em's eye is the gate.
 
 ## Next
 
