@@ -1,54 +1,138 @@
 # Handoff
 
-*State of play for the essays theme. Updated 2026-09-10.*
+*State of play for the essays theme. Updated 2026-09-12.*
 
 ## Where things are
 
-The design brief in `../plans/lanterns/essays-site.md` is built on the `design` branch (PR #5):
+The design brief in `../plans/lanterns/essays-site.md` is on `main` (PR #5, merged 2026-09-11):
 two colours, the wordmark, our own subscribe form, comments, no search, `noindex` on the author
-archive, a footer with the year and a GitHub link. Rendered locally on desktop and at 390px
-portrait against a 2,500-word public-domain essay — **not yet against a real essay**, which is
-the gate.
+archive, a footer with the year and a GitHub link. **Not yet uploaded:** the live site still runs
+the first upload of the fork (Lora and Mulish in its CSS).
+
+The `hero` branch (PR #8) carries the lantern hero, the header (wordmark and two links, no drawer)
+and the footer (one line, sign-in in a dialog): the three sections below. Rendered in the rig
+against the live site's cover and its one placeholder post, desktop and 390px portrait, both
+schemes; the review threads are all answered. Em's eye is the gate.
 
 ## Next
 
-1. **Eye-gate (em):** `pnpm preview` (with `dev/.env` it mirrors the live site, drafts included;
-   see the README), then `pnpm dev` while editing. Look on desktop and portrait mobile in both
+1. **Eye-gate the hero (em):** `pnpm preview` (with `dev/.env` it mirrors the live site, drafts
+   included; see the README), then `pnpm dev` while editing. Desktop and portrait mobile, both
    colour schemes. Then merge, `pnpm zip`, and upload in Ghost Admin → Design → Change theme.
-2. **Ghost Admin on Ghost(Pro), once the theme is up.** Two things the theme needs from Admin:
-   a page with slug `intro` holding the index copy (paste the two paragraphs from
+2. **Ghost Admin on Ghost(Pro), once the theme is up.** What the theme needs from Admin: a page with
+   slug `intro` holding the index copy (paste the two paragraphs from
    `../plans/lanterns/essays-site.md`, "Index copy"; the "Get new essays by email" line is the
-   form), and a look at Design & branding → theme settings, where every line of theme copy is a
-   field pre-filled with the shipped wording. Then the usual checks: every social account set in
-   Admin renders as a footer icon; comments on; the Portal modal and the comments frame read
-   acceptably (both are stock Ghost inside iframes). The site description only feeds `<meta>`.
+   form); the publication cover (Design & branding), which the rig found already set to the dock
+   image, so the hero shows on upload; a **custom excerpt on every essay**, because the newest one
+   is the hero's quote and the fallback is the first fifty words of the text; the primary navigation
+   renamed to **Essays** and **Lanterns Home** (Settings → Navigation; the live labels are `essays`
+   and `lanterns. home`, and the period is the visible difference); the floating Portal button
+   hidden (Settings → Membership → Portal), since no public essay opens Portal, and the secondary
+   navigation's Subscribe item can go, since the theme no longer renders that menu; and a look at
+   Design & branding → theme settings, where every line of theme copy is a field pre-filled with the
+   shipped wording. Then the usual checks: every social account set in Admin renders as a footer
+   icon; comments on; the Portal modal and the comments frame read acceptably (both are stock Ghost
+   inside iframes). The site description only feeds `<meta>`. Check the hero's `<img>` on the live
+   site: Ghost(Pro) keeps the cover on `storage.ghost.io`, and `img_url` only resizes images on the
+   site's own URL, so the srcset may collapse to the original (114 KB as uploaded, acceptable). That
+   host does serve `size/w1920/` and `format/webp/` paths, so a hand-built srcset is possible if it
+   matters.
 3. Newsletter settings and the pseudonymity steps: the plan's lists.
 
-## Next design pass: the lantern hero (Maria, 2026-09-11)
+## The lantern hero (Maria's spec 2026-09-11, built the same day on `hero`)
 
-Keep everything built so far and put the lantern-on-the-dock image back on the home page, so the
-two sites feel continuous. Reference: Edition's own full-screen cover, which the design PR removed;
-its mechanics are in git history (`git show ec6e9f9:partials/cover.hbs`,
-`ec6e9f9:assets/css/site/cover.css`, the `with-full-cover` / `is-head-transparent` body classes and
-the `cover()` scroll in `ec6e9f9:assets/js/main.js`).
+The dock image back on the home page, so the two sites feel continuous. Home page, first page
+only, and only once Admin has a publication cover: `partials/hero.hbs`, included from `index.hbs`,
+styled in `assets/css/site/hero.css`. Edition's own cover (in git history at `ec6e9f9`) was the
+reference, not the base: none of its JS survives.
 
-- **Home page only, first page only.** A full-viewport hero (`100svh`, not Edition's JS toolbar
-  hack) of the dock image. Paged index, posts, pages: unchanged.
-- **The image.** The lantern site's `assets/lanterns-background-layer.jpg` (3840×2143, a brand
-  asset, all rights reserved). Prefer Ghost Admin's publication cover (`@site.cover_image`,
-  Design & branding) over shipping it in the theme: Admin manages it and `{{img_url ... size=}}`
-  serves responsive sizes. Crop so the lantern stays in frame in portrait (`object-position` to
-  the right).
-- **Header transparent over it**, the current header otherwise: white wordmark, paper-coloured
-  nav and buttons, whatever the colour scheme, since the image is dark. Below the hero the
-  two-colour scheme as now.
-- **Centre: the newest essay's excerpt** as a block quote in quotation marks (`custom_excerpt`,
-  else `excerpt`), linking to the essay. Paper text; a light scrim or text shadow for contrast.
-- **Bottom: "Continue reading" above a down caret**, one control that scrolls to the content.
-  The text is the button's label. Make the wording a theme setting like the rest of the copy.
-- **Then the current index**: intro page, subscribe form, essay list.
-- Gate as before: desktop and portrait mobile, both schemes, against the real image and a real
-  excerpt (`pnpm preview` pulls both once the cover is set in Admin).
+- **Full viewport** (`min-height: 100svh`) of `@site.cover_image` through `{{img_url … size=}}`
+  with a srcset over the theme's `image_sizes`, `object-position: 85% 60%` so the lantern (right
+  third of the photo) stays in frame in portrait. A 0.3 ink scrim over the image, a 0.4 halo
+  under the quote and the control, and a text shadow carry the paper text; the scrim and the halo
+  are the two knobs. Review measured portrait contrast: with those, the flame core under a few
+  characters stays below 4.5:1 and the rest passes; the same words are in the list below.
+- **Layout is grid rows** (`1fr auto 1fr auto`): the quote centred in the room above the control,
+  so a long excerpt, a landscape phone or 200% zoom grow the section rather than overlap.
+- **Header transparent over it:** the shared CSS's own `is-head-transparent` variant, added to
+  the body class in `default.hbs` on the same condition. The variant paints the links in
+  `--color-white`, which `basics.css` resolves on `:root` to the scheme's paper (ink in dark mode),
+  so the header fixes it to paper (the trap: a custom property resolves where it is declared, so
+  re-pinning `--paper` alone reached nothing). The wordmark gets a `<source>` with no media query
+  ahead of the dark-scheme one, so it is white in both schemes; the focus ring is set to paper too.
+- **The quote:** the newest post, `{{excerpt words="50"}}`, which outputs a custom excerpt
+  verbatim and otherwise the first fifty words. Italic, in curly quotes typed in the template,
+  the whole block a link to the essay, with the essay's title as a `<cite>` line under it: the
+  spec did not ask for a title, but a link needs a visible affordance and the title is the
+  smallest one. Drop the `<cite>` if em prefers the bare quote.
+- **"Continue reading" over a caret** is a plain anchor to `#essays`, the `<main>`, with
+  `scroll-behavior: smooth` on `html` (off under `prefers-reduced-motion`). No JS. The wording is
+  the `continue_reading` theme setting. The caret is Edition's `icons/caret-down` partial,
+  restored from history.
+- **Below it, the index as before.** `.site-content` gives up its top padding on the hero page and
+  `.site-main` takes it, so the hero sits flush under the header and the index sits where it did.
+- **The rig** sets the lantern site's dock image (`../lanterns.dev/assets/…`) as the local cover
+  when the site has none (`dev/rig.sh cover`, run by `preview`), so the hero renders against test
+  posts too.
+- **Checked in the rig** (2026-09-11): desktop at 2079px and a 390×800 portrait frame, light and
+  dark, the anchor landing on the index; then an adversarial
+  review (six lenses, two skeptics per finding) whose survivors are all in: the scrim had painted
+  under the image, the header's focus ring was invisible over the sky, the control could overlap
+  the quote on short viewports. One thing to judge by eye: in portrait the quote sits over the
+  lantern; the halo is what keeps it legible there.
+
+## Header navigation: the wordmark and two links (Maria, 2026-09-12)
+
+The header is the wordmark, linking to **lanterns.dev**, and Admin's primary menu beside it: two
+links, Essays (`/`) and Lanterns Home (`https://lanterns.dev/`), in the bar on every width. No
+mobile drawer, no burger, no Sign in or Subscribe buttons: the index carries the subscribe form and
+the intro page, and the footer carries the lanterns.dev link and the sign-in (next section). Any
+further links to the lantern site's sections belong in the intro page copy. The wordmark link is
+named for where it goes (`home_link_label`, a text setting) since its alt is the site title.
+
+How it got here, the same day: the lantern-menu mirror (About / Research / Resources / Contact)
+was confusing and too unlike the lantern site's own navigation, so the header went to the wordmark
+alone; that turned out to be confusing the other way, so the two links came back, in the bar rather
+than a drawer. The theme renders whatever Admin's primary menu holds; the plan's "nav mirrors the
+lantern menu" line (`../plans/lanterns/essays-site.md`) is superseded and a to-do is filed there.
+
+## The footer, and signing in without Portal (Maria, 2026-09-12)
+
+One line in the bottom-right corner, as on the lantern site: `lanterns.dev · © YYYY · Sign in`,
+then the LinkedIn icon (Admin's social accounts) and the GitHub icon, small and muted. Admin's
+secondary menu is not rendered any more: its Subscribe item opened the Portal popup, which is stock
+Ghost and jars against the site, and the index and every essay already carry the subscribe form.
+
+Sign in is the theme's own (`partials/member-link.hbs`): the link opens a one-field form in a
+native `<dialog>` (`showModal()`, a few lines in `main.js`), so nothing on the page moves; the
+browser puts it in the top layer, makes the page behind inert, focuses the field, and closes it on
+Escape; the close control and a click on the backdrop close it too. The form is
+`data-members-form="signin"`, which sends Ghost's sign-in link by email, the documented way to sign
+in without Portal. It reuses the subscribe form's classes, so Ghost's loading, success and error
+states and the focus move in `main.js` apply. Signed in, the link is Sign out
+(`data-members-signout`, also documented). Two earlier versions revealed the form in the page,
+as a `<details>` disclosure and then a `:target` row; both shifted the layout (Maria, 2026-09-12),
+hence the dialog. Both were exercised in the rig with an
+impersonation link from the Admin API (`members/:id/signin_urls/`, on the rig's own host; on
+another host the sign-out request is cross-origin and silently does nothing): on arrival Ghost
+shows a small Portal "Success" toast top-right, dismissible, and that is the whole of Portal a
+reader meets. Copy: six `text` settings (`signin_link`, `signin_label`, `signin_button`,
+`signin_success`, `signin_close`, `signout_link`); the field placeholder and the in-flight text
+are the subscribe form's. Nineteen settings of Ghost's twenty are now used.
+
+What still lives in Portal, untouched: account management (email, newsletter preferences) at
+`#/portal/account`, which nothing links to; unsubscribe is in every email. The comments UI's own
+sign-in prompt opens Portal, and so would the members-only gate (`partials/content-cta.hbs`,
+rendered by `{{content}}` on a gated post; its buttons are `data-portal`), which no public essay
+shows: if an essay is ever gated, swap those buttons for the theme's subscribe form and sign-in
+dialog. Hide the floating Portal button in Admin (Settings → Membership → Portal).
+
+Opening the dialog clears Ghost's state classes on the form, because Ghost never removes them: a
+sent link (or a mistyped address, which Ghost answers the same way so as not to reveal who is a
+member) would otherwise leave the second visit with no field. The backdrop darkens the page in
+both schemes, ink at 60% over the light one and black at 80% over the dark one (a fog of paper
+was tried for the dark scheme and was too bright); the panel is 8% ink on paper in both, so it
+lifts off the darkened page. Both on the eye gate.
 
 ## Decisions taken in the design PR that the plan left open
 
@@ -73,9 +157,8 @@ the `cover()` scroll in `ec6e9f9:assets/js/main.js`).
   iframe in dark mode.
 - **`font-weight: 500 !important` site-wide** (zero bold). It also flattens `<strong>`, `<b>` and table
   headers in essay text; add a `.gh-content strong` exception if that turns out unwanted.
-- **Theme JS is a few lines** (`assets/js/main.js`): the burger's open state for assistive tech, the
-  page behind the open menu made inert, Escape to close, and focus moved to the subscribe form's
-  outcome message.
+- **Theme JS is two snippets** (`assets/js/main.js`): a member form hides its row on success, which
+  drops focus, so focus is moved to the outcome message; and the sign-in dialog's open and close.
 - **Error pages:** `error-404.hbs` carries the plan's line; `error.hbs` covers the rest.
 
 ## Known gaps

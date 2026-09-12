@@ -1,0 +1,20 @@
+{{!-- The lantern on the dock, full viewport, under the transparent header (default.hbs adds the
+     body class on the same condition as index.hbs includes this). The image is Admin's
+     publication cover (Design & branding), so Admin manages it and Ghost serves the sizes;
+     no cover, no hero. In the middle, the newest essay's excerpt: a custom excerpt verbatim,
+     else the first fifty words of the text. --}}
+<section class="hero">
+    <img class="hero-image" alt="" fetchpriority="high"
+         src="{{img_url @site.cover_image size="xl"}}"
+         srcset="{{img_url @site.cover_image size="m"}} 750w, {{img_url @site.cover_image size="l"}} 960w, {{img_url @site.cover_image size="xl"}} 1140w, {{img_url @site.cover_image size="xxl"}} 1920w"
+         sizes="max(100vw, 179vh)">{{!-- the crop paints the image wider than the viewport in portrait: the box height times the photo's 16:9 --}}
+    {{#foreach posts limit="1"}}
+    <blockquote class="hero-quote">
+        <a href="{{url}}">
+            {{#if excerpt}}<p>“{{excerpt words="50"}}”</p>{{/if}}
+            <cite>{{title}}</cite>
+        </a>
+    </blockquote>
+    {{/foreach}}
+    <a class="hero-continue" href="#essays">{{@custom.continue_reading}}{{> "icons/caret-down"}}</a>
+</section>

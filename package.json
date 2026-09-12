@@ -59,7 +59,7 @@
             "subscribe_button": {
                 "type": "text",
                 "default": "Subscribe",
-                "description": "The form button and the header button."
+                "description": "The form button."
             },
             "subscribe_success": {
                 "type": "text",
@@ -94,6 +94,47 @@
                 "type": "text",
                 "default": "Sending\u2026",
                 "description": "On the button while the signup request is in flight."
+            },
+            "home_link_label": {
+                "type": "text",
+                "default": "Lanterns home",
+                "description": "The spoken name of the wordmark link in the header, which goes to lanterns.dev."
+            },
+            "signin_link": {
+                "type": "text",
+                "default": "Sign in",
+                "description": "The footer link that opens the sign-in field."
+            },
+            "signin_label": {
+                "type": "text",
+                "default": "The email you subscribed with; the sign-in link comes by email.",
+                "description": "Above the sign-in field."
+            },
+            "signin_button": {
+                "type": "text",
+                "default": "Send link",
+                "description": "The sign-in form button."
+            },
+            "signin_success": {
+                "type": "text",
+                "default": "Check your email for the link.",
+                "description": "Shown in place of the sign-in field once the link is sent."
+            },
+            "signin_close": {
+                "type": "text",
+                "default": "Close",
+                "description": "The sign-in dialog's close control."
+            },
+            "signout_link": {
+                "type": "text",
+                "default": "Sign out",
+                "description": "The footer link for a signed-in member."
+            },
+            "continue_reading": {
+                "type": "text",
+                "default": "Continue reading",
+                "group": "homepage",
+                "description": "At the foot of the home-page hero, above the caret; the hero needs a publication cover."
             }
         }
     },

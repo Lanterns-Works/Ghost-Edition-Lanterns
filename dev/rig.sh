@@ -9,6 +9,8 @@
 #   dev/rig.sh posts   load the test posts and the intro page (once, after up)
 #   dev/rig.sh pull    replace the rig's settings and content with the live site's (needs
 #                      LANTERNS_GHOST_URL and LANTERNS_GHOST_ADMIN_KEY in dev/.env; see dev/.env.example)
+#   dev/rig.sh cover   set the lantern site's dock image as the publication cover if there is none,
+#                      so the home-page hero renders (preview does this after pull or posts)
 #   dev/rig.sh sync    copy the current checkout into the running container's theme (pnpm dev
 #                      does this after every build while the rig is up)
 #   dev/rig.sh down    remove the container
@@ -26,6 +28,7 @@ API="$URL/ghost/api/admin"
 JAR="$WORK/cookies.txt"
 EMAIL=em@lanterns.dev
 PASS=lanterns-local-rig
+COVER="$REPO/../lanterns.dev/assets/lanterns-background-layer.jpg"  # the lantern site's checkout, beside this one
 
 api() { # api METHOD path [json]
   if [ -n "${3:-}" ]; then
@@ -39,7 +42,9 @@ login() { api POST "session/" "{\"username\":\"$EMAIL\",\"password\":\"$PASS\"}"
 sync() {
   mkdir -p "$THEME"
   [ -n "${RIG_SKIP_BUILD:-}" ] || (cd "$REPO" && pnpm exec gulp build >/dev/null)
-  rsync -a --delete --exclude node_modules --exclude .git --exclude dist --exclude 'CLAUDE*' --exclude .github --exclude dev "$REPO/" "$THEME/"
+  # --checksum: gulp gives a built file its source's mtime, so an edit that keeps the size (a digit
+  # for a digit) is invisible to rsync's size-and-time check and the rig keeps the old CSS.
+  rsync -a --checksum --delete --exclude node_modules --exclude .git --exclude dist --exclude 'CLAUDE*' --exclude .github --exclude dev "$REPO/" "$THEME/"
   echo "theme synced -> $THEME"
   # Ghost lists a theme's templates at activation, so a new .hbs file needs a re-activate.
   if [ -f "$JAR" ] && docker ps --format '{{.Names}}' | grep -q "^ghost-lanterns-$PORT\$"; then
@@ -63,7 +68,7 @@ up() {
     {"key":"description","value":"Written from inside the work, by someone who builds with these tools every day, enjoys it more than is comfortable, and does not know where it ends up."},
     {"key":"accent_color","value":"#160e0e"},
     {"key":"comments_enabled","value":"all"},
-    {"key":"navigation","value":"[{\"label\":\"About\",\"url\":\"https://lanterns.dev/#about\"},{\"label\":\"Research\",\"url\":\"https://lanterns.dev/#research\"},{\"label\":\"Resources\",\"url\":\"https://lanterns.dev/#resources\"},{\"label\":\"Contact\",\"url\":\"https://lanterns.dev/#contact\"}]"},
+    {"key":"navigation","value":"[{\"label\":\"Essays\",\"url\":\"/\"},{\"label\":\"Lanterns Home\",\"url\":\"https://lanterns.dev/\"}]"},
     {"key":"secondary_navigation","value":"[]"},
     {"key":"facebook","value":""},
     {"key":"twitter","value":""}
@@ -78,6 +83,17 @@ posts() { # dev/posts.json: twelve posts of public-domain Emerson, one long enou
       api POST "$kind/?source=html" "$line" | python3 -c 'import json,sys; d=json.load(sys.stdin); k=[k for k in d if k!="meta"][0]; print(k[:-1]+":", d[k][0]["slug"] if k in ("posts","pages") else d)'
     done
   done
+}
+
+cover() { # the hero wants Admin's publication cover; until the live site has one, stand in with the dock image
+  login
+  if api GET "settings/" | python3 -c 'import json,sys; s={x["key"]:x["value"] for x in json.load(sys.stdin)["settings"]}; sys.exit(0 if s.get("cover_image") else 1)'; then
+    echo "cover: already set"; return
+  fi
+  [ -f "$COVER" ] || { echo "cover: not set, $COVER is missing (the hero needs one; see README)"; return; }
+  url=$(curl -sS -X POST "$API/images/upload/" -b "$JAR" -c "$JAR" -H "Origin: $URL" -F "file=@$COVER" -F purpose=image -F ref=cover \
+    | python3 -c 'import json,sys; d=json.load(sys.stdin); print(d["images"][0]["url"]) if "images" in d else sys.exit("cover upload: "+json.dumps(d))')
+  api PUT "settings/" "{\"settings\":[{\"key\":\"cover_image\",\"value\":\"$url\"}]}" | python3 -c 'import json,sys; d=json.load(sys.stdin); print("cover:", sys.argv[1] if "settings" in d else d)' "$url"
 }
 
 loadenv() { if [ -f "$REPO/dev/.env" ]; then set -a; . "$REPO/dev/.env"; set +a; fi; }  # plain KEY=value lines, exported
@@ -95,10 +111,11 @@ preview() {
   if has_live; then pull; else
     echo "dev/.env is missing the live URL or an Admin API key, so loading the test posts instead (see dev/.env.example)"; posts
   fi
+  cover
   echo; echo "preview: $URL   (pnpm dev keeps it in step with your edits; dev/rig.sh down removes it)"
 }
 
 case "${1:-}" in
-  up) up ;; preview) preview ;; sync) sync ;; posts) posts ;; pull) pull ;; down) docker rm -f "ghost-lanterns-$PORT" ;;
-  *) echo "usage: dev/rig.sh up|preview|posts|pull|sync|down"; exit 1 ;;
+  up) up ;; preview) preview ;; sync) sync ;; posts) posts ;; pull) pull ;; cover) cover ;; down) docker rm -f "ghost-lanterns-$PORT" ;;
+  *) echo "usage: dev/rig.sh up|preview|posts|pull|cover|sync|down"; exit 1 ;;
 esac

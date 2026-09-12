@@ -56,7 +56,7 @@ function css(done) {
 }
 
 function getJsFiles(version) {
-    // The shared assets carry the burger menu, the lightbox and the embed reframing; the
+    // The shared assets carry the lightbox and the embed reframing; the
     // theme's own main.js is a few lines on top of them.
     return [
         src(`${sharedThemeAssetsPath}/assets/js/${version}/lib/**/*.js`),

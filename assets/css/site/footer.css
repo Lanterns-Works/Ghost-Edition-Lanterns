@@ -1,13 +1,102 @@
+/* The footer is one line in the bottom-right corner, as on the lantern site: small, tracked,
+   muted, the icons at text size. */
 .gh-foot {
     padding-top: 6rem;
-    padding-bottom: 6rem;
+    padding-bottom: 3rem;
+    font-size: 1.2rem;
     letter-spacing: 0.08em;
 }
 
 .gh-foot-inner {
-    font-size: 1.2rem;
+    display: flex; /* the shared rule is a three-column grid */
+    flex-wrap: wrap;
+    gap: 0.4em 0.6em;
+    align-items: center;
+    justify-content: flex-end;
+    font-size: inherit;
+}
+
+.gh-social-links {
+    gap: 0;
 }
 
 .gh-social-links a {
+    padding: 5px; /* a 24px target around a 14px glyph (WCAG 2.5.8) */
+    margin: -5px 0; /* without growing the line */
     text-decoration: none;
+}
+
+.gh-social-links svg { /* the shared rule is 16px on the same selector */
+    width: 14px;
+    height: 14px;
+}
+
+/* The member link carries its own separator. The sign-in link is a button styled as the links
+   around it. */
+.member-link::before {
+    display: inline-block; /* keeps the link's underline off the dot; the space is non-breaking so the block keeps it */
+    content: "·\00a0";
+}
+
+button.member-link {
+    color: var(--color-secondary-text);
+    text-decoration: underline;
+    text-decoration-color: var(--muted);
+    text-underline-offset: 3px; /* as every link, basics.css */
+    letter-spacing: inherit;
+}
+
+button.member-link:hover {
+    color: var(--color-darker-gray);
+}
+
+/* The sign-in dialog: the panel a shade of ink on paper, so it lifts off the page in both
+   schemes, and a hairline; the backdrop darkens the page in both, ink over the light one and
+   black over the dark one (a fog of paper was tried and was too bright; Maria, 2026-09-12).
+   Literals in the backdrop rules: ::backdrop only inherits custom properties in recent browsers.
+   The click-to-close in main.js relies on the padding being on the inner box, so a click on the
+   dialog element itself is a click on the backdrop. */
+.signin {
+    width: min(30em, 100% - var(--gap) * 2);
+    padding: 0;
+    font-size: 1.6rem;
+    color: var(--ink);
+    letter-spacing: 0.02em;
+    white-space: normal; /* the footer's rule is nowrap */
+    text-align: left;
+    background: color-mix(in srgb, var(--ink) 8%, var(--paper));
+    border: 1px solid var(--edge);
+}
+
+.signin::backdrop {
+    background: rgba(22, 14, 14, 0.6);
+}
+
+@media (prefers-color-scheme: dark) {
+    .signin::backdrop {
+        background: rgba(0, 0, 0, 0.8);
+    }
+}
+
+.signin-inner {
+    padding: 2.4rem;
+}
+
+.signin .subscribe {
+    max-width: none;
+    margin-top: 0;
+}
+
+.signin-close {
+    margin-top: 2rem;
+    font-size: 1.2rem;
+    color: var(--muted);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+}
+
+.signin-close:hover {
+    color: var(--ink);
 }

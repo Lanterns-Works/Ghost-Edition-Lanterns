@@ -1,6 +1,10 @@
 {{!< default}}
 
-<main class="site-main">
+{{!-- The lantern hero: home page, first page only, and only once Admin has a publication cover
+     (Design & branding). default.hbs makes the header transparent on the same condition. --}}
+{{#is "home"}}{{#if @site.cover_image}}{{> "hero"}}{{/if}}{{/is}}
+
+<main class="site-main" id="essays">
 
     {{#is "paged"}}{{else}}
     <header class="feed-header gh-canvas">

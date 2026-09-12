@@ -6,7 +6,7 @@
 
 .site-content {
     flex-grow: 1;
-    padding: 6vmin 0;
+    padding: var(--header-spacing) 0;
 }
 
 .page-template .site-content {
