@@ -129,10 +129,10 @@ dialog. Hide the floating Portal button in Admin (Settings → Membership → Po
 
 Opening the dialog clears Ghost's state classes on the form, because Ghost never removes them: a
 sent link (or a mistyped address, which Ghost answers the same way so as not to reveal who is a
-member) would otherwise leave the second visit with no field. In the dark scheme the backdrop is
-paper at 40%, which fogs the page rather than dims it, since a dark scrim over ink-dark paper does
-nothing; the panel is 8% ink on paper in both schemes so it lifts off the page. Both on the eye
-gate.
+member) would otherwise leave the second visit with no field. The backdrop darkens the page in
+both schemes, ink at 60% over the light one and black at 80% over the dark one (a fog of paper
+was tried for the dark scheme and was too bright); the panel is 8% ink on paper in both, so it
+lifts off the darkened page. Both on the eye gate.
 
 ## Decisions taken in the design PR that the plan left open
 

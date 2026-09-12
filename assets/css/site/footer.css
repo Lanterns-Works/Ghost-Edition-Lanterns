@@ -51,11 +51,11 @@ button.member-link:hover {
 }
 
 /* The sign-in dialog: the panel a shade of ink on paper, so it lifts off the page in both
-   schemes, and a hairline; the backdrop an alpha of the scheme's ink, which dims the light page
-   and fogs the dark one (a dark scrim over ink-dark paper dims nothing). Literals in the backdrop
-   rules: ::backdrop only inherits custom properties in recent browsers. The click-to-close in
-   main.js relies on the padding being on the inner box, so a click on the dialog element itself
-   is a click on the backdrop. */
+   schemes, and a hairline; the backdrop darkens the page in both, ink over the light one and
+   black over the dark one (a fog of paper was tried and was too bright; Maria, 2026-09-12).
+   Literals in the backdrop rules: ::backdrop only inherits custom properties in recent browsers.
+   The click-to-close in main.js relies on the padding being on the inner box, so a click on the
+   dialog element itself is a click on the backdrop. */
 .signin {
     width: min(30em, 100% - var(--gap) * 2);
     padding: 0;
@@ -74,7 +74,7 @@ button.member-link:hover {
 
 @media (prefers-color-scheme: dark) {
     .signin::backdrop {
-        background: rgba(231, 229, 222, 0.4);
+        background: rgba(0, 0, 0, 0.8);
     }
 }
 
