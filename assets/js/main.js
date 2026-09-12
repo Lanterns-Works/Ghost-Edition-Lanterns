@@ -8,11 +8,16 @@
 })();
 
 /* The footer's sign-in opens its form in a dialog: the link shows it; Escape, the close button
-   and a click on the backdrop (the dialog itself, outside its padded inner box) close it. */
+   and a click on the backdrop (the dialog itself, outside its padded inner box) close it. Opening
+   clears Ghost's state classes, which it never removes itself: a sent link leaves the form in
+   success with its row hidden, and a mistyped address gets the same answer on purpose. */
 (function () {
     var dialog = document.getElementById('signin');
     if (!dialog) return;
-    document.querySelector('[data-signin-open]').addEventListener('click', function () { dialog.showModal(); });
+    document.querySelector('[data-signin-open]').addEventListener('click', function () {
+        dialog.querySelector('.subscribe').classList.remove('success', 'error', 'loading');
+        dialog.showModal();
+    });
     dialog.querySelector('[data-signin-close]').addEventListener('click', function () { dialog.close(); });
     dialog.addEventListener('click', function (e) { if (e.target === dialog) dialog.close(); });
 })();

@@ -26,7 +26,7 @@ schemes. Em's eye is the gate.
    is the hero's quote and the fallback is the first fifty words of the text; the primary navigation
    renamed to **Essays** and **Lanterns Home** (Settings → Navigation; the live labels are `essays`
    and `lanterns. home`, and the period is the visible difference); the floating Portal button
-   hidden (Settings → Membership → Portal), since the theme never opens Portal, and the secondary
+   hidden (Settings → Membership → Portal), since no public essay opens Portal, and the secondary
    navigation's Subscribe item can go, since the theme no longer renders that menu; and a look at
    Design & branding → theme settings, where every line of theme copy is a field pre-filled with the
    shipped wording. Then the usual checks: every social account set in Admin renders as a footer
@@ -121,8 +121,17 @@ are the subscribe form's. Nineteen settings of Ghost's twenty are now used.
 
 What still lives in Portal, untouched: account management (email, newsletter preferences) at
 `#/portal/account`, which nothing links to; unsubscribe is in every email. The comments UI's own
-sign-in prompt opens Portal. Hide the floating Portal button in Admin (Settings → Membership →
-Portal); the theme never opens it.
+sign-in prompt opens Portal, and so would the members-only gate (`partials/content-cta.hbs`,
+rendered by `{{content}}` on a gated post; its buttons are `data-portal`), which no public essay
+shows: if an essay is ever gated, swap those buttons for the theme's subscribe form and sign-in
+dialog. Hide the floating Portal button in Admin (Settings → Membership → Portal).
+
+Opening the dialog clears Ghost's state classes on the form, because Ghost never removes them: a
+sent link (or a mistyped address, which Ghost answers the same way so as not to reveal who is a
+member) would otherwise leave the second visit with no field. In the dark scheme the backdrop is
+paper at 40%, which fogs the page rather than dims it, since a dark scrim over ink-dark paper does
+nothing; the panel is 8% ink on paper in both schemes so it lifts off the page. Both on the eye
+gate.
 
 ## Decisions taken in the design PR that the plan left open
 

@@ -1,5 +1,6 @@
 {{!-- Our own subscribe form: Ghost's data-members-form handles the request and toggles
-     loading / success / error on the form. Nothing in the theme opens Portal. --}}
+     loading / success / error on the form. Nothing a reader meets on a public essay opens
+     Portal; the members-only gate (content-cta.hbs) still would. --}}
 {{#if @site.members_enabled}}
 {{#unless @site.members_invite_only}}
 {{#unless @member}}

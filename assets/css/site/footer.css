@@ -50,9 +50,12 @@ button.member-link:hover {
     color: var(--color-darker-gray);
 }
 
-/* The sign-in dialog: the two colours and a hairline, the backdrop an alpha of the light
-   scheme's ink in both schemes. The click-to-close in main.js relies on the padding being on the
-   inner box, so a click on the dialog element itself is a click on the backdrop. */
+/* The sign-in dialog: the panel a shade of ink on paper, so it lifts off the page in both
+   schemes, and a hairline; the backdrop an alpha of the scheme's ink, which dims the light page
+   and fogs the dark one (a dark scrim over ink-dark paper dims nothing). Literals in the backdrop
+   rules: ::backdrop only inherits custom properties in recent browsers. The click-to-close in
+   main.js relies on the padding being on the inner box, so a click on the dialog element itself
+   is a click on the backdrop. */
 .signin {
     width: min(30em, 100% - var(--gap) * 2);
     padding: 0;
@@ -61,12 +64,18 @@ button.member-link:hover {
     letter-spacing: 0.02em;
     white-space: normal; /* the footer's rule is nowrap */
     text-align: left;
-    background: var(--paper);
+    background: color-mix(in srgb, var(--ink) 8%, var(--paper));
     border: 1px solid var(--edge);
 }
 
 .signin::backdrop {
     background: rgba(22, 14, 14, 0.6);
+}
+
+@media (prefers-color-scheme: dark) {
+    .signin::backdrop {
+        background: rgba(231, 229, 222, 0.4);
+    }
 }
 
 .signin-inner {
