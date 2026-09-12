@@ -4,40 +4,31 @@
 
 ## Where things are
 
-The design brief in `../plans/lanterns/essays-site.md` is on `main` (PR #5, merged 2026-09-11):
-two colours, the wordmark, our own subscribe form, comments, no search, `noindex` on the author
-archive, a footer with the year and a GitHub link. **Not yet uploaded:** the live site still runs
-the first upload of the fork (Lora and Mulish in its CSS).
-
-The `hero` branch (PR #8) carries the lantern hero, the header (wordmark and two links, no drawer)
-and the footer (one line, sign-in in a dialog): the three sections below. Rendered in the rig
-against the live site's cover and its one placeholder post, desktop and 390px portrait, both
-schemes; the review threads are all answered. Em's eye is the gate.
+Everything is on `main` and **live on essays.lanterns.dev** (uploaded 2026-09-12, after PR #8
+merged): the design brief (PR #5: two colours, the wordmark, our own subscribe form, comments, no
+search, `noindex` on the author archive), the lantern hero, the header (wordmark and two links,
+no drawer) and the footer (one line, sign-in in a dialog), each recorded in its section below.
+The live site renders the hero, so Admin's publication cover is set.
 
 ## Next
 
-1. **Eye-gate the hero (em):** `pnpm preview` (with `dev/.env` it mirrors the live site, drafts
-   included; see the README), then `pnpm dev` while editing. Desktop and portrait mobile, both
-   colour schemes. Then merge, `pnpm zip`, and upload in Ghost Admin → Design → Change theme.
-2. **Ghost Admin on Ghost(Pro), once the theme is up.** What the theme needs from Admin: a page with
-   slug `intro` holding the index copy (paste the two paragraphs from
-   `../plans/lanterns/essays-site.md`, "Index copy"; the "Get new essays by email" line is the
-   form); the publication cover (Design & branding), which the rig found already set to the dock
-   image, so the hero shows on upload; a **custom excerpt on every essay**, because the newest one
-   is the hero's quote and the fallback is the first fifty words of the text; the primary navigation
-   renamed to **Essays** and **Lanterns Home** (Settings → Navigation; the live labels are `essays`
-   and `lanterns. home`, and the period is the visible difference); the floating Portal button
-   hidden (Settings → Membership → Portal), since no public essay opens Portal, and the secondary
-   navigation's Subscribe item can go, since the theme no longer renders that menu; and a look at
-   Design & branding → theme settings, where every line of theme copy is a field pre-filled with the
-   shipped wording. Then the usual checks: every social account set in Admin renders as a footer
-   icon; comments on; the Portal modal and the comments frame read acceptably (both are stock Ghost
-   inside iframes). The site description only feeds `<meta>`. Check the hero's `<img>` on the live
-   site: Ghost(Pro) keeps the cover on `storage.ghost.io`, and `img_url` only resizes images on the
-   site's own URL, so the srcset may collapse to the original (114 KB as uploaded, acceptable). That
-   host does serve `size/w1920/` and `format/webp/` paths, so a hand-built srcset is possible if it
-   matters.
-3. Newsletter settings and the pseudonymity steps: the plan's lists.
+1. **Ghost Admin on Ghost(Pro).** What the theme still needs from Admin: a page with slug `intro`
+   holding the index copy (paste the two paragraphs from `../plans/lanterns/essays-site.md`, "Index
+   copy"; the "Get new essays by email" line is the form); the publication cover (Design & branding)
+   is set (the hero renders live); a **custom excerpt on every essay**, because the newest one is
+   the hero's quote and the fallback is the first fifty words of the text; the primary navigation is
+   Admin's (live: `essays` and `return to lanterns.dev`, Maria's wording, rendered in capitals); the
+   floating Portal button hidden (Settings → Membership → Portal), since no public essay opens
+   Portal, and the secondary navigation's Subscribe item can go, since the theme no longer renders
+   that menu; and a look at Design & branding → theme settings, where every line of theme copy is a
+   field pre-filled with the shipped wording. Then the usual checks: every social account set in
+   Admin renders as a footer icon; comments on; the Portal modal and the comments frame read
+   acceptably (both are stock Ghost inside iframes). The site description only feeds `<meta>`. Check
+   the hero's `<img>` on the live site: Ghost(Pro) keeps the cover on `storage.ghost.io`, and
+   `img_url` only resizes images on the site's own URL, so the srcset may collapse to the original
+   (114 KB as uploaded, acceptable). That host does serve `size/w1920/` and `format/webp/` paths, so
+   a hand-built srcset is possible if it matters.
+2. Newsletter settings and the pseudonymity steps: the plan's lists.
 
 ## The lantern hero (Maria's spec 2026-09-11, built the same day on `hero`)
 
