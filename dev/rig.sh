@@ -42,7 +42,9 @@ login() { api POST "session/" "{\"username\":\"$EMAIL\",\"password\":\"$PASS\"}"
 sync() {
   mkdir -p "$THEME"
   [ -n "${RIG_SKIP_BUILD:-}" ] || (cd "$REPO" && pnpm exec gulp build >/dev/null)
-  rsync -a --delete --exclude node_modules --exclude .git --exclude dist --exclude 'CLAUDE*' --exclude .github --exclude dev "$REPO/" "$THEME/"
+  # --checksum: gulp gives a built file its source's mtime, so an edit that keeps the size (a digit
+  # for a digit) is invisible to rsync's size-and-time check and the rig keeps the old CSS.
+  rsync -a --checksum --delete --exclude node_modules --exclude .git --exclude dist --exclude 'CLAUDE*' --exclude .github --exclude dev "$REPO/" "$THEME/"
   echo "theme synced -> $THEME"
   # Ghost lists a theme's templates at activation, so a new .hbs file needs a re-activate.
   if [ -f "$JAR" ] && docker ps --format '{{.Names}}' | grep -q "^ghost-lanterns-$PORT\$"; then

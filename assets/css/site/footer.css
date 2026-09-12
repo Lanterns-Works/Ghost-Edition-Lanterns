@@ -3,7 +3,7 @@
 .gh-foot {
     padding-top: 6rem;
     padding-bottom: 3rem;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     letter-spacing: 0.08em;
 }
 
@@ -21,14 +21,14 @@
 }
 
 .gh-social-links a {
-    padding: 6px; /* a 24px target around a 12px glyph (WCAG 2.5.8) */
-    margin: -6px 0; /* without growing the line */
+    padding: 5px; /* a 24px target around a 14px glyph (WCAG 2.5.8) */
+    margin: -5px 0; /* without growing the line */
     text-decoration: none;
 }
 
 .gh-social-links svg { /* the shared rule is 16px on the same selector */
-    width: 12px;
-    height: 12px;
+    width: 14px;
+    height: 14px;
 }
 
 /* The member link carries its own separator. The sign-in link is a button styled as the links
