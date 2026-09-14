@@ -2,6 +2,8 @@
 
 The theme for **essays.lanterns.dev** — a fork of Ghost's Edition, restyled to match the lantern
 site. Hosted on Ghost(Pro); we build a zip and upload it, nothing of ours is served elsewhere.
+This site is the archive and the reading column; lanterns.dev is the front door and lists the
+essays live from this site's Content API (see `docs/HANDOFF.md`).
 
 - **Read first:** `docs/HANDOFF.md` (state of play, what's next), then `../plans/lanterns/essays-site.md`
   (the plan: decisions, Ghost facts, design brief, open items) and `../plans/lanterns/soul.md` (what
@@ -21,10 +23,9 @@ site. Hosted on Ghost(Pro); we build a zip and upload it, nothing of ours is ser
   no accent. One exception: the sign-in dialog's dark-scheme backdrop is black, because ink over
   ink-dark paper dims nothing. **No bold anywhere**: `font-weight: 500` site-wide (Maria, 2026-09-10), which Georgia
   renders as regular. Accent colour in Ghost Admin is `#160e0e` (Portal reads it).
-- **Copy lives in Ghost Admin, not in templates.** The index intro is the page whose slug is the
-  `intro_page` theme setting; every other line of theme copy is a `text` setting under Design &
-  branding, with the shipped wording as its default in `package.json`. Add a setting rather than
-  hardcoding a string.
+- **Copy lives in Ghost Admin, not in templates.** Every line of theme copy is a `text` setting
+  under Design & branding, with the shipped wording as its default in `package.json`. Add a setting
+  rather than hardcoding a string.
 - **Writing is attributed to em lorien.** Staff user name on Ghost is em lorien.
 - **Identity:** commit as `em lorien <em@lanterns.dev>` (git conditional include for the Lanterns
   folder). Switch `gh` to `em-lorien` before repo or PR work. No `Co-Authored-By` trailers.
