@@ -4,17 +4,15 @@
 
 ## Where things are
 
-Everything is on `main`. **Live on essays.lanterns.dev** is the PR #8 zip (uploaded 2026-09-12):
+Everything is on `main` and **live on essays.lanterns.dev** (the PR #9 zip, uploaded 2026-09-14):
 the design brief (PR #5: two colours, the wordmark, our own subscribe form, comments, no search,
-`noindex` on the author archive), the header (wordmark and two links, no drawer) and the footer
-(one line, sign-in in a dialog), each recorded in its section below. PR #9 (2026-09-14) makes the
-theme the archive: the hero and the intro page are gone and the home is the subscribe form, then
-the list (next section). It is not live until its zip is uploaded.
+`noindex` on the author archive), the header (wordmark and two links, no drawer), the footer (one
+line, sign-in in a dialog) and, since PR #9, the archive home: no hero, no intro page, the
+subscribe form and then the list. Each is recorded in its section below.
 
 ## Next
 
-1. **Upload the zip**: `pnpm zip`, then Ghost Admin → Design → Change theme → Upload
-   `dist/lanterns.zip`. Check the home on desktop and portrait mobile.
+1. **The eye gate** on the archive home: desktop and portrait mobile, against the live site.
 2. **Ghost Admin on Ghost(Pro).** Hide the floating Portal button (Settings → Membership → Portal):
    no public essay opens Portal. The secondary navigation's Subscribe item can go, since the theme
    no longer renders that menu. The stock "Coming soon" placeholder post is on lanterns.dev's
