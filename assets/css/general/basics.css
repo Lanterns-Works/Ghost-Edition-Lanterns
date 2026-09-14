@@ -55,7 +55,7 @@ body {
     letter-spacing: 0.02em; /* a touch of air in Georgia, as on the lantern site */
 }
 
-/* Zero bold on this site (Maria, 2026-09-10): medium at most. Georgia has no medium face, so
+/* Zero bold on this site: medium at most. Georgia has no medium face, so
    this reads as regular; Noto Serif on Android has one. !important because Ghost's card CSS and
    the shared header rules set their own weights, and the rule is meant to be absolute. */
 body,

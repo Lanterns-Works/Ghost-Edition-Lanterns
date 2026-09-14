@@ -24,7 +24,7 @@
             <div class="gh-head-brand">
                 {{!-- The wordmark: the image, never the title as text, and the way back to the lantern
                      site. Beside it Admin's primary menu (two links, in the bar on every width; no
-                     drawer). No Sign in or Subscribe up here (Maria, 2026-09-12): the index carries
+                     drawer). No Sign in or Subscribe up here: the index carries
                      the subscribe form and the footer the sign-in (partials/member-link.hbs). --}}
                 <a class="gh-head-logo" href="https://lanterns.dev/" aria-label="{{@custom.home_link_label}}">
                     <picture>
@@ -48,7 +48,7 @@
 
     <footer class="gh-foot gh-outer">
         {{!-- One line in the bottom-right corner, as on the lantern site: the link home, the year, the
-             member link, then the icons. Admin's secondary menu is not rendered (Maria, 2026-09-12). --}}
+             member link, then the icons. Admin's secondary menu is not rendered. --}}
         <div class="gh-foot-inner gh-inner">
             <a href="https://lanterns.dev/">lanterns.dev</a> · © {{date format="YYYY"}}
             {{> "member-link"}}

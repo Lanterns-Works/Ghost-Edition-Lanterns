@@ -17,7 +17,7 @@ The live site renders the hero, so Admin's publication cover is set.
    copy"; the "Get new essays by email" line is the form); the publication cover (Design & branding)
    is set (the hero renders live); a **custom excerpt on every essay**, because the newest one is
    the hero's quote and the fallback is the first fifty words of the text; the primary navigation is
-   Admin's (live: `essays` and `return to lanterns.dev`, Maria's wording, rendered in capitals); the
+   Admin's (live: `essays` and `return to lanterns.dev`, rendered in capitals); the
    floating Portal button hidden (Settings → Membership → Portal), since no public essay opens
    Portal, and the secondary navigation's Subscribe item can go, since the theme no longer renders
    that menu; and a look at Design & branding → theme settings, where every line of theme copy is a
@@ -30,7 +30,7 @@ The live site renders the hero, so Admin's publication cover is set.
    a hand-built srcset is possible if it matters.
 2. Newsletter settings and the pseudonymity steps: the plan's lists.
 
-## The lantern hero (Maria's spec 2026-09-11, built the same day on `hero`)
+## The lantern hero
 
 The dock image back on the home page, so the two sites feel continuous. Home page, first page
 only, and only once Admin has a publication cover: `partials/hero.hbs`, included from `index.hbs`,
@@ -72,7 +72,7 @@ reference, not the base: none of its JS survives.
   the quote on short viewports. One thing to judge by eye: in portrait the quote sits over the
   lantern; the halo is what keeps it legible there.
 
-## Header navigation: the wordmark and two links (Maria, 2026-09-12)
+## Header navigation: the wordmark and two links
 
 The header is the wordmark, linking to **lanterns.dev**, and Admin's primary menu beside it: two
 links, Essays (`/`) and Lanterns Home (`https://lanterns.dev/`), in the bar on every width. No
@@ -87,7 +87,7 @@ alone; that turned out to be confusing the other way, so the two links came back
 than a drawer. The theme renders whatever Admin's primary menu holds; the plan's "nav mirrors the
 lantern menu" line (`../plans/lanterns/essays-site.md`) is superseded and a to-do is filed there.
 
-## The footer, and signing in without Portal (Maria, 2026-09-12)
+## The footer, and signing in without Portal
 
 One line in the bottom-right corner, as on the lantern site: `lanterns.dev · © YYYY · Sign in`,
 then the LinkedIn icon (Admin's social accounts) and the GitHub icon, small and muted. Admin's
@@ -102,7 +102,7 @@ Escape; the close control and a click on the backdrop close it too. The form is
 in without Portal. It reuses the subscribe form's classes, so Ghost's loading, success and error
 states and the focus move in `main.js` apply. Signed in, the link is Sign out
 (`data-members-signout`, also documented). Two earlier versions revealed the form in the page,
-as a `<details>` disclosure and then a `:target` row; both shifted the layout (Maria, 2026-09-12),
+as a `<details>` disclosure and then a `:target` row; both shifted the layout,
 hence the dialog. Both were exercised in the rig with an
 impersonation link from the Admin API (`members/:id/signin_urls/`, on the rig's own host; on
 another host the sign-out request is cross-origin and silently does nothing): on arrival Ghost
