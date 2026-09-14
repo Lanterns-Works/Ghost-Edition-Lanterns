@@ -29,7 +29,7 @@ the list (next section). It is not live until its zip is uploaded.
    stock Ghost inside iframes). The site description only feeds `<meta>`.
 3. Newsletter settings and the pseudonymity steps: the plan's lists.
 
-## The archive (Maria, 2026-09-12; built 2026-09-14 on `archive`)
+## The archive (built 2026-09-14 on `archive`)
 
 lanterns.dev is the one front door: its Essays page carries the intro copy (`content/en.js` there)
 and lists the essays live, and this site is where they are read. Decided in lanterns.dev's

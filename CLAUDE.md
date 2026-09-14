@@ -21,7 +21,7 @@ essays live from this site's Content API (see `docs/HANDOFF.md`).
   everywhere (the lantern site's stack in `basics.css`; nothing vendored). **Two colours**,
   `#160e0e` / `#e7e5de`, swapped by `prefers-color-scheme`; everything else is an alpha of ink,
   no accent. One exception: the sign-in dialog's dark-scheme backdrop is black, because ink over
-  ink-dark paper dims nothing. **No bold anywhere**: `font-weight: 500` site-wide (Maria, 2026-09-10), which Georgia
+  ink-dark paper dims nothing. **No bold anywhere**: `font-weight: 500` site-wide, which Georgia
   renders as regular. Accent colour in Ghost Admin is `#160e0e` (Portal reads it).
 - **Copy lives in Ghost Admin, not in templates.** Every line of theme copy is a `text` setting
   under Design & branding, with the shipped wording as its default in `package.json`. Add a setting
