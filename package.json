@@ -41,12 +41,6 @@
         },
         "card_assets": true,
         "custom": {
-            "intro_page": {
-                "type": "text",
-                "default": "intro",
-                "group": "homepage",
-                "description": "Slug of the page whose content sits above the essay list. Blank for none."
-            },
             "subscribe_label": {
                 "type": "text",
                 "default": "Get new essays by email.",
@@ -129,12 +123,6 @@
                 "type": "text",
                 "default": "Sign out",
                 "description": "The footer link for a signed-in member."
-            },
-            "continue_reading": {
-                "type": "text",
-                "default": "Continue reading",
-                "group": "homepage",
-                "description": "At the foot of the home-page hero, above the caret; the hero needs a publication cover."
             }
         }
     },

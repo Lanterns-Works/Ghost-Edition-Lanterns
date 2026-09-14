@@ -7,11 +7,11 @@
 }
 
 .feed-header p {
-    margin-bottom: 1.1em;
+    margin-bottom: 1.1em; /* the author bio and the tag description (author.hbs, tag.hbs) */
 }
 
 .feed-header:not(:has(*)) {
-    display: none; /* no intro page yet and no form (a member): nothing to frame */
+    display: none; /* no form (a member, or members off): nothing to frame */
 }
 
 .feed-header-title {

@@ -5,18 +5,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{meta_title page=(t " (Page %)")}}</title>
-    {{!-- One author, so the author archive is the index with a different H1; the intro page is
-         the index's own intro. Neither wants indexing. --}}
+    {{!-- One author, so the author archive is the index with a different H1: no indexing. --}}
     {{#is "author"}}<meta name="robots" content="noindex">{{/is}}
-    {{#is "page"}}{{#match post.slug @custom.intro_page}}<meta name="robots" content="noindex">{{/match}}{{/is}}
 
     <link rel="stylesheet" href="{{asset "built/screen.css"}}">
 
     {{ghost_head}}
 </head>
 
-{{!-- Over the home-page hero (partials/hero.hbs) the header is the shared CSS's transparent variant. --}}
-<body class="{{body_class}}{{{block "body_class"}}} is-head-left-logo{{#is "home"}}{{#if @site.cover_image}} is-head-transparent{{/if}}{{/is}}">
+<body class="{{body_class}}{{{block "body_class"}}} is-head-left-logo">
 <div class="site">
 
     <header id="gh-head" class="gh-head gh-outer">
@@ -28,8 +25,6 @@
                      the subscribe form and the footer the sign-in (partials/member-link.hbs). --}}
                 <a class="gh-head-logo" href="https://lanterns.dev/" aria-label="{{@custom.home_link_label}}">
                     <picture>
-                        {{!-- Over the hero the wordmark is white in both schemes: a source with no media query, ahead of the dark-scheme one. --}}
-                        {{#is "home"}}{{#if @site.cover_image}}<source srcset="{{asset "images/lanterns-logo_white.png"}}">{{/if}}{{/is}}
                         <source srcset="{{asset "images/lanterns-logo_white.png"}}" media="(prefers-color-scheme: dark)">
                         <img src="{{asset "images/lanterns-logo_black.png"}}" alt="{{@site.title}}" width="1500" height="252">
                     </picture>
@@ -50,7 +45,7 @@
         {{!-- One line in the bottom-right corner, as on the lantern site: the link home, the year, the
              member link, then the icons. Admin's secondary menu is not rendered. --}}
         <div class="gh-foot-inner gh-inner">
-            <a href="https://lanterns.dev/">lanterns.dev</a> · © {{date format="YYYY"}}
+            <a href="https://lanterns.dev/">lanterns.</a> · © {{date format="YYYY"}}
             {{> "member-link"}}
             <span class="gh-social-links">
                 {{#social_accounts @site}}

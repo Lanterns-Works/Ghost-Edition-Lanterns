@@ -1,84 +1,56 @@
 # Handoff
 
-*State of play for the essays theme. Updated 2026-09-12.*
+*State of play for the essays theme. Updated 2026-09-14.*
 
 ## Where things are
 
-Everything is on `main` and **live on essays.lanterns.dev** (uploaded 2026-09-12, after PR #8
-merged): the design brief (PR #5: two colours, the wordmark, our own subscribe form, comments, no
-search, `noindex` on the author archive), the lantern hero, the header (wordmark and two links,
-no drawer) and the footer (one line, sign-in in a dialog), each recorded in its section below.
-The live site renders the hero, so Admin's publication cover is set.
+Everything is on `main`. **Live on essays.lanterns.dev** is the PR #8 zip (uploaded 2026-09-12):
+the design brief (PR #5: two colours, the wordmark, our own subscribe form, comments, no search,
+`noindex` on the author archive), the header (wordmark and two links, no drawer) and the footer
+(one line, sign-in in a dialog), each recorded in its section below. PR #9 (2026-09-14) makes the
+theme the archive: the hero and the intro page are gone and the home is the subscribe form, then
+the list (next section). It is not live until its zip is uploaded.
 
 ## Next
 
-1. **Ghost Admin on Ghost(Pro).** What the theme still needs from Admin: a page with slug `intro`
-   holding the index copy (paste the two paragraphs from `../plans/lanterns/essays-site.md`, "Index
-   copy"; the "Get new essays by email" line is the form); the publication cover (Design & branding)
-   is set (the hero renders live); a **custom excerpt on every essay**, because the newest one is
-   the hero's quote and the fallback is the first fifty words of the text; the primary navigation is
-   Admin's (live: `essays` and `return to lanterns.dev`, rendered in capitals); the
-   floating Portal button hidden (Settings → Membership → Portal), since no public essay opens
-   Portal, and the secondary navigation's Subscribe item can go, since the theme no longer renders
-   that menu; and a look at Design & branding → theme settings, where every line of theme copy is a
-   field pre-filled with the shipped wording. Then the usual checks: every social account set in
-   Admin renders as a footer icon; comments on; the Portal modal and the comments frame read
-   acceptably (both are stock Ghost inside iframes). The site description only feeds `<meta>`. Check
-   the hero's `<img>` on the live site: Ghost(Pro) keeps the cover on `storage.ghost.io`, and
-   `img_url` only resizes images on the site's own URL, so the srcset may collapse to the original
-   (114 KB as uploaded, acceptable). That host does serve `size/w1920/` and `format/webp/` paths, so
-   a hand-built srcset is possible if it matters.
-2. Newsletter settings and the pseudonymity steps: the plan's lists.
+1. **Upload the zip**: `pnpm zip`, then Ghost Admin → Design → Change theme → Upload
+   `dist/lanterns.zip`. Check the home on desktop and portrait mobile.
+2. **Ghost Admin on Ghost(Pro).** Hide the floating Portal button (Settings → Membership → Portal):
+   no public essay opens Portal. The secondary navigation's Subscribe item can go, since the theme
+   no longer renders that menu. The stock "Coming soon" placeholder post is on lanterns.dev's
+   Essays list live: retitle or unpublish it before the first real essay (its excerpt also says
+   "Em Lorien"). A **custom excerpt on every essay**: both lists show forty words, and the fallback
+   is the first forty of the text. Look over Design & branding → theme settings, where every line
+   of theme copy is a field pre-filled with the shipped wording. The publication cover no longer
+   renders in the theme but stays set: `{{ghost_head}}` still uses it as the site's social preview
+   image (`og:image`, `twitter:image`, JSON-LD) wherever no social image or feature image is set.
+   Then the usual checks: every social account set in Admin renders as a
+   footer icon; comments on; the Portal modal and the comments frame read acceptably (both are
+   stock Ghost inside iframes). The site description only feeds `<meta>`.
+3. Newsletter settings and the pseudonymity steps: the plan's lists.
 
-## The lantern hero
+## The archive (built 2026-09-14 on `archive`)
 
-The dock image back on the home page, so the two sites feel continuous. Home page, first page
-only, and only once Admin has a publication cover: `partials/hero.hbs`, included from `index.hbs`,
-styled in `assets/css/site/hero.css`. Edition's own cover (in git history at `ec6e9f9`) was the
-reference, not the base: none of its JS survives.
+lanterns.dev is the one front door: its Essays page carries the intro copy (`content/en.js` there)
+and lists the essays live, and this site is where they are read. Decided in lanterns.dev's
+`docs/PLAN-pages.md`, "One site or two". So the home is what page one already was underneath: the
+subscribe form (lanterns.dev's intro links here to subscribe), then the list, paginated. Gone: the
+lantern hero (`partials/hero.hbs`, `hero.css`, the caret icon, the transparent header and the white
+wordmark over it, the `continue_reading` setting, the rig's cover step; all in git history at
+`e007938` if ever wanted), and the intro page (the `intro_page` setting, its `{{#get}}` on the
+index, its `noindex`, the rig's `dev/pages.json`).
 
-- **Full viewport** (`min-height: 100svh`) of `@site.cover_image` through `{{img_url … size=}}`
-  with a srcset over the theme's `image_sizes`, `object-position: 85% 60%` so the lantern (right
-  third of the photo) stays in frame in portrait. A 0.3 ink scrim over the image, a 0.4 halo
-  under the quote and the control, and a text shadow carry the paper text; the scrim and the halo
-  are the two knobs. Review measured portrait contrast: with those, the flame core under a few
-  characters stays below 4.5:1 and the rest passes; the same words are in the list below.
-- **Layout is grid rows** (`1fr auto 1fr auto`): the quote centred in the room above the control,
-  so a long excerpt, a landscape phone or 200% zoom grow the section rather than overlap.
-- **Header transparent over it:** the shared CSS's own `is-head-transparent` variant, added to
-  the body class in `default.hbs` on the same condition. The variant paints the links in
-  `--color-white`, which `basics.css` resolves on `:root` to the scheme's paper (ink in dark mode),
-  so the header fixes it to paper (the trap: a custom property resolves where it is declared, so
-  re-pinning `--paper` alone reached nothing). The wordmark gets a `<source>` with no media query
-  ahead of the dark-scheme one, so it is white in both schemes; the focus ring is set to paper too.
-- **The quote:** the newest post, `{{excerpt words="50"}}`, which outputs a custom excerpt
-  verbatim and otherwise the first fifty words. Italic, in curly quotes typed in the template,
-  the whole block a link to the essay, with the essay's title as a `<cite>` line under it: the
-  spec did not ask for a title, but a link needs a visible affordance and the title is the
-  smallest one. Drop the `<cite>` if em prefers the bare quote.
-- **"Continue reading" over a caret** is a plain anchor to `#essays`, the `<main>`, with
-  `scroll-behavior: smooth` on `html` (off under `prefers-reduced-motion`). No JS. The wording is
-  the `continue_reading` theme setting. The caret is Edition's `icons/caret-down` partial,
-  restored from history.
-- **Below it, the index as before.** `.site-content` gives up its top padding on the hero page and
-  `.site-main` takes it, so the hero sits flush under the header and the index sits where it did.
-- **The rig** sets the lantern site's dock image (`../lanterns.dev/assets/…`) as the local cover
-  when the site has none (`dev/rig.sh cover`, run by `preview`), so the hero renders against test
-  posts too.
-- **Checked in the rig** (2026-09-11): desktop at 2079px and a 390×800 portrait frame, light and
-  dark, the anchor landing on the index; then an adversarial
-  review (six lenses, two skeptics per finding) whose survivors are all in: the scrim had painted
-  under the image, the header's focus ring was invisible over the sky, the control could overlap
-  the quote on short viewports. One thing to judge by eye: in portrait the quote sits over the
-  lantern; the halo is what keeps it legible there.
+**The coupling to know about:** lanterns.dev's `essays.js` reads this site's Content API on
+`lanterns.ghost.io` with the public content key (title, date, forty words, link). Rotating that key
+in Admin (Settings → Integrations) or changing the ghost.io slug breaks the list there until
+`essays.js` is updated. Custom excerpts feed both lists.
 
 ## Header navigation: the wordmark and two links
 
 The header is the wordmark, linking to **lanterns.dev**, and Admin's primary menu beside it: two
 links, Essays (`/`) and Lanterns Home (`https://lanterns.dev/`), in the bar on every width. No
-mobile drawer, no burger, no Sign in or Subscribe buttons: the index carries the subscribe form and
-the intro page, and the footer carries the lanterns.dev link and the sign-in (next section). Any
-further links to the lantern site's sections belong in the intro page copy. The wordmark link is
+mobile drawer, no burger, no Sign in or Subscribe buttons: the index carries the subscribe form,
+and the footer carries the lanterns.dev link and the sign-in (next section). The wordmark link is
 named for where it goes (`home_link_label`, a text setting) since its alt is the site title.
 
 How it got here, the same day: the lantern-menu mirror (About / Research / Resources / Contact)
@@ -109,7 +81,7 @@ another host the sign-out request is cross-origin and silently does nothing): on
 shows a small Portal "Success" toast top-right, dismissible, and that is the whole of Portal a
 reader meets. Copy: six `text` settings (`signin_link`, `signin_label`, `signin_button`,
 `signin_success`, `signin_close`, `signout_link`); the field placeholder and the in-flight text
-are the subscribe form's. Nineteen settings of Ghost's twenty are now used.
+are the subscribe form's. Seventeen settings of Ghost's twenty are used.
 
 What still lives in Portal, untouched: account management (email, newsletter preferences) at
 `#/portal/account`, which nothing links to; unsubscribe is in every email. The comments UI's own
@@ -132,9 +104,8 @@ lifts off the darkened page. Both on the eye gate.
 - **Measure 38em** (~75 characters), the lantern site's as built. `site.md` still mentions ~45.
 - **Dark follows `prefers-color-scheme`, no toggle.** The lantern site's popups have a tri-state
   toggle; a Ghost theme has no natural home for one.
-- **Copy is Admin-editable**: ten `text` theme settings (defaults in `package.json`) plus the intro
-  as a Ghost page, because Ghost's site description is capped at 200 characters and text settings
-  are single-line, so paragraphs need the editor. The intro page is also served at `/intro/`.
+- **Copy is Admin-editable**: `text` theme settings, defaults in `package.json`. They are
+  single-line; the paragraphs of intro copy live on lanterns.dev.
 - **Real pagination links** (older / newer), not Edition's JS load-more. The partial is included
   with a literal `{{> "pages-nav"}}` rather than Ghost's `{{pagination}}` helper: gscan only credits
   a partial's `{{@custom}}` usage when a template names it that way, so with the helper the two
