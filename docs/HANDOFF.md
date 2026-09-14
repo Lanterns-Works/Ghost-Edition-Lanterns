@@ -19,7 +19,10 @@ subscribe form and then the list. Each is recorded in its section below.
    Essays list live: retitle or unpublish it before the first real essay (its excerpt also says
    "Em Lorien"). A **custom excerpt on every essay**: both lists show forty words, and the fallback
    is the first forty of the text. Look over Design & branding → theme settings, where every line
-   of theme copy is a field pre-filled with the shipped wording. The publication cover no longer
+   of theme copy is a field pre-filled with the shipped wording. Design & branding → Typography
+   stays at the theme default for heading and body (set 2026-09-14): any other choice is injected as
+   `--gh-font-heading` / `--gh-font-body`, which the shared CSS prefers over Georgia, and it loads a
+   third-party font stylesheet. The publication cover no longer
    renders in the theme but stays set: `{{ghost_head}}` still uses it as the site's social preview
    image (`og:image`, `twitter:image`, JSON-LD) wherever no social image or feature image is set.
    Then the usual checks: every social account set in Admin renders as a
