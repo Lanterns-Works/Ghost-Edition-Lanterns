@@ -47,9 +47,9 @@ jobs:
           persist-credentials: false
 
       # Install the current stable CLI and hand it to the action, so the runtime tracks stable the
-      # way the action tracks its major tag. Retried and bounded: a stalled download otherwise hangs
-      # the attempt forever, and the action's own single-retry install has thrown "native binary not
-      # found" in the fleet.
+      # way the action tracks its major tag (deliberately unpinned; claude.yml says why). Retried
+      # and bounded: a stalled download otherwise hangs the attempt forever, and the action's own
+      # single-retry install has thrown "native binary not found" in the fleet.
       - name: Install Claude Code (latest stable, resilient)
         run: |
           set +e
@@ -66,11 +66,11 @@ jobs:
       - id: review
         uses: anthropics/claude-code-action@v1
         env:
-          # anthropics/claude-code-action#1499 (open through v1.0.220): the action stops reading the
-          # SDK stream at the FIRST result message, so a run that backgrounds review subagents and
-          # ends its turn to wait for them exits green with the work orphaned — that was the
-          # 2026-09-10 run stuck on "Background review agents analyzing the diff". Also set via
-          # settings.env below, which is the path the action documents.
+          # anthropics/claude-code-action#1499 (open as of v1.0.222, checked 2026-09-11): the action
+          # stops reading the SDK stream at the FIRST result message, so a run that backgrounds
+          # review subagents and ends its turn to wait for them exits green with the work orphaned —
+          # that was the 2026-09-10 run stuck on "Background review agents analyzing the diff". Also
+          # set via settings.env below, which is the path the action documents.
           CLAUDE_CODE_DISABLE_BACKGROUND_TASKS: "1"
         with:
           path_to_claude_code_executable: /home/runner/.local/bin/claude
