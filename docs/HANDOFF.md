@@ -1,6 +1,6 @@
 # Handoff
 
-*State of play for the essays theme. Updated 2026-09-14.*
+*State of play for the essays theme. Updated 2026-09-29.*
 
 ## Where things are
 
@@ -13,21 +13,13 @@ subscribe form and then the list. Each is recorded in its section below.
 ## Next
 
 1. **The eye gate** on the archive home: desktop and portrait mobile, against the live site.
-2. **Ghost Admin on Ghost(Pro).** Hide the floating Portal button (Settings → Membership → Portal):
-   no public essay opens Portal. The secondary navigation's Subscribe item can go, since the theme
-   no longer renders that menu. The stock "Coming soon" placeholder post is on lanterns.dev's
-   Essays list live: retitle or unpublish it before the first real essay (its excerpt also says
-   "Em Lorien"). A **custom excerpt on every essay**: both lists show forty words, and the fallback
-   is the first forty of the text. Look over Design & branding → theme settings, where every line
-   of theme copy is a field pre-filled with the shipped wording. Design & branding → Typography
-   stays at the theme default for heading and body (set 2026-09-14): any other choice is injected as
-   `--gh-font-heading` / `--gh-font-body`, which the shared CSS prefers over Georgia, and it loads a
-   third-party font stylesheet. The publication cover no longer
-   renders in the theme but stays set: `{{ghost_head}}` still uses it as the site's social preview
-   image (`og:image`, `twitter:image`, JSON-LD) wherever no social image or feature image is set.
-   Then the usual checks: every social account set in Admin renders as a
-   footer icon; comments on; the Portal modal and the comments frame read acceptably (both are
-   stock Ghost inside iframes). The site description only feeds `<meta>`.
+2. **Ghost Admin needs nothing further** (2026-09-29): the Portal button, the menus and the
+   "Coming soon" post stay as they are. Two settings to leave alone: Design & branding → Typography
+   stays at the theme default, since any other choice is injected as `--gh-font-heading` /
+   `--gh-font-body`, which the shared CSS prefers over Georgia, and it loads a third-party font
+   stylesheet. The publication cover no longer renders in the theme but stays set, because
+   `{{ghost_head}}` uses it as the social preview image wherever a post has none. Custom excerpts
+   feed both essay lists; without one, the fallback is the first forty words.
 3. Newsletter settings and the pseudonymity steps: the plan's lists.
 
 ## The archive (built 2026-09-14 on `archive`)
@@ -89,7 +81,7 @@ What still lives in Portal, untouched: account management (email, newsletter pre
 sign-in prompt opens Portal, and so would the members-only gate (`partials/content-cta.hbs`,
 rendered by `{{content}}` on a gated post; its buttons are `data-portal`), which no public essay
 shows: if an essay is ever gated, swap those buttons for the theme's subscribe form and sign-in
-dialog. Hide the floating Portal button in Admin (Settings → Membership → Portal).
+dialog.
 
 Opening the dialog clears Ghost's state classes on the form, because Ghost never removes them: a
 sent link (or a mistyped address, which Ghost answers the same way so as not to reveal who is a
