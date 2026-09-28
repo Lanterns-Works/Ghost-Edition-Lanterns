@@ -31,7 +31,7 @@ essays live from this site's Content API (see `docs/HANDOFF.md`).
   folder). Switch `gh` to `em-lorien` before repo or PR work. No `Co-Authored-By` trailers.
   PR review is the Claude GitHub app (workflows in `.github/`) — handle its findings before merging.
 - **Pseudonymous in every file.** em lorien is the only name here: no real name, no company, no
-  home-directory paths, in docs, comments, commit messages, PR text or review replies. Attribute
-  decisions to em, as `(em, 2026-09-14)`. The repo is public. A git pre-commit guard in the
+  home-directory paths, in docs, comments, commit messages, PR text or review replies, and decisions
+  are never credited to anyone. The repo is public. A git pre-commit guard in the
   Lanterns folder refuses additions that slip; do not lean on it.
 - **The gate is em's eye** — desktop and portrait mobile, against a real essay.
