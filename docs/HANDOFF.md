@@ -20,7 +20,9 @@ subscribe form and then the list. Each is recorded in its section below.
    stylesheet. The publication cover no longer renders in the theme but stays set, because
    `{{ghost_head}}` uses it as the social preview image wherever a post has none. Custom excerpts
    feed both essay lists; without one, the fallback is the first forty words.
-3. Newsletter settings and the pseudonymity steps: the plan's lists.
+3. **Before the first newsletter, which is not soon:** the email design settings and the pseudonymity
+   steps (postal address in the newsletter footer, custom sending domain, WHOIS privacy), both listed
+   in `../plans/lanterns/essays-site.md`.
 
 ## The archive (built 2026-09-14 on `archive`)
 
