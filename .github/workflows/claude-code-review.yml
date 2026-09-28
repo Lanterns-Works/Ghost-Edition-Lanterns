@@ -97,7 +97,7 @@ jobs:
           #     2026-09-10. The list is generous on purpose; the guardrail is the token scope
           #     (contents: read above), not this list.
           #   • No `Skill` entry needed: the leading slash command in `prompt:` is expanded by the
-          #     CLI itself (the PR #6 run: 5 turns, an Agent dispatch, inline comments posted).
+          #     CLI itself (lanterns.dev's PR #6 run: 5 turns, an Agent dispatch, inline comments posted).
           claude_args: '--model opus --effort xhigh --allowedTools "mcp__github_inline_comment__create_inline_comment,Read,Glob,Grep,Bash,Agent,TaskCreate,TaskUpdate,TaskList"'
           prompt: |
             /code-review:code-review --comment
