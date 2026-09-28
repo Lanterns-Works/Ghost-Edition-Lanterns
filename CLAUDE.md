@@ -34,7 +34,8 @@ essays live from this site's Content API (see `docs/HANDOFF.md`).
   home-directory paths, in docs, comments, commit messages, PR text or review replies, and decisions
   are never credited to anyone. The repo is public. A git pre-commit guard in the
   Lanterns folder refuses additions that slip; do not lean on it.
-- **The gate is em's eye** — desktop and portrait mobile, against a real essay.
+- **Visual changes are signed off by em reviewing them** on desktop and portrait mobile, against a
+  real essay.
 - **Comments and commits:** Code should be self-describing whenever possible. Comments are
   written as one senior engineer to another, only to clarify complex or non-obvious code, in 2–3
   lines at most. Never make junior-level comments (e.g. saying what a for loop does), and never

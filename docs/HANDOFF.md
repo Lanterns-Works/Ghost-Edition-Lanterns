@@ -8,21 +8,24 @@ Everything is on `main` and **live on essays.lanterns.dev** (the PR #9 zip, uplo
 the design brief (PR #5: two colours, the wordmark, our own subscribe form, comments, no search,
 `noindex` on the author archive), the header (wordmark and two links, no drawer), the footer (one
 line, sign-in in a dialog) and, since PR #9, the archive home: no hero, no intro page, the
-subscribe form and then the list. Each is recorded in its section below.
+subscribe form and then the list. em reviewed it visually on desktop and mobile (2026-09-29).
+Each is recorded in its section below.
 
 ## Next
 
-1. **The eye gate** on the archive home: desktop and portrait mobile, against the live site.
-2. **Ghost Admin needs nothing further** (2026-09-29): the Portal button, the menus and the
-   "Coming soon" post stay as they are. Two settings to leave alone: Design & branding → Typography
-   stays at the theme default, since any other choice is injected as `--gh-font-heading` /
-   `--gh-font-body`, which the shared CSS prefers over Georgia, and it loads a third-party font
-   stylesheet. The publication cover no longer renders in the theme but stays set, because
-   `{{ghost_head}}` uses it as the social preview image wherever a post has none. Custom excerpts
-   feed both essay lists; without one, the fallback is the first forty words.
-3. **Before the first newsletter, which is not soon:** the email design settings and the pseudonymity
-   steps (postal address in the newsletter footer, custom sending domain, WHOIS privacy), both listed
-   in `../plans/lanterns/essays-site.md`.
+- **Before the first newsletter, which is not soon:** the email design settings and the pseudonymity
+  steps (postal address in the newsletter footer, custom sending domain, WHOIS privacy), both listed
+  in `../plans/lanterns/essays-site.md`.
+
+## Ghost Admin
+
+Nothing further to do there (2026-09-29): the Portal button, the menus and the "Coming soon" post
+stay as they are. Two settings to leave alone. Design & branding → Typography stays at the theme
+default, since any other choice is injected as `--gh-font-heading` / `--gh-font-body`, which the
+shared CSS prefers over Georgia, and it loads a third-party font stylesheet. The publication cover
+no longer renders in the theme but stays set, because `{{ghost_head}}` uses it as the social preview
+image wherever a post has none. Custom excerpts feed both essay lists; without one, the fallback is
+the first forty words.
 
 ## The archive (built 2026-09-14 on `archive`)
 
@@ -90,7 +93,7 @@ sent link (or a mistyped address, which Ghost answers the same way so as not to 
 member) would otherwise leave the second visit with no field. The backdrop darkens the page in
 both schemes, ink at 60% over the light one and black at 80% over the dark one (a fog of paper
 was tried for the dark scheme and was too bright); the panel is 8% ink on paper in both, so it
-lifts off the darkened page. Both on the eye gate.
+lifts off the darkened page.
 
 ## Decisions taken in the design PR that the plan left open
 
