@@ -119,8 +119,8 @@ importers:
         specifier: 10.5.5
         version: 10.5.5(postcss@8.5.28)
       beeper:
-        specifier: 2.1.0
-        version: 2.1.0
+        specifier: 3.0.0
+        version: 3.0.0
       cssnano:
         specifier: 9.0.3
         version: 9.0.3(postcss@8.5.28)
@@ -526,9 +526,9 @@ packages:
     engines: {node: '>=6.0.0'}
     hasBin: true
 
-  beeper@2.1.0:
-    resolution: {integrity: sha512-85+CcymhlP0jM4fs4ZMiMRl58VthoN9NRdvi+knXiQpP2UggkSre+A9rOZ0c2g2Vh+pEF5ZAlT+k8dsJNoanAA==}
-    engines: {node: '>=8'}
+  beeper@3.0.0:
+    resolution: {integrity: sha512-8d0BXEuBIiPfmKvATnSCN58sGKCB3vy+lwORdSvfC5uN6OMlPj9/aVMXsmvt5dIvjjyxiuKYfMVWpiAh/kJr5w==}
+    engines: {node: '>=12'}
 
   binary-extensions@2.3.0:
     resolution: {integrity: sha512-Ceh+7ox5qe7LJuLHoY0feh3pHuUDHAcRUeyL2VYghZwfpkNIy/+8Ocg0a3UuSoYzavmylwuLWQOf3hl0jjMMIw==}
@@ -2753,7 +2753,7 @@ snapshots:
 
   baseline-browser-mapping@2.11.21: {}
 
-  beeper@2.1.0:
+  beeper@3.0.0:
     dependencies:
       yoctodelay: 1.2.0
 

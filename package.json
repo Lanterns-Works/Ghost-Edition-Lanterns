@@ -137,7 +137,7 @@
         "@tryghost/shared-theme-assets": "2.7.3",
         "@tryghost/theme-translations": "^0.0.9",
         "autoprefixer": "10.5.5",
-        "beeper": "2.1.0",
+        "beeper": "3.0.0",
         "cssnano": "9.0.3",
         "gscan": "6.5.0",
         "gulp": "5.0.1",
